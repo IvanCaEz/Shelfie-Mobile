@@ -11,6 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.internal.wait
 
 class ApiViewModel: ViewModel() {
     private val repository = Repository()
@@ -46,7 +47,7 @@ class ApiViewModel: ViewModel() {
                     listOfUsers.postValue(response.body())
                 }
             } else {
-                Log.e("Error:", response.message())
+                Log.e("Error " + response.code(), response.message())
             }
         }
     }
@@ -59,7 +60,7 @@ class ApiViewModel: ViewModel() {
                     userData.postValue(response.body())
                 }
             } else {
-                Log.e("Error:", response.message())
+                Log.e("Error " + response.code(), response.message())
             }
         }
     }
@@ -73,7 +74,7 @@ class ApiViewModel: ViewModel() {
                     userBookHistory.postValue(response.body())
                 }
             } else {
-                Log.e("Error:", response.message())
+                Log.e("Error " + response.code(), response.message())
             }
         }
     }
@@ -96,7 +97,7 @@ class ApiViewModel: ViewModel() {
                     listOfBooks.postValue(response.body())
                 }
             } else {
-                Log.e("Error:", response.message())
+                Log.e("Error " + response.code(), response.message())
             }
         }
     }
@@ -110,7 +111,7 @@ class ApiViewModel: ViewModel() {
                     bookData.postValue(response.body())
                 }
             } else {
-                Log.e("Error:", response.message())
+                Log.e("Error " + response.code() , response.message())
             }
         }
     }
@@ -124,7 +125,7 @@ class ApiViewModel: ViewModel() {
                     listOfBooks.postValue(response.body())
                 }
             } else {
-                Log.e("Error:", response.message())
+                Log.e("Error " + response.code(), response.message())
             }
         }
     }
@@ -146,7 +147,7 @@ class ApiViewModel: ViewModel() {
                     listOfBookReviews.postValue(response.body())
                 }
             } else {
-                Log.e("Error:", response.message())
+                Log.e("Error " + response.code(), response.message())
             }
         }
     }
@@ -159,7 +160,7 @@ class ApiViewModel: ViewModel() {
                     bookReview.postValue(response.body())
                 }
             } else {
-                Log.e("Error:", response.message())
+                Log.e("Error " + response.code(), response.message())
             }
         }
     }
