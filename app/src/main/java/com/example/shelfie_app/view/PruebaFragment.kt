@@ -25,7 +25,7 @@ class PruebaFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentPruebaBinding.inflate(layoutInflater)
         return binding.root
     }

@@ -21,6 +21,7 @@ class ApiViewModel: ViewModel() {
     var userData = MutableLiveData<User>()
     var userBookHistory = MutableLiveData<List<Book>>()
     lateinit var newUser : User
+    lateinit var readBook: Book
 
     // BOOKS
     var listOfBooks = MutableLiveData<List<Book>>()
@@ -66,6 +67,7 @@ class ApiViewModel: ViewModel() {
         }
     }
 
+
     fun getUserBookHistory(){
         CoroutineScope(Dispatchers.IO).launch {
             // Devuelve la lista de libros que el usuario con la ID indicada ha leído
@@ -84,6 +86,12 @@ class ApiViewModel: ViewModel() {
     fun postUser(){
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.postUser("users", newUser )
+        }
+    }
+
+    fun postBookToBookHistory(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.postBookToBookHistory("users/$userID/book_history", readBook )
         }
     }
 

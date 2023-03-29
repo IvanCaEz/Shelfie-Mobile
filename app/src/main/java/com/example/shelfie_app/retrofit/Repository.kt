@@ -3,8 +3,10 @@ package com.example.shelfie_app.retrofit
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.model.User
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Url
 
 class Repository {
@@ -16,6 +18,10 @@ class Repository {
     suspend fun getUserBookHistory(url: String) = apiInterface.getUserBookHistory(url)
 
     suspend fun postUser(url: String, body: User) = apiInterface.postUser(url, body)
+    suspend fun postBookToBookHistory(url: String, body: Book) = apiInterface.postBookToBookHistory(url, body)
+
+    suspend fun deleteUser(url: String) = apiInterface.deleteUser(url)
+
 
 
     // BOOKS
@@ -24,6 +30,7 @@ class Repository {
     suspend fun getBookByAuthor(url: String) = apiInterface.getBookByAuthor(url)
 
     suspend fun postBook(url: String, body: Book) = apiInterface.postBook(url, body)
+    suspend fun deleteBook(url: String) = apiInterface.deleteBook(url)
 
 
 
@@ -32,6 +39,9 @@ class Repository {
     suspend fun getReviewByID(url: String) = apiInterface.getReviewByID(url)
 
     suspend fun postReview(url: String, body: Review) = apiInterface.postReview(url, body)
+
+    suspend fun deleteReview(url: String) = apiInterface.deleteReview(url)
+
 
 
 
