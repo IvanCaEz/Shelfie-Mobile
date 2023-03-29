@@ -3,6 +3,7 @@ package com.example.shelfie_app.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.shelfie_app.databinding.FragmentPruebaBinding
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.model.User
@@ -101,6 +102,7 @@ class ApiViewModel: ViewModel() {
             }
         }
     }
+
 
     fun getBookByID(){
         CoroutineScope(Dispatchers.IO).launch {
