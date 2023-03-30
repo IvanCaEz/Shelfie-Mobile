@@ -19,6 +19,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.175" />
 
+    <TextView
+        android:id="@+id/bookScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Puntuación: "
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@id/bookID_ET"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65" />
+
     <EditText
         android:id="@+id/bookID_ET"
         android:layout_width="wrap_content"

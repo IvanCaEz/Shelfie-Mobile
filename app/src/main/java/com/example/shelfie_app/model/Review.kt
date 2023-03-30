@@ -7,5 +7,6 @@ data class Review(
     val idBook: String,
     val idUser: String,
     val date: String,
-    val comment: String
+    val comment: String,
+    var rating: Int
 )

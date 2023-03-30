@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.shelfie_app.databinding.FragmentPruebaBinding
 import com.example.shelfie_app.viewmodel.ApiViewModel
-
+import java.text.DecimalFormat
 
 
 class PruebaFragment : Fragment() {
@@ -31,17 +31,34 @@ class PruebaFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(ApiViewModel::class.java)
 
         binding.buscar.setOnClickListener {
-            viewModel.bookID = binding.bookIDET.text.toString()
-            viewModel.getBookByID()
+            viewModel.getBookByID(binding.bookIDET.text.toString())
             viewModel.bookData.observe(viewLifecycleOwner, Observer {
                 if (viewModel.bookData.value == null) {
                     Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show()
                 } else {
+                    viewModel.getAllReviewsFromBook(binding.bookIDET.text.toString())
+                    getRating()
                     pasteInfo()
+
 
                 }
             })
         }
+
+
+
+    }
+
+    fun getRating(){
+        viewModel.listOfBookReviews.observe(viewLifecycleOwner, Observer { reviewList ->
+            if ( reviewList.isNotEmpty()){
+                binding.bookScore.text = "Puntuación: " + viewModel.getBookScore(reviewList)
+
+            } else {
+                binding.bookScore.text = "Puntuación: 0"
+            }
+
+        })
     }
 
     fun pasteInfo() {

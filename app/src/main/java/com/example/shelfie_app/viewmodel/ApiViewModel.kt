@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import okhttp3.internal.wait
+import java.text.DecimalFormat
 
 class ApiViewModel: ViewModel() {
     private val repository = Repository()
@@ -33,11 +34,6 @@ class ApiViewModel: ViewModel() {
     var bookReview = MutableLiveData<Review>()
     lateinit var newReview: Review
 
-    // IDs
-    var userID = ""
-    var bookID = ""
-    var reviewID = ""
-    var authorName = ""
 
     // USERS
     fun getAllUsers(){
@@ -53,7 +49,7 @@ class ApiViewModel: ViewModel() {
             }
         }
     }
-    fun getUserByID(){
+    fun getUserByID(userID: String){
         CoroutineScope(Dispatchers.IO).launch {
             // Devuelve el usuario con la ID indicada
             val response = repository.getUserByID("users/$userID")
@@ -68,7 +64,7 @@ class ApiViewModel: ViewModel() {
     }
 
 
-    fun getUserBookHistory(){
+    fun getUserBookHistory(userID: String){
         CoroutineScope(Dispatchers.IO).launch {
             // Devuelve la lista de libros que el usuario con la ID indicada ha leído
             val response = repository.getUserBookHistory("users/$userID/book_history")
@@ -89,7 +85,7 @@ class ApiViewModel: ViewModel() {
         }
     }
 
-    fun postBookToBookHistory(){
+    fun postBookToBookHistory(userID: String){
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.postBookToBookHistory("users/$userID/book_history", readBook )
         }
@@ -112,7 +108,7 @@ class ApiViewModel: ViewModel() {
     }
 
 
-    fun getBookByID(){
+    fun getBookByID(bookID: String){
         CoroutineScope(Dispatchers.IO).launch {
             // Devuelve el libro con la ID indicada
             val response = repository.getBookByID("books/$bookID")
@@ -126,7 +122,7 @@ class ApiViewModel: ViewModel() {
         }
     }
 
-    fun getBookByAuthor(){
+    fun getBookByAuthor(authorName: String){
         CoroutineScope(Dispatchers.IO).launch {
             // Devuelve una lista de libros escritos por el autor
             val response = repository.getBookByAuthor("author/$authorName")
@@ -148,7 +144,7 @@ class ApiViewModel: ViewModel() {
     }
 
     // REVIEWS
-    fun getAllReviewsFromBook(){
+    fun getAllReviewsFromBook(bookID: String){
         CoroutineScope(Dispatchers.IO).launch {
             // Devuelve una lista con todas las reviews del libro con la ID indicada
             val response = repository.getAllReviewsFromBook("books/$bookID/reviews")
@@ -161,7 +157,7 @@ class ApiViewModel: ViewModel() {
             }
         }
     }
-    fun getReviewByID(){
+    fun getReviewByID(bookID: String, reviewID: String){
         CoroutineScope(Dispatchers.IO).launch {
             // Devuelve la review del libro con las IDs indicadas
             val response = repository.getReviewByID("books/$bookID/reviews/$reviewID")
@@ -175,10 +171,21 @@ class ApiViewModel: ViewModel() {
         }
     }
     // POST Review
-    fun postReview(){
+    fun postReview(bookID: String){
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.postReview("books/$bookID/reviews/", newReview )
         }
+    }
+
+    fun getBookScore(reviewList: List<Review>): String {
+        // Recibe la lista de reviews del libro y retorna la media
+        var counter = 0
+        reviewList.forEach { review ->
+            counter += review.rating
+        }
+
+        val scoreFormatted = DecimalFormat("#.##")
+        return scoreFormatted.format(counter/reviewList.size.toDouble())
     }
 
 }
