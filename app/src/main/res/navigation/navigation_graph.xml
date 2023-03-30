@@ -10,4 +10,19 @@
         android:name="com.example.shelfie_app.view.PruebaFragment"
         android:label="fragment_prueba"
         tools:layout="@layout/fragment_prueba" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.shelfie_app.view.SearchFragment"
+        android:label="Search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/shelfFragment"
+        android:name="com.example.shelfie_app.view.ShelfFragment"
+        android:label="Shelf"
+        tools:layout="@layout/fragment_shelf" />
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.example.shelfie_app.view.UserProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_user_profile" />
 </navigation>
