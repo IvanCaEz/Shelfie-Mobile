@@ -3,6 +3,7 @@ package com.example.shelfie_app.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.models.BookLoan
 import com.example.shelfie_app.databinding.FragmentPruebaBinding
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
@@ -21,8 +22,14 @@ class ApiViewModel: ViewModel() {
     var listOfUsers = MutableLiveData<List<User>>()
     var userData = MutableLiveData<User>()
     var userBookHistory = MutableLiveData<List<Book>>()
+    var userActiveBookLoans = MutableLiveData<List<BookLoan>>()
+    var bookLoanData = MutableLiveData<BookLoan>()
+
+
     lateinit var newUser : User
     lateinit var readBook: Book
+    lateinit var newBookLoan: BookLoan
+
 
     // BOOKS
     var listOfBooks = MutableLiveData<List<Book>>()
@@ -77,8 +84,36 @@ class ApiViewModel: ViewModel() {
             }
         }
     }
+    fun getUserLoans(userID: String){
+        CoroutineScope(Dispatchers.IO).launch {
+            // Devuelve una lista de usuarios
+            val response = repository.getUserLoans("users/$userID/book_loans")
+            if (response.isSuccessful){
+                withContext(Dispatchers.Main){
+                    userActiveBookLoans.postValue(response.body())
+                }
+            } else {
+                Log.e("Error " + response.code(), response.message())
+            }
+        }
+    }
 
-    // POST USER
+    fun getUserLoanByBookID(userID: String, bookID: String){
+        CoroutineScope(Dispatchers.IO).launch {
+            // Devuelve una lista de usuarios
+            val response = repository.getBookLoanByBookID("users/$userID/book_loans/$bookID")
+            if (response.isSuccessful){
+                withContext(Dispatchers.Main){
+                    bookLoanData.postValue(response.body())
+                }
+            } else {
+                Log.e("Error " + response.code(), response.message())
+            }
+        }
+    }
+
+
+    // TODO() POST
     fun postUser(){
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.postUser("users", newUser )
@@ -91,6 +126,20 @@ class ApiViewModel: ViewModel() {
         }
     }
 
+    fun postBookLoan(userID: String){
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.postBookLoan("users/$userID/book_loans", newBookLoan )
+        }
+    }
+
+    //TODO PUT
+
+    //TODO DELETE
+    fun deleteBookLoan(userID: String, bookID: String){
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.deleteBookLoan("users/$userID/book_loans/$bookID")
+        }
+    }
 
     // BOOKS
     fun getAllBooks(){
@@ -126,6 +175,20 @@ class ApiViewModel: ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             // Devuelve una lista de libros escritos por el autor
             val response = repository.getBookByAuthor("author/$authorName")
+            if (response.isSuccessful){
+                withContext(Dispatchers.Main){
+                    listOfBooks.postValue(response.body())
+                }
+            } else {
+                Log.e("Error " + response.code(), response.message())
+            }
+        }
+    }
+
+    fun getBookByTitle(title: String){
+        CoroutineScope(Dispatchers.IO).launch {
+            // Devuelve una lista de libros escritos por el autor
+            val response = repository.getBookByAuthor("books/q=$title")
             if (response.isSuccessful){
                 withContext(Dispatchers.Main){
                     listOfBooks.postValue(response.body())

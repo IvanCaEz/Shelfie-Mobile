@@ -1,5 +1,6 @@
 package com.example.shelfie_app.retrofit
 
+import com.example.models.BookLoan
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.model.User
@@ -17,16 +18,32 @@ interface ApiInterface {
     @GET suspend fun getAllUsers(@Url url: String): Response<List<User>>
     @GET suspend fun getUserByID(@Url url: String): Response<User>
     @GET suspend fun getUserBookHistory(@Url url: String): Response<List<Book>>
-    @POST suspend fun postUser(@Url url: String, @Body body: User): Call<User>
+    @GET suspend fun getUserLoans(@Url url: String): Response<List<BookLoan>>
+    @GET suspend fun getBookLoanByBookID(@Url url: String): Response<BookLoan>
 
+    // TODO() GET Imagen usuario?
+    // TODO() Probar el post con imagen
+    @POST suspend fun postUser(@Url url: String, @Body body: User): Call<User>
     @POST suspend fun postBookToBookHistory(@Url url: String, @Body body: Book): Call<Book>
+    @POST suspend fun postBookLoan(@Url url: String, @Body body: BookLoan): Call<BookLoan>
+
+    //TODO() PUT Usuario
 
     @DELETE suspend fun deleteUser(@Url url: String): Call<User>
+    @DELETE suspend fun deleteBookFromBookHistory(@Url url: String): Call<Book>
+    @DELETE suspend fun deleteBookLoan(@Url url: String): Call<BookLoan>
+
+
 
     // BOOKS
     @GET suspend fun getAllBooks(@Url url: String): Response<List<Book>>
     @GET suspend fun getBookByID(@Url url: String): Response<Book>
+    @GET suspend fun getBookByTitle(@Url url: String): Response<List<Book>>
     @GET suspend fun getBookByAuthor(@Url url: String): Response<List<Book>>
+
+    // TODO() GET Imagen portada?
+    // TODO() Probar el post con imagen
+    // TODO() PUT libro
     @POST suspend fun postBook(@Url url: String, @Body body: Book): Call<Book>
     @DELETE suspend fun deleteBook(@Url url: String): Call<Book>
 
@@ -35,6 +52,9 @@ interface ApiInterface {
     @GET suspend fun getAllReviewsFromBook(@Url url: String): Response<List<Review>>
     @GET suspend fun getReviewByID(@Url url: String): Response<Review>
     @POST suspend fun postReview(@Url url: String, @Body body: Review): Call<Review>
+
+    // TODO() PUT review
+
     @DELETE suspend fun deleteReview(@Url url: String): Call<Review>
 
 

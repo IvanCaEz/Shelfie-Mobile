@@ -1,5 +1,6 @@
 package com.example.shelfie_app.retrofit
 
+import com.example.models.BookLoan
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.model.User
@@ -16,17 +17,26 @@ class Repository {
     suspend fun getAllUsers(url: String) = apiInterface.getAllUsers(url)
     suspend fun getUserByID(url: String) = apiInterface.getUserByID(url)
     suspend fun getUserBookHistory(url: String) = apiInterface.getUserBookHistory(url)
+    suspend fun getUserLoans(url: String) = apiInterface.getUserLoans(url)
+    suspend fun getBookLoanByBookID(url: String) = apiInterface.getBookLoanByBookID(url)
+
 
     suspend fun postUser(url: String, body: User) = apiInterface.postUser(url, body)
     suspend fun postBookToBookHistory(url: String, body: Book) = apiInterface.postBookToBookHistory(url, body)
+    suspend fun postBookLoan(url: String, body: BookLoan) = apiInterface.postBookLoan(url, body)
+
 
     suspend fun deleteUser(url: String) = apiInterface.deleteUser(url)
+    suspend fun deleteBookFromHistory(url: String) = apiInterface.deleteBookFromBookHistory(url)
+    suspend fun deleteBookLoan(url: String) = apiInterface.deleteBookLoan(url)
 
 
 
     // BOOKS
     suspend fun getAllBooks(url: String) = apiInterface.getAllBooks(url)
     suspend fun getBookByID(url: String) = apiInterface.getBookByID(url)
+    suspend fun getBookByTitle(url: String) = apiInterface.getBookByTitle(url)
+
     suspend fun getBookByAuthor(url: String) = apiInterface.getBookByAuthor(url)
 
     suspend fun postBook(url: String, body: Book) = apiInterface.postBook(url, body)

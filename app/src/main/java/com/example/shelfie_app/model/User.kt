@@ -9,7 +9,7 @@ data class User(
     var password: String,
     var userType: UserType,
     var borrowedBooksCounter: Int,
-    var bookHistory: MutableSet<String>, // <- Cambiar a set de Ints
+    var bookHistory: Set<Int>,
     var banned: Boolean,
     var userImage:  String
 )
