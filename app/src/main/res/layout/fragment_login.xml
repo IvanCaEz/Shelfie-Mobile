@@ -3,7 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.LoginFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.LoginFragment"
+    android:background="@color/beigeFondo">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email_ET"
+        app:startIconDrawable="@drawable/icon_user"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/beigeFondoEditText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintWidth_percent="0.8"
+        app:boxStrokeColor="@color/white"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/beigeFondoEditText"
+            android:inputType="textEmailAddress"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
 
 

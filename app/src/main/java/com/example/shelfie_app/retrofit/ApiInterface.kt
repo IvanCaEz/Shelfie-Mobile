@@ -4,12 +4,16 @@ import com.example.models.BookLoan
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.model.User
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
+import java.io.File
 
 interface ApiInterface {
 
@@ -23,7 +27,9 @@ interface ApiInterface {
 
     // TODO() GET Imagen usuario?
     // TODO() Probar el post con imagen
-    @POST suspend fun postUser(@Url url: String, @Body body: User): Call<User>
+    @POST
+    @Multipart
+    suspend fun postUser(@Url url: String, @Part body: RequestBody, @Part image: MultipartBody.Part): Call<*>
     @POST suspend fun postBookToBookHistory(@Url url: String, @Body body: Book): Call<Book>
     @POST suspend fun postBookLoan(@Url url: String, @Body body: BookLoan): Call<BookLoan>
 
@@ -40,6 +46,7 @@ interface ApiInterface {
     @GET suspend fun getBookByID(@Url url: String): Response<Book>
     @GET suspend fun getBookByTitle(@Url url: String): Response<List<Book>>
     @GET suspend fun getBookByAuthor(@Url url: String): Response<List<Book>>
+    @GET suspend fun getBookCover(@Url url: String): Response<ResponseBody>
 
     // TODO() GET Imagen portada?
     // TODO() Probar el post con imagen

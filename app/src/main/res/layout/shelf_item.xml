@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardElevation="10dp"
+    app:cardBackgroundColor="@color/beigeFondo"
+    android:layout_margin="3dp"
+    android:id="@+id/marcadorListCardView"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/bookCover_IV"
+            android:layout_width="145dp"
+            android:layout_height="180dp"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/bookTitle_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/author_TV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.127"
+            app:layout_constraintStart_toEndOf="@id/bookCover_IV"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Romeo &amp; Juliet" />
+
+        <TextView
+            android:id="@+id/author_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="22dp"
+            app:layout_constraintBottom_toTopOf="@id/star_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.27"
+            app:layout_constraintStart_toEndOf="@id/bookCover_IV"
+            app:layout_constraintTop_toBottomOf="@id/bookTitle_TV"
+            tools:text="William Shakespeare" />
+
+        <ImageView
+            android:id="@+id/star_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/author_TV"
+            app:layout_constraintEnd_toStartOf="@id/star_2"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            android:src="@drawable/empty_star"/>
+        <ImageView
+            android:id="@+id/star_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/star_1"
+            app:layout_constraintTop_toBottomOf="@id/author_TV"
+            app:layout_constraintEnd_toStartOf="@id/star_3"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            android:src="@drawable/empty_star"/>
+        <ImageView
+            android:id="@+id/star_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/star_2"
+            app:layout_constraintTop_toBottomOf="@id/author_TV"
+            app:layout_constraintEnd_toStartOf="@id/star_4"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            android:src="@drawable/empty_star"/>
+        <ImageView
+            android:id="@+id/star_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/star_3"
+            app:layout_constraintTop_toBottomOf="@id/author_TV"
+            app:layout_constraintEnd_toStartOf="@id/star_5"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            android:src="@drawable/empty_star"/>
+        <ImageView
+            android:id="@+id/star_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/star_4"
+            app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintTop_toBottomOf="@id/author_TV"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            android:src="@drawable/empty_star"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.39" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="132dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.83" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

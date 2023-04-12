@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="marronMuyOscuro">#2D2720</color>
+    <color name="marronOscuro">#352315</color>
+    <color name="beigeFondo">#927E5D</color>
+    <color name="beigeFondoEditText">#BAAC91</color>
+
 </resources>

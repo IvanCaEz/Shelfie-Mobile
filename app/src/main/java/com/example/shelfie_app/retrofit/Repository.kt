@@ -4,6 +4,8 @@ import com.example.models.BookLoan
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.model.User
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -21,7 +23,7 @@ class Repository {
     suspend fun getBookLoanByBookID(url: String) = apiInterface.getBookLoanByBookID(url)
 
 
-    suspend fun postUser(url: String, body: User) = apiInterface.postUser(url, body)
+    suspend fun postUser(url: String, body: RequestBody, image: MultipartBody.Part) = apiInterface.postUser(url, body, image)
     suspend fun postBookToBookHistory(url: String, body: Book) = apiInterface.postBookToBookHistory(url, body)
     suspend fun postBookLoan(url: String, body: BookLoan) = apiInterface.postBookLoan(url, body)
 
@@ -36,6 +38,7 @@ class Repository {
     suspend fun getAllBooks(url: String) = apiInterface.getAllBooks(url)
     suspend fun getBookByID(url: String) = apiInterface.getBookByID(url)
     suspend fun getBookByTitle(url: String) = apiInterface.getBookByTitle(url)
+    suspend fun getBookCover(url: String) = apiInterface.getBookCover(url)
 
     suspend fun getBookByAuthor(url: String) = apiInterface.getBookByAuthor(url)
 
