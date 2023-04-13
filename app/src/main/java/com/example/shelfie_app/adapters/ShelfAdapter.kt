@@ -1,5 +1,6 @@
 package com.example.shelfie_app.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -18,27 +19,66 @@ import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.viewmodel.ApiViewModel
 import kotlinx.coroutines.runBlocking
 import java.io.File
+import java.text.DecimalFormat
+import java.util.*
 
 class ShelfAdapter(
     var bookList: List<Book>, private val listener: BookOnClickListener,
-    private val viewModel: ApiViewModel,
+    private val viewModel: ApiViewModel
+    //private val bookCovers: MutableMap<String, Bitmap>
     //  private val rating: Double,
     //private val bookCover: Bitmap
 ) : RecyclerView.Adapter<ShelfAdapter.ViewHolder>() {
     private lateinit var context: Context
     //val viewModel: ApiViewModel by activityViewModels<ApiViewModel>()
 
-
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ShelfItemBinding.bind(view)
-
 
         fun render(bookToRender: Book) {
             binding.bookTitleTV.text = bookToRender.title
             binding.authorTV.text = bookToRender.author
+            binding.bookCoverIV.setImageBitmap(viewModel.bookCovers[bookToRender.idBook])
+            renderTag(bookToRender.genre)
+
+            runBlocking {
+                if (viewModel.reviewMap[bookToRender.idBook] != null){
+                    renderRating(viewModel.getBookScore(viewModel.reviewMap[bookToRender.idBook]!!).toDouble())
+                } else (renderRating(0.0))
+            }
+
         }
 
-        fun renderCover(bookCover: Bitmap) = binding.bookCoverIV.setImageBitmap(bookCover)
+
+        @SuppressLint("ResourceAsColor")
+        fun renderTag(genre: String){
+            binding.genreTag.text = genre.replaceFirstChar {
+                if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+            }
+            when (genre){
+                "fantasy" -> {
+                    binding.genreTag.setChipBackgroundColorResource(R.color.fantasyLight)
+                    binding.genreTag.setChipStrokeColorResource(R.color.fantasyDark)
+                }
+                "classics" -> {
+                    binding.genreTag.setChipBackgroundColorResource(R.color.classicsLight)
+                    binding.genreTag.setChipStrokeColorResource(R.color.classicsDark)
+
+                }
+                "romance" -> {
+                    binding.genreTag.setChipBackgroundColorResource(R.color.romanceLight)
+                    binding.genreTag.setChipStrokeColorResource(R.color.romanceDark)
+                }
+                "science fiction" -> {
+                    binding.genreTag.setChipBackgroundColorResource(R.color.scifiLight)
+                    binding.genreTag.setChipStrokeColorResource(R.color.scifiDark)
+                }
+                "mistery" -> {
+                    binding.genreTag.setChipBackgroundColorResource(R.color.misteryLight)
+                    binding.genreTag.setChipStrokeColorResource(R.color.misteryDark)
+                }
+            }
+        }
         fun renderRating(rating: Double) {
             when (rating) {
                 in 0.5..0.99 -> binding.star1.setImageResource(R.drawable.half_star)
@@ -80,7 +120,7 @@ class ShelfAdapter(
                     binding.star4.setImageResource(R.drawable.full_star)
                     binding.star5.setImageResource(R.drawable.half_star)
                 }
-                 5.0 -> {
+                5.0 -> {
                     binding.star1.setImageResource(R.drawable.full_star)
                     binding.star2.setImageResource(R.drawable.full_star)
                     binding.star3.setImageResource(R.drawable.full_star)
@@ -88,11 +128,7 @@ class ShelfAdapter(
                     binding.star5.setImageResource(R.drawable.full_star)
                 }
             }
-
-
         }
-
-
     }
 
 
@@ -110,26 +146,10 @@ class ShelfAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val book = bookList[position]
-        viewModel.getBookCover(book.idBook)
-        viewModel.getAllReviewsFromBook(book.idBook)
-
-
         with(holder) {
             render(book)
-            viewModel.bookCover.observe(holder.itemView.context as LifecycleOwner) { bookCover ->
-                renderCover(bookCover)
-            }
-            viewModel.listOfBookReviews.observe(holder.itemView.context as LifecycleOwner) { reviews ->
-                renderRating(viewModel.getBookScore(reviews).toDouble())
-            }
         }
-
-
-
-
-
     }
-
 
     @JvmName("setBookList1")
     fun setBookList(newBookList: List<Book>) {

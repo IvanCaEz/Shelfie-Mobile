@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/beigeFondo"
+    android:background="@color/beigeBackground"
     tools:context=".view.LoginFragment">
 
 
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:background="@drawable/roundcorners"
-        android:backgroundTint="@color/beigeFondoEditText"
+        android:backgroundTint="@color/beigeBackgroundEditText"
         android:drawableStart="@drawable/icon_user"
         android:drawablePadding="7dp"
         android:padding="5dip"
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:padding="7dp"
-        android:text="@string/pasword"
+        android:text="@string/password"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@id/password_ET"
         app:layout_constraintStart_toStartOf="@id/password_ET"
@@ -63,7 +63,7 @@
         android:layout_width="225dp"
         android:layout_height="wrap_content"
         android:background="@drawable/roundcorners"
-        android:backgroundTint="@color/beigeFondoEditText"
+        android:backgroundTint="@color/beigeBackgroundEditText"
         android:drawableStart="@drawable/icon_lock"
         android:drawablePadding="7dp"
         android:padding="5dip"

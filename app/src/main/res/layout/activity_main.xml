@@ -26,7 +26,7 @@
         app:layout_constraintTop_toBottomOf="@+id/nav_host_fragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_menu"
-        android:background="@color/purple_500"
+        android:background="@color/nav"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"/>
 

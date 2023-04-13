@@ -1,5 +1,6 @@
 package com.example.shelfie_app.view
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import com.example.shelfie_app.adapters.ShelfAdapter
 import com.example.shelfie_app.databinding.FragmentShelfBinding
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.viewmodel.ApiViewModel
+import kotlinx.coroutines.runBlocking
 
 
 class ShelfFragment : Fragment(), BookOnClickListener {
@@ -36,8 +38,16 @@ class ShelfFragment : Fragment(), BookOnClickListener {
 
         viewModel.getAllBooks()
 
-
         viewModel.listOfBooks.observe(viewLifecycleOwner) { bookList ->
+            runBlocking {
+                bookList.forEach { book ->
+                    viewModel.getBookCover(book.idBook)
+                    viewModel.getAllReviewsFromBook(book.idBook)
+                    viewModel.listOfBookReviews.observe(viewLifecycleOwner){ reviewList ->
+                        viewModel.getBookScore(reviewList)
+                    }
+                }
+            }
             shelfAdapter = ShelfAdapter(bookList, this, viewModel)
             setupRecyclerView()
         }
@@ -54,6 +64,7 @@ class ShelfFragment : Fragment(), BookOnClickListener {
     }
 
     override fun onClick(book: Book) {
-        TODO("Not yet implemented")
+        println(book.idBook)
+        println(viewModel.reviewMap[book.idBook]!!)
     }
 }

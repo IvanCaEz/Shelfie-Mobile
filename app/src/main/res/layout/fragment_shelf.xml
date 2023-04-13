@@ -3,9 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/beigeFondo"
-    tools:context=".view.ShelfFragment">
+    android:background="@color/beigeBackground"
+    tools:context=".view.ShelfFragment"
+    android:focusable="true">
 
     <androidx.recyclerview.widget.RecyclerView
 

@@ -45,6 +45,7 @@ class ApiViewModel : ViewModel() {
     var listOfBooks = MutableLiveData<List<Book>>()
     var bookData = MutableLiveData<Book>()
     var bookCover = MutableLiveData<Bitmap>()
+    var bookCovers = mutableMapOf<String, Bitmap>()
     lateinit var newBook: Book
 
     // REVIEWS
@@ -205,6 +206,7 @@ class ApiViewModel : ViewModel() {
                     val source = response.body()
                     val inputStream = source?.byteStream()
                     val bitmap = BitmapFactory.decodeStream(inputStream)
+                    bookCovers[bookID] = bitmap
                     bookCover.postValue(bitmap!!)
                 }
             } else {
@@ -248,6 +250,8 @@ class ApiViewModel : ViewModel() {
         }
     }
 
+    val reviewMap = mutableMapOf<String, List<Review>>()
+
     // REVIEWS
     fun getAllReviewsFromBook(bookID: String) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -255,9 +259,11 @@ class ApiViewModel : ViewModel() {
             val response = repository.getAllReviewsFromBook("books/$bookID/reviews")
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
+                    reviewMap[bookID] = response.body()!!
                     listOfBookReviews.postValue(response.body())
                 }
             } else {
+                println("No hay reviews")
                 Log.e("Error " + response.code(), response.message())
             }
         }

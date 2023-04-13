@@ -8,7 +8,7 @@
     android:clickable="true"
     android:focusable="true"
     app:cardElevation="10dp"
-    app:cardBackgroundColor="@color/beigeFondo"
+    app:cardBackgroundColor="@color/beigeBackground"
     android:layout_margin="3dp"
     android:id="@+id/marcadorListCardView"
     >
@@ -55,6 +55,21 @@
             app:layout_constraintStart_toEndOf="@id/bookCover_IV"
             app:layout_constraintTop_toBottomOf="@id/bookTitle_TV"
             tools:text="William Shakespeare" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/genre_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Genre"
+            app:chipStrokeWidth="1dp"
+            android:textColor="@color/white"
+            android:checkable="false"
+            android:clickable="false"
+            app:chipBackgroundColor="@color/beigeBackground"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/star_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
         <ImageView
             android:id="@+id/star_1"

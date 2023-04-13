@@ -23,6 +23,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.shelfie_app.databinding.FragmentPruebaBinding
 import com.example.shelfie_app.model.Book
+import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.viewmodel.ApiViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
@@ -72,20 +73,28 @@ class PruebaFragment : Fragment() {
            selectImage()
         }
         binding.buscar.setOnClickListener {
-            viewModel.getBookByID(binding.bookIDET.text.toString())
+            println("Nuevo click")
+            val bookID = binding.bookIDET.text.toString()
+            // hacemos las llamadas
+            viewModel.getBookByID(bookID)
+            viewModel.getAllReviewsFromBook(bookID)
+            viewModel.getBookCover(bookID)
+
             viewModel.bookData.observe(viewLifecycleOwner, Observer {
                 if (viewModel.bookData.value == null) {
                     Toast.makeText(context, "ERROR", Toast.LENGTH_SHORT).show()
                 } else {
-                    viewModel.getAllReviewsFromBook(it.idBook)
-                    viewModel.getBookCover(it.idBook)
-                    getRating()
                     pasteInfo()
                     getBookCover()
-
-
                 }
             })
+            viewModel.listOfBookReviews.observe(viewLifecycleOwner, Observer { reviewList ->
+                println("hola")
+                println(viewModel.listOfBookReviews.value)
+                getRating(reviewList)
+
+            })
+            getBookCover()
         }
 
 
@@ -99,16 +108,14 @@ fun getBookCover(){
 }
 
 
-fun getRating() {
-    viewModel.listOfBookReviews.observe(viewLifecycleOwner, Observer { reviewList ->
-        println(reviewList.size)
-        if (viewModel.listOfBookReviews.value != null){
+fun getRating(reviewList: List<Review>) {
+        if (viewModel.listOfBookReviews.value!!.isNotEmpty()){
+            println("Tiene reviews")
             binding.bookScore.text = "Puntuación: " + viewModel.getBookScore(reviewList)
         } else {
+            println("No tiene reviews")
             binding.bookScore.text = "Puntuación: 0"
         }
-
-    })
 }
 
     fun displayImageFromExternalStorage(imageName: String, imageView: ImageView) {
@@ -120,8 +127,6 @@ fun getRating() {
     }
 
 fun pasteInfo() {
-    println(viewModel.bookData.value?.title)
-
     binding.bookName.text = viewModel.bookData.value?.title
 }
 

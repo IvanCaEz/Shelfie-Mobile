@@ -1,15 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="nav">#2D2720</color>
+    <color name="beigeBackground">#927E5D</color>
+    <color name="goldButton">#D4A152</color>
+    <color name="brownButton">#352315</color>
+    <color name="beigeBackgroundEditText">#BAAC91</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Genre chip colors -->
+    <color name="fantasyDark">#743A2F</color>
+    <color name="fantasyLight">#B55A49</color>
+    <color name="romanceDark">#E48FD6</color>
+    <color name="romanceLight">#F4B1E9</color>
+    <color name="scifiLight">#3E6181</color>
+    <color name="scifiDark">#314D65</color>
+    <color name="classicsLight">#caaf9c</color>
+    <color name="classicsDark">#BC9574</color>
+    <color name="misteryDark">#010005</color>
+    <color name="misteryLight">#26272B</color>
+
+
+
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="marronMuyOscuro">#2D2720</color>
-    <color name="marronOscuro">#352315</color>
-    <color name="beigeFondo">#927E5D</color>
-    <color name="beigeFondoEditText">#BAAC91</color>
+
 
 </resources>

@@ -12,4 +12,5 @@ data class User(
     var bookHistory: Set<Int>,
     var banned: Boolean,
     var userImage:  String
+    // var userName
 )
