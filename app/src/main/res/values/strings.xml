@@ -7,4 +7,7 @@
     <string name="login">LOGIN</string>
     <string name="ortext">OR</string>
     <string name="register">REGISTER</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="usernameArroba">/@mittensBooks</string>
+    <string name="userbio">I love books about chess and apocalypse!</string>
 </resources>
