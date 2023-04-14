@@ -43,7 +43,10 @@ class ApiViewModel : ViewModel() {
 
     // REVIEWS
     var listOfBookReviews = MutableLiveData<List<Review>>()
+    var listOfUserReviews = MutableLiveData<List<Review>>()
+
     var bookReview = MutableLiveData<Review>()
+    var reviewedBooks = MutableLiveData<List<Book>>()
     lateinit var newReview: Review
 
 
@@ -190,6 +193,28 @@ class ApiViewModel : ViewModel() {
         }
     }
 
+    fun getBooksByReview(reviewList: List<Review>) {
+        val booksReviewed = mutableListOf<Book>()
+        CoroutineScope(Dispatchers.IO).launch {
+            // Devuelve el libro con la ID indicada
+            reviewList.forEach { review ->
+                val response = repository.getBookByID("books/${review.idBook}")
+                if (response.isSuccessful) {
+                    booksReviewed.add(response.body()!!)
+
+                } else {
+                    Log.e("Error " + response.code(), response.message())
+                }
+            }
+            withContext(Dispatchers.Main) {
+                reviewedBooks.postValue(booksReviewed)
+            }
+
+        }
+    }
+
+
+
     fun getBookCover(bookID: String) {
         CoroutineScope(Dispatchers.IO).launch {
             // Devuelve la portada del libro con la ID indicada
@@ -243,7 +268,7 @@ class ApiViewModel : ViewModel() {
         }
     }
 
-    val reviewMap = mutableMapOf<String, List<Review>>()
+    val reviewMap = mutableMapOf<String, Review>()
 
     // REVIEWS
     fun getAllReviewsFromBook(bookID: String) {
@@ -252,8 +277,22 @@ class ApiViewModel : ViewModel() {
             val response = repository.getAllReviewsFromBook("books/$bookID/reviews")
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
-                    reviewMap[bookID] = response.body()!!
                     listOfBookReviews.postValue(response.body())
+                }
+            } else {
+                println("No hay reviews")
+                Log.e("Error " + response.code(), response.message())
+            }
+        }
+    }
+
+    fun getAllReviewsFromUser(userID: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            // Devuelve una lista con todas las reviews del libro con la ID indicada
+            val response = repository.getAllReviewsOfUser("users/$userID/reviews")
+            if (response.isSuccessful) {
+                withContext(Dispatchers.Main) {
+                    listOfUserReviews.postValue(response.body())
                 }
             } else {
                 println("No hay reviews")
@@ -293,5 +332,13 @@ class ApiViewModel : ViewModel() {
         val scoreFormatted = DecimalFormat("#.##")
         return scoreFormatted.format(ratingSum / reviewList.size.toDouble())
     }
+
+    fun bookRatings(bookID: String, reviewList: List<Review>): String{
+        val bookReview = reviewList.filter { review ->
+            review.idBook == bookID
+        }
+        return getBookScore(bookReview)
+    }
+
 
 }

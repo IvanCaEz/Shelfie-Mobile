@@ -9,6 +9,7 @@ import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.shelfie_app.view.PruebaFragment
 import com.example.shelfie_app.view.ShelfFragment
+import com.example.shelfie_app.view.UserReviewListFragment
 
 
 class ProfileAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
@@ -19,8 +20,8 @@ class ProfileAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> ShelfFragment()
-            1 -> PruebaFragment()
+            0 -> PruebaFragment()
+            1 -> UserReviewListFragment()
             2 -> PruebaFragment()
             else -> throw IllegalArgumentException("Invalid position")
         }

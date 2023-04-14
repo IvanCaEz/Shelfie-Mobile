@@ -46,9 +46,6 @@ class ShelfFragment : Fragment(), BookOnClickListener {
                 bookList.forEach { book ->
                     viewModel.getBookCover(book.idBook)
                     viewModel.getAllReviewsFromBook(book.idBook)
-                    viewModel.listOfBookReviews.observe(viewLifecycleOwner){ reviewList ->
-                        viewModel.getBookScore(reviewList)
-                    }
                 }
             }
 

@@ -42,6 +42,9 @@ class Repository {
 
     // REVIEWS
     suspend fun getAllReviewsFromBook(url: String) = apiInterface.getAllReviewsFromBook(url)
+
+    suspend fun getAllReviewsOfUser(url: String) = apiInterface.getAllReviewsOfUser(url)
+
     suspend fun getReviewByID(url: String) = apiInterface.getReviewByID(url)
 
     suspend fun postReview(url: String, body: Review) = apiInterface.postReview(url, body)

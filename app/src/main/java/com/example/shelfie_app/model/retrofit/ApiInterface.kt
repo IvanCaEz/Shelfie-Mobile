@@ -57,6 +57,8 @@ interface ApiInterface {
 
     // GET BOOK REVIEWS
     @GET suspend fun getAllReviewsFromBook(@Url url: String): Response<List<Review>>
+    @GET suspend fun getAllReviewsOfUser(@Url url: String): Response<List<Review>>
+
     @GET suspend fun getReviewByID(@Url url: String): Response<Review>
     @POST suspend fun postReview(@Url url: String, @Body body: Review): Call<Review>
 
