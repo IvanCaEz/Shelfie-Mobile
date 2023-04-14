@@ -2,6 +2,8 @@ package com.example.shelfie_app.view
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +13,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shelfie_app.R
-import com.example.shelfie_app.adapters.BookOnClickListener
-import com.example.shelfie_app.adapters.ShelfAdapter
+import com.example.shelfie_app.view.adapters.BookOnClickListener
+import com.example.shelfie_app.view.adapters.ShelfAdapter
 import com.example.shelfie_app.databinding.FragmentShelfBinding
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.viewmodel.ApiViewModel
@@ -38,6 +40,7 @@ class ShelfFragment : Fragment(), BookOnClickListener {
 
         viewModel.getAllBooks()
 
+
         viewModel.listOfBooks.observe(viewLifecycleOwner) { bookList ->
             runBlocking {
                 bookList.forEach { book ->
@@ -48,8 +51,12 @@ class ShelfFragment : Fragment(), BookOnClickListener {
                     }
                 }
             }
-            shelfAdapter = ShelfAdapter(bookList, this, viewModel)
-            setupRecyclerView()
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                shelfAdapter = ShelfAdapter(bookList, this, viewModel)
+                setupRecyclerView()
+                binding.shimmerViewContainer.visibility = View.INVISIBLE
+            }, 1000)
         }
 
 
@@ -61,6 +68,8 @@ class ShelfFragment : Fragment(), BookOnClickListener {
         val manager =  LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = shelfAdapter
         binding.recyclerView.layoutManager = manager
+        binding.recyclerView.visibility = View.VISIBLE
+
     }
 
     override fun onClick(book: Book) {

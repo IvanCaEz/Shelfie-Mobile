@@ -1,4 +1,4 @@
-package com.example.shelfie_app.adapters
+package com.example.shelfie_app.view.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context

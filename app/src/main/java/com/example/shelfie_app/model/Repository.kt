@@ -1,16 +1,9 @@
-package com.example.shelfie_app.retrofit
+package com.example.shelfie_app.model
 
 import com.example.models.BookLoan
-import com.example.shelfie_app.model.Book
-import com.example.shelfie_app.model.Review
-import com.example.shelfie_app.model.User
+import com.example.shelfie_app.model.retrofit.ApiInterface
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.Call
-import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.Url
 
 class Repository {
     val apiInterface = ApiInterface.create()

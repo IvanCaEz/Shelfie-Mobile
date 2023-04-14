@@ -1,27 +1,20 @@
 package com.example.shelfie_app.viewmodel
 
-import android.app.ProgressDialog
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.models.BookLoan
-import com.example.shelfie_app.databinding.FragmentPruebaBinding
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.model.User
-import com.example.shelfie_app.retrofit.Repository
+import com.example.shelfie_app.model.Repository
 import com.google.gson.Gson
 import kotlinx.coroutines.*
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.internal.wait
-import okio.Okio
-import okio.buffer
-import okio.source
 import java.io.File
 import java.text.DecimalFormat
 

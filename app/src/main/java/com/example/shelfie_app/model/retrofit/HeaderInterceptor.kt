@@ -1,4 +1,4 @@
-package com.example.shelfie_app.retrofit
+package com.example.shelfie_app.model.retrofit
 
 import okhttp3.Interceptor
 import okhttp3.Response
