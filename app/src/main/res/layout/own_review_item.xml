@@ -34,13 +34,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="22dp"
+            android:textSize="20dp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/author_TV"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.127"
-            app:layout_constraintStart_toEndOf="@id/bookCover_IV"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/author_TV"
+            app:layout_constraintStart_toStartOf="@id/star_1"
+            app:layout_constraintEnd_toEndOf="@id/star_5"
+            app:layout_constraintHorizontal_bias="0.0"
             tools:text="Romeo &amp; Juliet" />
 
 
@@ -49,11 +49,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="20dp"
+            android:textSize="16dp"
             app:layout_constraintBottom_toTopOf="@id/star_1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.206"
-            app:layout_constraintStart_toEndOf="@id/bookCover_IV"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/star_1"
+            app:layout_constraintEnd_toEndOf="@id/star_5"
             app:layout_constraintTop_toBottomOf="@id/bookTitle_TV"
             tools:text="William Shakespeare" />
 
@@ -61,7 +61,7 @@
             android:id="@+id/star_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="@id/guideline4"
             app:layout_constraintTop_toBottomOf="@id/author_TV"
             app:layout_constraintEnd_toStartOf="@id/star_2"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
@@ -93,26 +93,26 @@
             app:layout_constraintEnd_toStartOf="@id/star_5"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
             android:src="@drawable/empty_star"/>
+
         <ImageView
             android:id="@+id/star_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/star_4"
-            app:layout_constraintEnd_toStartOf="@id/guideline3"
-            app:layout_constraintTop_toBottomOf="@id/author_TV"
+            android:src="@drawable/empty_star"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
-            android:src="@drawable/empty_star"/>
+            app:layout_constraintEnd_toEndOf="@id/guideline4"
+            app:layout_constraintStart_toEndOf="@id/star_4"
+            app:layout_constraintTop_toBottomOf="@id/author_TV" />
 
         <TextView
             android:id="@+id/review_TV"
-            android:layout_width="235dp"
+            android:layout_width="220dp"
             android:layout_height="70dp"
-            android:src="@drawable/empty_star"
             android:text="Ha estado guay"
             android:textSize="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintEnd_toEndOf="@id/guideline2"
+            app:layout_constraintStart_toStartOf="@id/author_TV"
             app:layout_constraintTop_toBottomOf="@id/star_1" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -127,7 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="132dp" />
+            app:layout_constraintGuide_begin="98dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
@@ -135,6 +135,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.96" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.56" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

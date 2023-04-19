@@ -12,4 +12,11 @@
     <string name="userbio">I love books about chess and apocalypse!</string>
     <string name="genre">Genre</string>
     <string name="favorite_genres">Favorite Genres</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="bio">Bio</string>
+    <string name="extend_time">Extend Time</string>
+    <string name="review">Review</string>
+    <string name="returntext">Return</string>
 </resources>

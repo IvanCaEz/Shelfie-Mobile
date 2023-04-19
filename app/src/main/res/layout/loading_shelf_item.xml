@@ -30,28 +30,28 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <View
             android:id="@+id/bookTitle_TV"
             android:layout_width="0dp"
-            android:layout_height="22dp"
+            android:layout_height="20dp"
             app:layout_constraintWidth_percent="0.4"
             android:background="@color/goldButton"
-            app:layout_constraintBottom_toTopOf="@id/author_TV"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.127"
-            app:layout_constraintStart_toEndOf="@id/bookCover_IV"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/author_TV"
+            app:layout_constraintStart_toStartOf="@id/star_1"
+            app:layout_constraintEnd_toEndOf="@id/star_5"
+            app:layout_constraintHorizontal_bias="0.0"
             />
 
         <View
             android:id="@+id/author_TV"
             android:layout_width="0dp"
-            android:layout_height="20dp"
+            android:layout_height="16dp"
             android:background="@color/goldButton"
             app:layout_constraintBottom_toTopOf="@id/star_1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.22"
-            app:layout_constraintStart_toEndOf="@id/bookCover_IV"
+            app:layout_constraintStart_toStartOf="@id/star_1"
+            app:layout_constraintEnd_toEndOf="@id/star_5"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintTop_toBottomOf="@id/bookTitle_TV"
             app:layout_constraintWidth_percent="0.5"
            />
@@ -76,7 +76,7 @@
             app:tint="@color/goldButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="@id/guideline4"
             app:layout_constraintTop_toBottomOf="@id/author_TV"
             app:layout_constraintEnd_toStartOf="@id/star_2"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
@@ -117,7 +117,7 @@
             android:layout_height="wrap_content"
             app:tint="@color/goldButton"
             app:layout_constraintStart_toEndOf="@id/star_4"
-            app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintEnd_toEndOf="@id/guideline4"
             app:layout_constraintTop_toBottomOf="@id/author_TV"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
             android:src="@drawable/empty_star"/>
@@ -142,6 +142,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.83" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.56" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

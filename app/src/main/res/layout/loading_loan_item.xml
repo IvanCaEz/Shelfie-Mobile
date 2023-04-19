@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardElevation="10dp"
+    app:cardBackgroundColor="@color/beigeBackground"
+    android:layout_margin="3dp"
+    android:id="@+id/marcadorListCardView"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/bookCover_IV"
+            android:layout_width="145dp"
+            android:layout_height="180dp"
+            android:background="@color/goldButton"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <View
+            android:id="@+id/bookTitle_TV"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:background="@color/goldButton"
+            app:layout_constraintWidth_percent="0.4"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/author_TV"
+            app:layout_constraintEnd_toEndOf="@id/returnDate_TV"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/returnDate_TV"
+             />
+
+        <View
+            android:id="@+id/author_TV"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:background="@color/goldButton"
+            app:layout_constraintWidth_percent="0.5"
+            app:layout_constraintBottom_toTopOf="@id/returnDate_TV"
+            app:layout_constraintEnd_toEndOf="@id/returnDate_TV"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/returnDate_TV"
+            app:layout_constraintTop_toBottomOf="@id/bookTitle_TV"
+             />
+
+        <View
+            android:id="@+id/returnDate_TV"
+            android:layout_width="0dp"
+            android:layout_height="14dp"
+            android:background="@color/goldButton"
+            app:layout_constraintWidth_percent="0.4"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            app:layout_constraintEnd_toStartOf="@id/guideline4"
+            app:layout_constraintStart_toEndOf="@id/bookCover_IV"
+            app:layout_constraintTop_toBottomOf="@id/author_TV" />
+
+        <ImageView
+            android:id="@+id/extendTime_IV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/extend_time_icon"
+            app:tint="@color/goldButton"
+            android:background="@color/goldButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/return_IV"
+            app:layout_constraintTop_toBottomOf="@id/returnDate_TV"
+            app:layout_constraintStart_toEndOf="@id/bookCover_IV"
+             />
+        <View
+            android:id="@+id/extendTime_TV"
+            android:layout_width="0dp"
+            android:layout_height="14dp"
+            android:background="@color/goldButton"
+            app:layout_constraintWidth_percent="0.15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/extendTime_IV"
+            app:layout_constraintTop_toBottomOf="@id/extendTime_IV"
+            app:layout_constraintStart_toStartOf="@id/extendTime_IV" />
+        <ImageView
+            android:id="@+id/return_IV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/return_book_icon"
+            app:tint="@color/goldButton"
+            android:background="@color/goldButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/review_IV"
+            app:layout_constraintTop_toBottomOf="@id/returnDate_TV"
+            app:layout_constraintHorizontal_bias="0.206"
+            app:layout_constraintStart_toEndOf="@id/extendTime_IV" />
+        <View
+            android:id="@+id/return_TV"
+            android:layout_width="0dp"
+            android:layout_height="14dp"
+            android:background="@color/goldButton"
+            app:layout_constraintWidth_percent="0.15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/return_IV"
+            app:layout_constraintTop_toBottomOf="@id/return_IV"
+            app:layout_constraintStart_toStartOf="@id/return_IV" />
+        <ImageView
+            android:id="@+id/review_IV"
+            android:layout_width="48dp"
+            android:layout_height="50dp"
+            android:src="@drawable/review_icon"
+            app:tint="@color/goldButton"
+            android:background="@color/goldButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintTop_toBottomOf="@id/returnDate_TV"
+            app:layout_constraintHorizontal_bias="0.206"
+            app:layout_constraintStart_toEndOf="@id/return_IV" />
+        <View
+            android:id="@+id/review_TV"
+            android:layout_width="0dp"
+            android:layout_height="14dp"
+            android:background="@color/goldButton"
+            app:layout_constraintWidth_percent="0.15"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/review_IV"
+            app:layout_constraintTop_toBottomOf="@id/review_IV"
+            app:layout_constraintStart_toStartOf="@id/review_IV" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.39" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="98dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.96" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.825" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

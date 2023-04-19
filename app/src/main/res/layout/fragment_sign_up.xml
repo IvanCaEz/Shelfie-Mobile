@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/beigeBackground"
-    tools:context=".view.LoginFragment">
+    tools:context=".view.SignUpFragment">
 
 
     <ImageView
@@ -29,22 +29,32 @@
         app:layout_constraintBottom_toTopOf="@id/username_ET"
         app:layout_constraintStart_toStartOf="@id/username_ET" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/username_ET"
         android:layout_width="225dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:background="@drawable/roundcorners"
         android:backgroundTint="@color/beigeBackgroundEditText"
-        android:drawableStart="@drawable/icon_user"
-        android:drawablePadding="7dp"
-        android:padding="5dip"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
+        app:errorEnabled="false"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logo" />
+        app:layout_constraintTop_toBottomOf="@id/logo"
+        app:boxStrokeColor="@color/goldButton"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        app:startIconDrawable="@drawable/icon_user"
+        android:theme="@style/ThemeOverlay.TextInputLayout.TextView">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:background="@drawable/roundcorners"
+            android:layout_height="wrap_content"
+            android:padding="5dip"
+            android:backgroundTint="@color/beigeBackgroundEditText"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/password_TV"
@@ -58,65 +68,75 @@
         app:layout_constraintStart_toStartOf="@id/password_ET"
         app:layout_constraintTop_toBottomOf="@id/username_ET" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_ET"
         android:layout_width="225dp"
         android:layout_height="wrap_content"
         android:background="@drawable/roundcorners"
         android:backgroundTint="@color/beigeBackgroundEditText"
-        android:drawableStart="@drawable/icon_lock"
-        android:drawablePadding="7dp"
-        android:padding="5dip"
+        android:textSize="15sp"
+        app:errorEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:endIconMode="password_toggle"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password_TV" />
+        app:startIconDrawable="@drawable/icon_lock"
+        app:boxStrokeColor="@color/goldButton"
+        app:layout_constraintTop_toBottomOf="@id/password_TV"
+        android:theme="@style/ThemeOverlay.TextInputLayout.TextView"
+        >
 
-    <Button
-        android:id="@+id/login_button"
-        android:layout_width="225dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="45dp"
-        android:backgroundTint="#D4A152"
-        android:padding="10dp"
-        android:text="@string/login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password_ET"
-        android:textColor="@color/black"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dip"
+            android:background="@drawable/roundcorners"
+            android:backgroundTint="@color/beigeBackgroundEditText"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <View
-        android:id="@+id/line1"
-        android:layout_width="150dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="20dp"
-        android:background="#525252"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_button" />
 
     <TextView
-        android:id="@+id/orText"
+        android:id="@+id/repeatPassword_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:paddingStart="7dp"
-        android:paddingEnd="7dp"
-        android:text="@string/ortext"
-        app:layout_constraintStart_toEndOf="@id/line1"
-        app:layout_constraintTop_toBottomOf="@id/login_button" />
+        android:layout_marginTop="15dp"
+        android:padding="7dp"
+        android:text="@string/repeat_password"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@id/repeatPassword_ET"
+        app:layout_constraintStart_toStartOf="@id/repeatPassword_ET"
+        app:layout_constraintTop_toBottomOf="@id/password_ET" />
 
-    <View
-        android:id="@+id/line2"
-        android:layout_width="150dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="20dp"
-        android:background="#525252"
-        app:layout_constraintStart_toEndOf="@id/orText"
-        app:layout_constraintTop_toBottomOf="@id/login_button" />
+    <com.google.android.material.textfield.TextInputLayout
+
+        android:id="@+id/repeatPassword_ET"
+        android:layout_width="225dp"
+        app:errorEnabled="false"
+        android:layout_height="wrap_content"
+        android:background="@drawable/roundcorners"
+        android:backgroundTint="@color/beigeBackgroundEditText"
+        app:startIconDrawable="@drawable/icon_lock"
+        android:textSize="15sp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        app:endIconMode="password_toggle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:boxStrokeColor="@color/goldButton"
+        android:theme="@style/ThemeOverlay.TextInputLayout.TextView"
+        app:layout_constraintTop_toBottomOf="@id/repeatPassword_TV">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:padding="5dip"
+            android:layout_height="wrap_content"
+            android:background="@drawable/roundcorners"
+            android:backgroundTint="@color/beigeBackgroundEditText"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Button
         android:id="@+id/register_button"
@@ -127,10 +147,9 @@
         android:backgroundTint="#352315"
         android:padding="10dp"
         android:text="@string/register"
-        app:layout_constraintTop_toBottomOf="@id/line1"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/repeatPassword_ET" />
     <!--
        <com.google.android.material.textfield.TextInputLayout
 

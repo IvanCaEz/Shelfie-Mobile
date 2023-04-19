@@ -25,7 +25,9 @@ class ApiViewModel : ViewModel() {
     var listOfUsers = MutableLiveData<List<User>>()
     var userData = MutableLiveData<User>()
     var userBookHistory = MutableLiveData<List<Book>>()
+
     var userActiveBookLoans = MutableLiveData<List<BookLoan>>()
+    var loanedBooks = MutableLiveData<List<Book>>()
     var bookLoanData = MutableLiveData<BookLoan>()
 
 
@@ -210,6 +212,25 @@ class ApiViewModel : ViewModel() {
                 reviewedBooks.postValue(booksReviewed)
             }
 
+        }
+    }
+
+    fun getBooksByBookLoan(borrowedBooksList: List<BookLoan>) {
+        val booksBorrowed = mutableListOf<Book>()
+        CoroutineScope(Dispatchers.IO).launch {
+            // Devuelve el libro con la ID indicada
+            borrowedBooksList.forEach { bookLoan ->
+                val response = repository.getBookByID("books/${bookLoan.idBook}")
+                if (response.isSuccessful) {
+                    booksBorrowed.add(response.body()!!)
+
+                } else {
+                    Log.e("Error " + response.code(), response.message())
+                }
+            }
+            withContext(Dispatchers.Main) {
+                loanedBooks.postValue(booksBorrowed)
+            }
         }
     }
 

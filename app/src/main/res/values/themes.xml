@@ -14,4 +14,14 @@
         <item name="android:fontFamily">@font/josefin_regular</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="ThemeOverlay.TextInputLayout.TextView" parent="">
+        <item name="android:textViewStyle">@style/Widget.TextView.SingleLineEllipsized</item>
+    </style>
+
+    <style name="Widget.TextView.SingleLineEllipsized" parent="">
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
 </resources>

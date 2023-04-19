@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/pruebaFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/pruebaFragment"
@@ -25,4 +25,26 @@
         android:name="com.example.shelfie_app.view.UserProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_user_profile" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.shelfie_app.view.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.shelfie_app.view.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/action_signUpFragment_to_signUpDialog"
+            app:destination="@id/signUpDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/signUpDialog"
+        android:name="com.example.shelfie_app.view.SignUpDialog"
+        android:label="SignUpDialog" />
 </navigation>

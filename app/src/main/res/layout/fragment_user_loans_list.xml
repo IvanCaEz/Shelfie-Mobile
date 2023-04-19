@@ -3,10 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clickable="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/beigeBackground"
-    tools:context=".view.UserReviewListFragment"
+    tools:context=".view.UserLoansListFragment"
     android:focusable="true">
 
 
@@ -23,10 +21,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <include layout="@layout/loading_shelf_item"/>
-            <include layout="@layout/loading_shelf_item"/>
-            <include layout="@layout/loading_shelf_item"/>
-            <include layout="@layout/loading_shelf_item"/>
+            <include layout="@layout/loading_loan_item"/>
+            <include layout="@layout/loading_loan_item"/>
+            <include layout="@layout/loading_loan_item"/>
+            <include layout="@layout/loading_loan_item"/>
 
         </LinearLayout>
 
@@ -38,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@android:color/transparent"
-        tools:listitem="@layout/own_review_item"
+        tools:listitem="@layout/loan_item"
         android:visibility="invisible"
         tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"

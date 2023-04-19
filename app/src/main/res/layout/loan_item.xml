@@ -29,18 +29,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <TextView
             android:id="@+id/bookTitle_TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="22dp"
+            android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/author_TV"
-            app:layout_constraintStart_toStartOf="@id/star_1"
-            app:layout_constraintEnd_toEndOf="@id/star_5"
+            app:layout_constraintEnd_toEndOf="@id/returnDate_TV"
             app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/returnDate_TV"
             tools:text="Romeo &amp; Juliet" />
 
         <TextView
@@ -48,75 +49,89 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="20dp"
-            app:layout_constraintBottom_toTopOf="@id/star_1"
-            app:layout_constraintStart_toStartOf="@id/star_1"
-            app:layout_constraintEnd_toEndOf="@id/star_5"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toTopOf="@id/returnDate_TV"
+            app:layout_constraintEnd_toEndOf="@id/returnDate_TV"
             app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/returnDate_TV"
             app:layout_constraintTop_toBottomOf="@id/bookTitle_TV"
             tools:text="William Shakespeare" />
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/genre_tag"
+        <TextView
+            android:id="@+id/returnDate_TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Genre"
-            app:chipStrokeWidth="1dp"
+            android:text="Return date: 23/12/2023"
             android:textColor="@color/white"
-            android:checkable="false"
-            android:clickable="false"
-            app:chipBackgroundColor="@color/beigeBackground"
-            app:layout_constraintStart_toEndOf="@id/guideline"
-            app:layout_constraintTop_toBottomOf="@id/star_1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
-
-        <ImageView
-            android:id="@+id/star_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/guideline4"
-            app:layout_constraintTop_toBottomOf="@id/author_TV"
-            app:layout_constraintEnd_toStartOf="@id/star_2"
+            android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
-            android:src="@drawable/empty_star"/>
-        <ImageView
-            android:id="@+id/star_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/star_1"
-            app:layout_constraintTop_toBottomOf="@id/author_TV"
-            app:layout_constraintEnd_toStartOf="@id/star_3"
-            app:layout_constraintBottom_toTopOf="@id/guideline2"
-            android:src="@drawable/empty_star"/>
-        <ImageView
-            android:id="@+id/star_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/star_2"
-            app:layout_constraintTop_toBottomOf="@id/author_TV"
-            app:layout_constraintEnd_toStartOf="@id/star_4"
-            app:layout_constraintBottom_toTopOf="@id/guideline2"
-            android:src="@drawable/empty_star"/>
-        <ImageView
-            android:id="@+id/star_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/star_3"
-            app:layout_constraintTop_toBottomOf="@id/author_TV"
-            app:layout_constraintEnd_toStartOf="@id/star_5"
-            app:layout_constraintBottom_toTopOf="@id/guideline2"
-            android:src="@drawable/empty_star"/>
-
-        <ImageView
-            android:id="@+id/star_5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/empty_star"
-            app:layout_constraintBottom_toTopOf="@id/guideline2"
-            app:layout_constraintEnd_toEndOf="@id/guideline4"
-            app:layout_constraintStart_toEndOf="@id/star_4"
+            app:layout_constraintEnd_toStartOf="@id/guideline4"
+            app:layout_constraintStart_toEndOf="@id/bookCover_IV"
             app:layout_constraintTop_toBottomOf="@id/author_TV" />
+
+        <ImageView
+            android:id="@+id/extendTime_IV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/extend_time_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/return_IV"
+            app:layout_constraintTop_toBottomOf="@id/returnDate_TV"
+            app:layout_constraintStart_toEndOf="@id/bookCover_IV" />
+        <TextView
+            android:id="@+id/extendTime_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/extend_time"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/extendTime_IV"
+            app:layout_constraintTop_toBottomOf="@id/extendTime_IV"
+            app:layout_constraintStart_toStartOf="@id/extendTime_IV" />
+        <ImageView
+            android:id="@+id/return_IV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/return_book_icon"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/review_IV"
+            app:layout_constraintTop_toBottomOf="@id/returnDate_TV"
+            app:layout_constraintHorizontal_bias="0.206"
+            app:layout_constraintStart_toEndOf="@id/extendTime_IV" />
+        <TextView
+            android:id="@+id/return_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/returntext"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/return_IV"
+            app:layout_constraintTop_toBottomOf="@id/return_IV"
+            app:layout_constraintStart_toStartOf="@id/return_IV" />
+        <ImageView
+            android:id="@+id/review_IV"
+            android:layout_width="48dp"
+            android:layout_height="50dp"
+            android:src="@drawable/review_icon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintTop_toBottomOf="@id/returnDate_TV"
+            app:layout_constraintHorizontal_bias="0.206"
+            app:layout_constraintStart_toEndOf="@id/return_IV" />
+        <TextView
+            android:id="@+id/review_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/review"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/review_IV"
+            app:layout_constraintTop_toBottomOf="@id/review_IV"
+            app:layout_constraintStart_toStartOf="@id/review_IV" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -130,20 +145,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="132dp" />
+            app:layout_constraintGuide_begin="98dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.83" />
+            app:layout_constraintGuide_percent="0.96" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.56" />
+            app:layout_constraintGuide_percent="0.825" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
