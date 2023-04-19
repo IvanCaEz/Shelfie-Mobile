@@ -63,7 +63,6 @@ interface ApiInterface {
     @POST suspend fun postReview(@Url url: String, @Body body: Review): Call<Review>
 
     // TODO() PUT review
-
     @DELETE suspend fun deleteReview(@Url url: String): Call<Review>
 
 

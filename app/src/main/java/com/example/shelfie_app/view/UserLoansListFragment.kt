@@ -35,8 +35,6 @@ class UserLoansListFragment : Fragment(), BookOnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         linearLayoutManager = LinearLayoutManager(context)
-        viewModel.getUserLoans("1")
-
 
 
         viewModel.userActiveBookLoans.observe(viewLifecycleOwner){ activeBookLoans ->

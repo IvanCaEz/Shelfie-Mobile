@@ -68,10 +68,59 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="240"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@id/guideline5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/userBio" />
 
+    <TextView
+        android:id="@+id/userBooks_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="books read"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@id/guideline5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userBooksCounter" />
+
+
+    <TextView
+        android:id="@+id/reviewCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="240"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@id/guideline6"
+        app:layout_constraintStart_toStartOf="@id/guideline5"
+        app:layout_constraintTop_toBottomOf="@id/userBio" />
+    <TextView
+        android:id="@+id/reviews_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="reviews"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@id/guideline6"
+        app:layout_constraintStart_toStartOf="@id/guideline5"
+        app:layout_constraintTop_toBottomOf="@id/reviewCounter" />
+
+    <TextView
+        android:id="@+id/wantToReadCounter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="15"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline6"
+        app:layout_constraintTop_toBottomOf="@id/userBio" />
+    <TextView
+        android:id="@+id/wantToRead_TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="want to read"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="@id/wantToReadCounter"
+        app:layout_constraintStart_toStartOf="@id/wantToReadCounter"
+        app:layout_constraintTop_toBottomOf="@id/wantToReadCounter" />
     <!-- <TextView
         android:id="@+id/favGenres_TV"
         android:layout_width="wrap_content"
@@ -83,20 +132,19 @@
 
 
     <com.google.android.material.tabs.TabLayout
-        android:layout_marginTop="5dp"
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:background="@color/nav"
         app:layout_constraintBottom_toTopOf="@id/view_pager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userBooksCounter"
-        app:tabTextColor="@color/white" >
+        app:layout_constraintTop_toBottomOf="@id/userBooks_TV"
+        app:tabTextColor="@color/white">
 
 
     </com.google.android.material.tabs.TabLayout>
-
 
 
     <androidx.viewpager2.widget.ViewPager2
@@ -106,9 +154,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tab_layout"/>
+        app:layout_constraintTop_toBottomOf="@id/tab_layout" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="247dp" />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="162dp" />
 
 
     <!-- <de.hdodenhof.circleimageview.CircleImageView

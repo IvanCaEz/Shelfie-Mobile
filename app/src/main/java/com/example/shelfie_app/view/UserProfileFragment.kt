@@ -27,14 +27,27 @@ class UserProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setup()
+        setupViewPager()
         viewModel.getAllReviewsFromUser("1")
         viewModel.getUserLoans("1")
+        viewModel.getUserBookHistory("1")
+
+        viewModel.listOfUserReviews.observe(viewLifecycleOwner){ reviewList ->
+            binding.reviewCounter.text = reviewList.size.toString()
+        }
+        viewModel.userBookHistory.observe(viewLifecycleOwner){ booksRead ->
+            binding.userBooksCounter.text = booksRead.size.toString()
+        }
+        /*
+        viewModel.userBookHistory.observe(viewLifecycleOwner){ booksRead ->
+            binding.userBooksCounter.text = booksRead.size.toString()
+        }
+         */
 
     }
 
 
-    private fun setup(){
+    private fun setupViewPager(){
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager
 
@@ -50,4 +63,5 @@ class UserProfileFragment : Fragment() {
             }
         }.attach()
     }
+
 }

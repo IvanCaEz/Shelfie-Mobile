@@ -289,7 +289,7 @@ class ApiViewModel : ViewModel() {
         }
     }
 
-    val reviewMap = mutableMapOf<String, Review>()
+    val allReviews = mutableMapOf<String, List<Review>>()
 
     // REVIEWS
     fun getAllReviewsFromBook(bookID: String) {
@@ -299,6 +299,7 @@ class ApiViewModel : ViewModel() {
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
                     listOfBookReviews.postValue(response.body())
+
                 }
             } else {
                 println("No hay reviews")
@@ -321,6 +322,7 @@ class ApiViewModel : ViewModel() {
             }
         }
     }
+
 
     fun getReviewByID(bookID: String, reviewID: String) {
         CoroutineScope(Dispatchers.IO).launch {

@@ -26,14 +26,6 @@ class ReviewAdapter(var userReviewList: List<Review>,
 
         private val binding = OwnReviewItemBinding.bind(view)
 
-        fun bookRatings(bookID: String): String{
-            val bookReview = userReviewList.filter { review ->
-                review.idBook == bookID
-            }
-            return viewModel.getBookScore(bookReview)
-        }
-
-
         fun render(reviewToRender: Review, bookToRender: Book) {
             binding.bookTitleTV.text = bookToRender.title
             binding.authorTV.text = bookToRender.author

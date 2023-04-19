@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/beigeBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.UserLoansListFragment"
+    tools:context=".view.UserBookHistoryListFragment"
     android:focusable="true">
 
 
@@ -22,27 +22,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <include layout="@layout/loading_loan_item"/>
-            <include layout="@layout/loading_loan_item"/>
-            <include layout="@layout/loading_loan_item"/>
-            <include layout="@layout/loading_loan_item"/>
+            <include layout="@layout/loading_shelf_item"/>
+            <include layout="@layout/loading_shelf_item"/>
+            <include layout="@layout/loading_shelf_item"/>
+            <include layout="@layout/loading_shelf_item"/>
 
         </LinearLayout>
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@android:color/transparent"
-        tools:listitem="@layout/loan_item"
+        tools:listitem="@layout/shelf_item"
         android:visibility="invisible"
         tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

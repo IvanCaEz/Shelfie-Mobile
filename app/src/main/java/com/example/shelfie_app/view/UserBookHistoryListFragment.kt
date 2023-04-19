@@ -1,6 +1,5 @@
 package com.example.shelfie_app.view
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,60 +8,48 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shelfie_app.R
+import com.example.shelfie_app.databinding.FragmentUserBookHistoryListBinding
+import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.view.adapters.BookOnClickListener
 import com.example.shelfie_app.view.adapters.ShelfAdapter
-import com.example.shelfie_app.databinding.FragmentShelfBinding
-import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.viewmodel.ApiViewModel
 import kotlinx.coroutines.runBlocking
 
-
-class ShelfFragment : Fragment(), BookOnClickListener {
-    private lateinit var binding: FragmentShelfBinding
+class UserBookHistoryListFragment : Fragment(), BookOnClickListener {
+    private lateinit var binding: FragmentUserBookHistoryListBinding
     private lateinit var linearLayoutManager: RecyclerView.LayoutManager
     private lateinit var shelfAdapter: ShelfAdapter
     val viewModel: ApiViewModel by activityViewModels()
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentShelfBinding.inflate(layoutInflater)
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View {
+        binding = FragmentUserBookHistoryListBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        linearLayoutManager = LinearLayoutManager(context)
 
-        viewModel.getAllBooks()
-
-
-        viewModel.listOfBooks.observe(viewLifecycleOwner) { bookList ->
+        viewModel.userBookHistory.observe(viewLifecycleOwner) { bookList ->
             runBlocking {
                 bookList.forEach { book ->
                     viewModel.getBookCover(book.idBook)
-                    viewModel.getAllReviewsFromBook(book.idBook)
                 }
             }
-            viewModel.listOfBookReviews.observe(viewLifecycleOwner){ reviewList ->
+            viewModel.listOfUserReviews.observe(viewLifecycleOwner){ userReviewList ->
                 Handler(Looper.getMainLooper()).postDelayed({
-                    shelfAdapter = ShelfAdapter(bookList, reviewList, this, viewModel)
+                    shelfAdapter = ShelfAdapter(bookList, userReviewList, this, viewModel)
                     setupRecyclerView()
                     binding.shimmerViewContainer.visibility = View.INVISIBLE
                 }, 1000)
             }
-
         }
-
-
     }
-    private fun setAdapter(bookList: List<Book>){
-        shelfAdapter.setBookList(bookList)
-    }
+
     private fun setupRecyclerView() {
         val manager =  LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = shelfAdapter
@@ -72,6 +59,7 @@ class ShelfFragment : Fragment(), BookOnClickListener {
     }
 
     override fun onClick(book: Book) {
-        println(book.idBook)
+        TODO("Not yet implemented")
     }
+
 }

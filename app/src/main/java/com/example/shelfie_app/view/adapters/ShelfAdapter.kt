@@ -23,7 +23,9 @@ import java.text.DecimalFormat
 import java.util.*
 
 class ShelfAdapter(
-    var bookList: List<Book>, private val listener: BookOnClickListener,
+    var bookList: List<Book>,
+    var reviewList: List<Review>,
+    private val listener: BookOnClickListener,
     private val viewModel: ApiViewModel
     //private val bookCovers: MutableMap<String, Bitmap>
     //  private val rating: Double,
@@ -36,10 +38,8 @@ class ShelfAdapter(
         private val binding = ShelfItemBinding.bind(view)
 
         fun bookRatings(bookID: String): String{
-            val bookReview = viewModel.listOfBookReviews.value!!.filter { review ->
-                review.idBook == bookID
-            }
-            return viewModel.getBookScore(bookReview)
+            val bookReviews = reviewList.filter { it.idBook == bookID }
+            return viewModel.getBookScore(bookReviews)
         }
         fun render(bookToRender: Book) {
             binding.bookTitleTV.text = bookToRender.title
@@ -47,16 +47,6 @@ class ShelfAdapter(
             binding.bookCoverIV.setImageBitmap(viewModel.bookCovers[bookToRender.idBook])
             renderTag(bookToRender.genre)
             renderRating(bookRatings(bookToRender.idBook).toDouble())
-
-
-            /*
-            runBlocking {
-                if (viewModel.reviewMap[bookToRender.idBook] != null){
-                    renderRating(viewModel.getBookScore(viewModel.reviewMap[bookToRender.idBook]!!).toDouble())
-                } else (renderRating(0.0))
-            }
-             */
-
         }
 
 
