@@ -26,7 +26,7 @@ import java.io.File
 class CompleteRegisterFragment : Fragment() {
   private lateinit var binding: FragmentCompleteRegisterBinding
     lateinit var viewModel: ApiViewModel
-    var imageName = "/placeholder"
+    var imageName = "/placeholder.jpg"
     var imagePath = ""
     lateinit var imageUri: Uri
     val REQUEST_READ_EXTERNAL_STORAGE_PERMISSION = 100
@@ -57,8 +57,8 @@ class CompleteRegisterFragment : Fragment() {
 
         //val userName = arguments?.getString("userName")
         //val password = arguments?.getString("password")
-        val userName = "colinabo2"
-        val password = "123456"
+        val userName = arguments?.getString("userName")
+        val password = arguments?.getString("password")
         binding.usernameTV.text = userName
 
 
@@ -86,7 +86,7 @@ class CompleteRegisterFragment : Fragment() {
 
 
 
-            val newUser = User("3",name, userName,bio,email, password, UserType.NORMAL,
+            val newUser = User("0",name, userName!!,bio,email, password!!, UserType.NORMAL,
                 0, setOf<Int>(), false, imageName)
 
 

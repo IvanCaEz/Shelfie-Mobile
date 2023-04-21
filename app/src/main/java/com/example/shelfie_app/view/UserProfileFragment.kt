@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.shelfie_app.R
 import com.example.shelfie_app.databinding.FragmentUserProfileBinding
 import com.example.shelfie_app.view.adapters.ProfileAdapter
@@ -28,9 +29,12 @@ class UserProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupViewPager()
-        viewModel.getAllReviewsFromUser("1")
-        viewModel.getUserLoans("1")
-        viewModel.getUserBookHistory("1")
+
+        getUserInfo(viewModel.userData.value!!.idUser)
+        binding.usernameText.text = "@${viewModel.userData.value!!.name}"
+        binding.usernameArroba.text = "@${viewModel.userData.value!!.userName}"
+        binding.userBio.text = "${viewModel.userData.value!!.description}"
+
 
         viewModel.listOfUserReviews.observe(viewLifecycleOwner){ reviewList ->
             binding.reviewCounter.text = reviewList.size.toString()
@@ -46,7 +50,12 @@ class UserProfileFragment : Fragment() {
 
     }
 
+    fun getUserInfo(userID: String){
+        viewModel.getAllReviewsFromUser(userID)
+        viewModel.getUserLoans(userID)
+        viewModel.getUserBookHistory(userID)
 
+    }
     private fun setupViewPager(){
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager

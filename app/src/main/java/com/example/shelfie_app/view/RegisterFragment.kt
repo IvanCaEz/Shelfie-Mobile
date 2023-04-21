@@ -5,17 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.shelfie_app.R
 import com.example.shelfie_app.databinding.FragmentRegisterBinding
 import com.example.shelfie_app.viewmodel.ApiViewModel
+import kotlinx.coroutines.runBlocking
 
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
-    lateinit var viewModel: ApiViewModel
+    val viewModel: ApiViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -27,51 +30,54 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(ApiViewModel::class.java)
 
 
 
         binding.registerButton.setOnClickListener {
-            var registrable = true
-            // Miramos que la contraseña sea válida y que coincidan
-            if (validatePassword() && confirmPassword()) {
-                val newUserName = binding.usernameET.editText?.text.toString()
-                val password = binding.passwordET.editText?.text.toString()
-                // Miramos que no haya ningún usuario con ese nombre de usuario
-                // cambiar a hacer un get del user, si no existe ese user lo registramos
-                // asi no hacemos un get all users que es inseguro
-                viewModel.getAllUsers()
-                viewModel.listOfUsers.observe(viewLifecycleOwner) { userList ->
-                    userList.forEach { user ->
-                        if (user.userName == newUserName && newUserName != "") {
+            var registrable = false
+            val newUserName = binding.usernameET.editText?.text.toString()
+            if (newUserName.isNotEmpty()) {
+                // Miramos que la contraseña sea válida y que coincidan
+                if (validatePassword() && confirmPassword()) {
+                    // TODO() Encriptar password antes de pasarla al otro fragment?
+                    val password = binding.passwordET.editText?.text.toString()
+
+                    // Miramos que no haya ningún usuario con ese nombre de usuario
+                    viewModel.getUserByUserName(newUserName)
+
+                    viewModel.userData.observe(viewLifecycleOwner){user ->
+                        runBlocking {
+                            println(user.userName)
+                            println(user.password)
+                            registrable = user.userName != newUserName
+                        }
+                    }
+                    when (registrable) {
+                        false -> {
                             binding.usernameET.isErrorEnabled = true
-                            registrable = false
                             binding.usernameET.error = "This username is taken."
-                        } else {
+                        }
+                        true -> {
                             binding.usernameET.error = null
                             binding.usernameET.isErrorEnabled = false
-                            // Completar registro
+                            completeSignUpDialog(newUserName, password)
                         }
                     }
                 }
-                if (registrable) completeSignUpDialog(newUserName, password)
+            } else {
+                binding.usernameET.isErrorEnabled = true
+                binding.usernameET.error = "Username can't be empty."
             }
-
-            // si no lo hay mostramos el dialogo para completar el registro
-            // hacemos lo mismo en el dialogo al comprobar el mail
-            // Dialog -> Complete Signup
         }
     }
 
 
-
-
     private fun completeSignUpDialog(userName: String, password: String) {
-        val toCompleteRegister = RegisterFragmentDirections.actionRegisterFragmentToCompleteRegisterFragment()
+        val toCompleteRegister = RegisterFragmentDirections
+            .actionRegisterFragmentToCompleteRegisterFragment(userName,password)
         findNavController().navigate(toCompleteRegister)
 
     }
-
 
 
     private fun validatePassword(): Boolean {

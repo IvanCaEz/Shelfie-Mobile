@@ -30,6 +30,7 @@ class ApiViewModel : ViewModel() {
     // USERS
     var listOfUsers = MutableLiveData<List<User>>()
     var userData = MutableLiveData<User>()
+
     var userBookHistory = MutableLiveData<List<Book>>()
 
     var userActiveBookLoans = MutableLiveData<List<BookLoan>>()
@@ -80,6 +81,21 @@ class ApiViewModel : ViewModel() {
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
                     userData.postValue(response.body())
+                }
+            } else {
+                Log.e("Error " + response.code(), response.message())
+            }
+        }
+    }
+
+    fun getUserByUserName(userName: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            // Devuelve el usuario con la ID indicada
+            val response = repository.getUserByUserName("users/username/$userName")
+            if (response.isSuccessful) {
+                withContext(Dispatchers.Main) {
+                    userData.postValue(response.body())
+                    println("usuario ${response.body()?.userName} encontrado")
                 }
             } else {
                 Log.e("Error " + response.code(), response.message())

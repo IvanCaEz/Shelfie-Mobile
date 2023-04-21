@@ -11,6 +11,8 @@ class Repository {
     // USERS
     suspend fun getAllUsers(url: String) = apiInterface.getAllUsers(url)
     suspend fun getUserByID(url: String) = apiInterface.getUserByID(url)
+    suspend fun getUserByUserName(url: String) = apiInterface.getUserByUserName(url)
+
     suspend fun getUserBookHistory(url: String) = apiInterface.getUserBookHistory(url)
     suspend fun getUserLoans(url: String) = apiInterface.getUserLoans(url)
     suspend fun getBookLoanByBookID(url: String) = apiInterface.getBookLoanByBookID(url)

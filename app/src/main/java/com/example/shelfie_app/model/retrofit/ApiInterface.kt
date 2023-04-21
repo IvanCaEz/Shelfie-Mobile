@@ -22,6 +22,8 @@ interface ApiInterface {
     // USERS
     @GET suspend fun getAllUsers(@Url url: String): Response<List<User>>
     @GET suspend fun getUserByID(@Url url: String): Response<User>
+    @GET suspend fun getUserByUserName(@Url url: String): Response<User>
+
     @GET suspend fun getUserBookHistory(@Url url: String): Response<List<Book>>
     @GET suspend fun getUserLoans(@Url url: String): Response<List<BookLoan>>
     @GET suspend fun getBookLoanByBookID(@Url url: String): Response<BookLoan>
