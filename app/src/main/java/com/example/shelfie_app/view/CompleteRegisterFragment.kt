@@ -84,7 +84,9 @@ class CompleteRegisterFragment : Fragment() {
             val email = binding.emailET.editText?.text.toString()
             val bio = binding.bioET.editText?.text.toString()
 
-            val newUser = User("3",name, userName!!,bio,email, password!!, UserType.NORMAL,
+
+
+            val newUser = User("3",name, userName,bio,email, password, UserType.NORMAL,
                 0, setOf<Int>(), false, imageName)
 
 

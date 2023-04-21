@@ -3,6 +3,7 @@ package com.example.shelfie_app.viewmodel
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.util.JsonReader
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,8 @@ import com.example.shelfie_app.model.Repository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.*
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -133,8 +136,8 @@ class ApiViewModel : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             // Se convierten los datos del user en json
             //val gson = GsonBuilder().setLenient().create()
-            val json = Gson().toJson(newUser)
-
+           // val json = Gson().toJson(newUser)
+            val json = Json.encodeToString(newUser)
             println(json)
 
             val objectBody = json.toRequestBody("multipart/form-data".toMediaTypeOrNull())

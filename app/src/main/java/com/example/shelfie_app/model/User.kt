@@ -1,8 +1,9 @@
 package com.example.shelfie_app.model
 
 import android.provider.ContactsContract.CommonDataKinds.StructuredName
+import kotlinx.serialization.Serializable
 
-
+@Serializable
 data class User(
     var idUser: String,
     var name: String,

@@ -5,6 +5,7 @@ plugins {
     id 'androidx.navigation.safeargs'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.plugin.serialization'
 
 }
 
@@ -78,6 +79,9 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     // Coil
     implementation("io.coil-kt:coil-compose:1.4.0")
+    // JSON
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:1.5.0"
 
 
 }

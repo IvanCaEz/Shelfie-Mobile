@@ -32,7 +32,7 @@ interface ApiInterface {
     @POST
     suspend fun postUser(@Url url: String,
                          @Part("body") body: RequestBody,
-                         @Part image: MultipartBody.Part): Call<*>
+                         @Part image: MultipartBody.Part)
     @POST suspend fun postBookToBookHistory(@Url url: String, @Body body: Book): Call<Book>
     @POST suspend fun postBookLoan(@Url url: String, @Body body: BookLoan): Call<BookLoan>
 
