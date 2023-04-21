@@ -27,9 +27,11 @@ interface ApiInterface {
 
     // TODO() GET Imagen usuario?
     // TODO() Probar el post con imagen
-    @POST
     @Multipart
-    suspend fun postUser(@Url url: String, @Part body: RequestBody, @Part image: MultipartBody.Part): Call<*>
+    @POST
+    suspend fun postUser(@Url url: String,
+                         @Part("body") body: RequestBody,
+                         @Part image: MultipartBody.Part): Call<*>
     @POST suspend fun postBookToBookHistory(@Url url: String, @Body body: Book): Call<Book>
     @POST suspend fun postBookLoan(@Url url: String, @Body body: BookLoan): Call<BookLoan>
 
@@ -84,5 +86,16 @@ interface ApiInterface {
             return retrofit.create(ApiInterface::class.java)
         }
     }
-
+    /*
+                        @Part("idUser") idUser: RequestBody,
+                        @Part("name") name: RequestBody,
+                        @Part("userName") userName: RequestBody,
+                        @Part("description") description: RequestBody,
+                        @Part("email") email: RequestBody,
+                        @Part("password") password: RequestBody,
+                        @Part("userType") userType: RequestBody,
+                        @Part("borrowedBooksCounter") borrowedBooksCounter: RequestBody,
+                        @Part("banned") banned: RequestBody,
+                        @Part("userImage") userImage: RequestBody,
+                         */
 }

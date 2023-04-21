@@ -27,13 +27,8 @@ class ShelfAdapter(
     var reviewList: List<Review>,
     private val listener: BookOnClickListener,
     private val viewModel: ApiViewModel
-    //private val bookCovers: MutableMap<String, Bitmap>
-    //  private val rating: Double,
-    //private val bookCover: Bitmap
 ) : RecyclerView.Adapter<ShelfAdapter.ViewHolder>() {
     private lateinit var context: Context
-    //val viewModel: ApiViewModel by activityViewModels<ApiViewModel>()
-
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ShelfItemBinding.bind(view)
 
@@ -76,6 +71,14 @@ class ShelfAdapter(
                 "mistery" -> {
                     binding.genreTag.setChipBackgroundColorResource(R.color.misteryLight)
                     binding.genreTag.setChipStrokeColorResource(R.color.misteryDark)
+                }
+                "nonfiction" -> {
+                    binding.genreTag.setChipBackgroundColorResource(R.color.nonfictionLight)
+                    binding.genreTag.setChipStrokeColorResource(R.color.nonfictionDark)
+                }
+                "horror" -> {
+                    binding.genreTag.setChipBackgroundColorResource(R.color.horrorLight)
+                    binding.genreTag.setChipStrokeColorResource(R.color.horrorDark)
                 }
             }
         }

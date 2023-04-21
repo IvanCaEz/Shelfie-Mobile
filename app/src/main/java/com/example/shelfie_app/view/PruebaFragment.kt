@@ -92,19 +92,15 @@ class PruebaFragment : Fragment() {
                 println("hola")
                 println(viewModel.listOfBookReviews.value)
                 getRating(reviewList)
-
             })
             getBookCover()
         }
-
-
     }
 
 fun getBookCover(){
     viewModel.bookCover.observe(viewLifecycleOwner, Observer {
         binding.bookCover.setImageBitmap(it)
     })
-
 }
 
 
@@ -129,17 +125,12 @@ fun getRating(reviewList: List<Review>) {
 fun pasteInfo() {
     binding.bookName.text = viewModel.bookData.value?.title
 }
-
     private fun selectImage() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
         resultLauncher.launch(intent)
     }
-
-
-
-
 
     fun getPathFromImageUri(context: Context, imageUri: Uri): String? {
         val projection = arrayOf(MediaStore.Images.Media.DATA)

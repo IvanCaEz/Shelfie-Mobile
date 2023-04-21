@@ -35,30 +35,26 @@ class SignUpFragment : Fragment() {
 
 
         binding.registerButton.setOnClickListener {
-            /*
             // Miramos que la contraseña sea válida y que coincidan
             if (validatePassword() && confirmPassword()) {
                 val newUserName = binding.usernameET.editText?.text.toString()
+                val password = binding.passwordET.editText?.text.toString()
                 // Miramos que no haya ningún usuario con ese nombre de usuario
                 viewModel.getAllUsers()
                 viewModel.listOfUsers.observe(viewLifecycleOwner) { userList ->
                     userList.forEach { user ->
-                        if (user.userName == newUserName) {
+                        if (user.userName == newUserName && newUserName != "") {
                             binding.usernameET.isErrorEnabled = true
                             binding.usernameET.error = "This username is taken."
                         } else {
                             binding.usernameET.error = null
                             binding.usernameET.isErrorEnabled = false
-                            // DIALOG
-                            completeSignUpDialog()
+                            // Completar registro
+                            completeSignUpDialog(newUserName, password)
                         }
                     }
                 }
             }
-             */
-            completeSignUpDialog()
-
-
 
 
             // si no lo hay mostramos el dialogo para completar el registro
@@ -84,10 +80,15 @@ class SignUpFragment : Fragment() {
             }
         }
      */
-    fun completeSignUpDialog() {
-        val toCompleteDialog = SignUpFragmentDirections.actionSignUpFragmentToSignUpDialog()
-        findNavController().navigate(toCompleteDialog)
+
+
+    private fun completeSignUpDialog(userName: String, password: String) {
+        val toCompleteRegister =  SignUpFragmentDirections.actionSignUpFragmentToCompleteSignUpFragment()
+        findNavController().navigate(toCompleteRegister)
+
     }
+
+
 
     private fun validatePassword(): Boolean {
         return if (binding.passwordET.editText?.text.toString().trim().length <= 5) {

@@ -17,8 +17,12 @@
     <color name="scifiDark">#314D65</color>
     <color name="classicsLight">#caaf9c</color>
     <color name="classicsDark">#BC9574</color>
-    <color name="misteryDark">#010005</color>
-    <color name="misteryLight">#26272B</color>
+    <color name="misteryDark">#0B0037</color>
+    <color name="misteryLight">#332C4E</color>
+    <color name="horrorDark">#010005</color>
+    <color name="horrorLight">#26272B</color>
+    <color name="nonfictionDark">#2B443B</color>
+    <color name="nonfictionLight">#3A5E52</color>
 
 
 

@@ -2,6 +2,7 @@ package com.example.shelfie_app.viewmodel
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,11 +11,12 @@ import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.model.User
 import com.example.shelfie_app.model.Repository
-import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.text.DecimalFormat
 
@@ -126,21 +128,34 @@ class ApiViewModel : ViewModel() {
 
 
     // TODO() POST
-    fun postUser(newUser: User, imagePath: String) {
+    fun postUser(newUser: User, imageFile: File) {
         CoroutineScope(Dispatchers.IO).launch {
             // Se convierten los datos del user en json
-            val gson = Gson()
-            val objectString = gson.toJson(newUser)
-            val objectBody =
-                RequestBody.create("application/json".toMediaTypeOrNull(), objectString)
+            val gson = GsonBuilder().setLenient().create()
+            val json = gson.toJson(newUser)
+            val objectBody = json.toRequestBody("application/json".toMediaTypeOrNull())
+
+                //RequestBody.create("application/json".toMediaTypeOrNull(), json)
             // Tratamos la imagen
-            val imageFile = File(imagePath)
-            val imageRequestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
+            println(json)
+            println("separacion")
+            println(objectBody)
+
+            //val filePart = imageFile.asRequestBody("image/*".toMediaType()).toMultipartBodyPart("image")
+           val imageRequestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
+            val imagePart =
+                MultipartBody.Part.createFormData("image", imageFile.name, imageRequestFile)
+            //val bodyPart = MultipartBody.Part.create(objectBody)
+            //FormDataBodyPart("body", objectBody)
+            repository.postUser("users", objectBody, imagePart)
+           /*
+
+            val bodyPart = FormDataBodyPart("body", objectBody)
             val imagePart =
                 MultipartBody.Part.createFormData("image", imageFile.name, imageRequestFile)
 
+            */
 
-            val response = repository.postUser("users", objectBody, imagePart)
         }
     }
 
@@ -364,4 +379,8 @@ class ApiViewModel : ViewModel() {
     }
 
 
+}
+
+fun RequestBody.toMultipartBodyPart(name: String): MultipartBody.Part {
+    return MultipartBody.Part.createFormData(name, null, this)
 }
