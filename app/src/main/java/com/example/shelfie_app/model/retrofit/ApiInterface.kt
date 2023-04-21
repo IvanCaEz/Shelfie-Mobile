@@ -4,6 +4,7 @@ import com.example.models.BookLoan
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.model.User
+import com.google.gson.GsonBuilder
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -78,9 +79,10 @@ interface ApiInterface {
         fun create(): ApiInterface {
             //.addInterceptor(HeaderInterceptor())
             val client = OkHttpClient.Builder().build()
+            val gsonClient = GsonBuilder().serializeNulls().create()
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gsonClient))
                 .client(client)
                 .build()
             return retrofit.create(ApiInterface::class.java)

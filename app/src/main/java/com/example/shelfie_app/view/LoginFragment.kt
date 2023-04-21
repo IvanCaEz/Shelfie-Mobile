@@ -26,7 +26,7 @@ class LoginFragment : Fragment() {
 
         binding.registerButton.setOnClickListener {
 
-            val toRegister = LoginFragmentDirections.actionLoginFragmentToSignUpFragment()
+            val toRegister = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
             findNavController().navigate(toRegister)
 
 

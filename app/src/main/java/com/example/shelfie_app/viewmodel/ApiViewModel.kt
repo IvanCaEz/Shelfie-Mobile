@@ -11,6 +11,7 @@ import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.model.User
 import com.example.shelfie_app.model.Repository
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -131,13 +132,15 @@ class ApiViewModel : ViewModel() {
     fun postUser(newUser: User, imageFile: File) {
         CoroutineScope(Dispatchers.IO).launch {
             // Se convierten los datos del user en json
-            val gson = GsonBuilder().setLenient().create()
-            val json = gson.toJson(newUser)
-            val objectBody = json.toRequestBody("application/json".toMediaTypeOrNull())
+            //val gson = GsonBuilder().setLenient().create()
+            val json = Gson().toJson(newUser)
+
+            println(json)
+
+            val objectBody = json.toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
                 //RequestBody.create("application/json".toMediaTypeOrNull(), json)
             // Tratamos la imagen
-            println(json)
             println("separacion")
             println(objectBody)
 

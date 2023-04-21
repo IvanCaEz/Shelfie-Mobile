@@ -16,15 +16,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
-import com.example.shelfie_app.databinding.FragmentCompleteSignUpBinding
+import com.example.shelfie_app.R
+import com.example.shelfie_app.databinding.FragmentCompleteRegisterBinding
 import com.example.shelfie_app.model.User
 import com.example.shelfie_app.model.UserType
 import com.example.shelfie_app.viewmodel.ApiViewModel
 import java.io.File
 
-
-class CompleteSignUpFragment : Fragment() {
- private lateinit var binding: FragmentCompleteSignUpBinding
+class CompleteRegisterFragment : Fragment() {
+  private lateinit var binding: FragmentCompleteRegisterBinding
     lateinit var viewModel: ApiViewModel
     var imageName = "/placeholder"
     var imagePath = ""
@@ -45,10 +45,9 @@ class CompleteSignUpFragment : Fragment() {
         }
     }
 
-
-    override fun onCreateView(inflater: LayoutInflater,
-                              container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentCompleteSignUpBinding.inflate(layoutInflater)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?): View {
+        binding = FragmentCompleteRegisterBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -58,7 +57,7 @@ class CompleteSignUpFragment : Fragment() {
 
         //val userName = arguments?.getString("userName")
         //val password = arguments?.getString("password")
-        val userName = "colinabo"
+        val userName = "colinabo2"
         val password = "123456"
         binding.usernameTV.text = userName
 
@@ -147,7 +146,8 @@ class CompleteSignUpFragment : Fragment() {
 
         // Get the cursor for the selected image
         val sel = MediaStore.Images.Media._ID + "=?"
-        val cursor = context.contentResolver.query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+        val cursor = context.contentResolver.query(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
             column, sel, arrayOf(id), null)
 
         cursor?.let {
@@ -180,7 +180,7 @@ class CompleteSignUpFragment : Fragment() {
         when (requestCode) {
             REQUEST_READ_EXTERNAL_STORAGE_PERMISSION -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                        selectImage()
+                    selectImage()
                 } else {
                     // permission denied, handle the error
                 }
