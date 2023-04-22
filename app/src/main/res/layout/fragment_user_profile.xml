@@ -11,7 +11,7 @@
         android:id="@+id/profilepic"
         android:layout_width="140dp"
         android:layout_height="140dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="25dp"
         android:padding="7dp"
         android:src="@drawable/mittens2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
         android:id="@+id/usernameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="7dp"
+        android:padding="4dp"
         android:text="Mittens"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -77,12 +77,12 @@
         android:id="@+id/userBooks_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="books read"
+        android:text="@string/books_read"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@id/guideline5"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/mostReadedGenres"
         app:layout_constraintTop_toBottomOf="@id/userBooksCounter" />
-
 
     <TextView
         android:id="@+id/reviewCounter"
@@ -91,16 +91,17 @@
         android:text="240"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@id/guideline6"
-        app:layout_constraintStart_toStartOf="@id/guideline5"
+        app:layout_constraintStart_toEndOf="@id/guideline5"
         app:layout_constraintTop_toBottomOf="@id/userBio" />
     <TextView
         android:id="@+id/reviews_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="reviews"
+        android:text="@string/reviews"
         android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/mostReadedGenres"
         app:layout_constraintEnd_toStartOf="@id/guideline6"
-        app:layout_constraintStart_toStartOf="@id/guideline5"
+        app:layout_constraintStart_toEndOf="@id/guideline5"
         app:layout_constraintTop_toBottomOf="@id/reviewCounter" />
 
     <TextView
@@ -116,36 +117,84 @@
         android:id="@+id/wantToRead_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/mostReadedGenres"
         android:text="want to read"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@id/wantToReadCounter"
         app:layout_constraintStart_toStartOf="@id/wantToReadCounter"
         app:layout_constraintTop_toBottomOf="@id/wantToReadCounter" />
-    <!-- <TextView
-        android:id="@+id/favGenres_TV"
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/infoProgressBar"
         android:layout_width="wrap_content"
+        android:visibility="invisible"
         android:layout_height="wrap_content"
-        android:text="@string/favorite_genres"
+        app:layout_constraintBottom_toTopOf="@id/mostReadedGenres"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userBooksCounter" /> -->
+        app:layout_constraintTop_toBottomOf="@id/profilepic"
+        app:indicatorColor="@color/misteryLight"
+        android:indeterminate="true"
+        />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/mostReadedGenres"
+        android:layout_width="wrap_content"
+        android:visibility="invisible"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/tab_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reviews_TV">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/firstGenre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Genre"
+            app:chipStrokeWidth="1dp"
+            android:textColor="@color/white"
+            android:checkable="false"
+            android:clickable="false"
+            app:chipBackgroundColor="@color/beigeBackground"
+            />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/secondGenre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Genre"
+            app:chipStrokeWidth="1dp"
+            android:textColor="@color/white"
+            android:checkable="false"
+            android:clickable="false"
+            app:chipBackgroundColor="@color/beigeBackground"
+            />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/thirdGenre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Genre"
+            app:chipStrokeWidth="1dp"
+            android:textColor="@color/white"
+            android:checkable="false"
+            android:clickable="false"
+            app:chipBackgroundColor="@color/beigeBackground"
+            />
+    </com.google.android.material.chip.ChipGroup>
 
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:background="@color/nav"
         app:layout_constraintBottom_toTopOf="@id/view_pager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/userBooks_TV"
+        app:layout_constraintTop_toBottomOf="@id/mostReadedGenres"
         app:tabTextColor="@color/white">
 
-
     </com.google.android.material.tabs.TabLayout>
-
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
@@ -161,28 +210,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="247dp" />
+        app:layout_constraintGuide_end="164dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="162dp" />
+        app:layout_constraintGuide_end="245dp" />
 
-
-    <!-- <de.hdodenhof.circleimageview.CircleImageView
-         android:id="@+id/profile_image"
-         android:layout_width="96dp"
-         android:layout_height="96dp"
-         android:src="@drawable/black_user"
-         app:civ_border_overlay="true"
-         app:civ_border_width="2dp"
-         app:civ_border_color="@color/purple_200"
-         app:layout_constraintTop_toTopOf="parent"
-         app:layout_constraintStart_toStartOf="parent"
-         app:layout_constraintEnd_toEndOf="parent"
-         app:layout_constraintBottom_toBottomOf="parent"
-        />
- -->
 </androidx.constraintlayout.widget.ConstraintLayout>

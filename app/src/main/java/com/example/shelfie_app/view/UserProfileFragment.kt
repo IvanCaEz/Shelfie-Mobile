@@ -9,9 +9,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.shelfie_app.R
 import com.example.shelfie_app.databinding.FragmentUserProfileBinding
+import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.view.adapters.ProfileAdapter
 import com.example.shelfie_app.viewmodel.ApiViewModel
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.runBlocking
 
 class UserProfileFragment : Fragment() {
   private lateinit var binding: FragmentUserProfileBinding
@@ -31,7 +33,9 @@ class UserProfileFragment : Fragment() {
         setupViewPager()
         println(viewModel.userData.value!!.userName)
 
+        binding.infoProgressBar.visibility = View.VISIBLE
         getUserInfo(viewModel.userData.value!!.idUser)
+
         binding.usernameText.text = viewModel.userData.value!!.name
         binding.usernameArroba.text = "@" + viewModel.userData.value!!.userName
         binding.userBio.text = viewModel.userData.value!!.description
@@ -59,6 +63,41 @@ class UserProfileFragment : Fragment() {
         viewModel.getUserLoans(userID)
         viewModel.getUserBookHistory(userID)
         viewModel.getUserImage(userID)
+
+        viewModel.userBookHistory.observe(viewLifecycleOwner){ bookHistory ->
+            runBlocking {
+                mostReadedGenres(bookHistory)
+            }
+        }
+        binding.infoProgressBar.visibility = View.INVISIBLE
+    }
+
+    fun mostReadedGenres(bookHistory: List<Book>){
+
+       val countMap = bookHistory.groupingBy { book ->
+            book.genre
+        }.eachCount().toList().sortedByDescending { it.second }.take(3)
+
+        if (countMap.isNotEmpty()){
+            when (countMap.size ){
+                1 -> {
+                    viewModel.renderTag(binding.firstGenre, countMap[0].first)
+                    binding.secondGenre.visibility = View.GONE
+                    binding.thirdGenre.visibility = View.GONE
+                }
+                2-> {
+                    viewModel.renderTag(binding.firstGenre, countMap[0].first)
+                    viewModel.renderTag(binding.secondGenre, countMap[1].first)
+                    binding.thirdGenre.visibility = View.GONE
+                }
+                3 -> {
+                    viewModel.renderTag(binding.firstGenre, countMap[0].first)
+                    viewModel.renderTag(binding.secondGenre, countMap[1].first)
+                    viewModel.renderTag(binding.thirdGenre, countMap[2].first)
+                }
+            }
+            binding.mostReadedGenres.visibility = View.VISIBLE
+        }
 
     }
     private fun setupViewPager(){

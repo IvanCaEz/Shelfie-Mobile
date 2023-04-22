@@ -8,10 +8,12 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.models.BookLoan
+import com.example.shelfie_app.R
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.model.User
 import com.example.shelfie_app.model.Repository
+import com.google.android.material.chip.Chip
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.*
@@ -25,6 +27,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.text.DecimalFormat
+import java.util.*
 
 class ApiViewModel : ViewModel() {
     private val repository = Repository()
@@ -424,8 +427,45 @@ class ApiViewModel : ViewModel() {
         return getBookScore(bookReview)
     }
 
+    fun renderTag(chip: Chip, genre: String){
+        chip.text = genre.replaceFirstChar {
+            if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+        }
+        when (genre){
+            "fantasy" -> {
+                chip.setChipBackgroundColorResource(R.color.fantasyLight)
+                chip.setChipStrokeColorResource(R.color.fantasyDark)
+            }
+            "classics" -> {
+                chip.setChipBackgroundColorResource(R.color.classicsLight)
+                chip.setChipStrokeColorResource(R.color.classicsDark)
+            }
+            "romance" -> {
+                chip.setChipBackgroundColorResource(R.color.romanceLight)
+                chip.setChipStrokeColorResource(R.color.romanceDark)
+            }
+            "science fiction" -> {
+                chip.setChipBackgroundColorResource(R.color.scifiLight)
+                chip.setChipStrokeColorResource(R.color.scifiDark)
+            }
+            "mistery" -> {
+                chip.setChipBackgroundColorResource(R.color.misteryLight)
+                chip.setChipStrokeColorResource(R.color.misteryDark)
+            }
+            "nonfiction" -> {
+                chip.setChipBackgroundColorResource(R.color.nonfictionLight)
+                chip.setChipStrokeColorResource(R.color.nonfictionDark)
+            }
+            "horror" -> {
+                chip.setChipBackgroundColorResource(R.color.horrorLight)
+                chip.setChipStrokeColorResource(R.color.horrorDark)
+            }
+        }
+    }
 
 }
+
+
 
 fun RequestBody.toMultipartBodyPart(name: String): MultipartBody.Part {
     return MultipartBody.Part.createFormData(name, null, this)

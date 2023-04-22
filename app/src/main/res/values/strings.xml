@@ -19,4 +19,6 @@
     <string name="extend_time">Extend Time</string>
     <string name="review">Review</string>
     <string name="returntext">Return</string>
+    <string name="books_read">books read</string>
+    <string name="reviews">reviews</string>
 </resources>

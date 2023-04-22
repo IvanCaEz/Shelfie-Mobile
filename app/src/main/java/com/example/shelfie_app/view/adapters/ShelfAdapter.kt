@@ -32,56 +32,20 @@ class ShelfAdapter(
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = ShelfItemBinding.bind(view)
 
-        fun bookRatings(bookID: String): String{
-            val bookReviews = reviewList.filter { it.idBook == bookID }
-            return viewModel.getBookScore(bookReviews)
-        }
         fun render(bookToRender: Book) {
+            binding.ratingBar.setOnTouchListener { _, _ -> true }
+            binding.ratingBar.isClickable = false
             binding.bookTitleTV.text = bookToRender.title
             binding.authorTV.text = bookToRender.author
             binding.bookCoverIV.setImageBitmap(viewModel.bookCovers[bookToRender.idBook])
-            renderTag(bookToRender.genre)
-            renderRating(bookRatings(bookToRender.idBook).toDouble())
+            viewModel.renderTag(binding.genreTag, bookToRender.genre)
+           // renderTag(bookToRender.genre)
+            //renderRating(bookRatings(bookToRender.idBook).toDouble())
+            binding.ratingBar.rating = viewModel.getBookScore(reviewList.filter {
+                it.idBook == bookToRender.idBook }).toFloat()
         }
 
-
-        @SuppressLint("ResourceAsColor")
-        fun renderTag(genre: String){
-            binding.genreTag.text = genre.replaceFirstChar {
-                if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
-            }
-            when (genre){
-                "fantasy" -> {
-                    binding.genreTag.setChipBackgroundColorResource(R.color.fantasyLight)
-                    binding.genreTag.setChipStrokeColorResource(R.color.fantasyDark)
-                }
-                "classics" -> {
-                    binding.genreTag.setChipBackgroundColorResource(R.color.classicsLight)
-                    binding.genreTag.setChipStrokeColorResource(R.color.classicsDark)
-
-                }
-                "romance" -> {
-                    binding.genreTag.setChipBackgroundColorResource(R.color.romanceLight)
-                    binding.genreTag.setChipStrokeColorResource(R.color.romanceDark)
-                }
-                "science fiction" -> {
-                    binding.genreTag.setChipBackgroundColorResource(R.color.scifiLight)
-                    binding.genreTag.setChipStrokeColorResource(R.color.scifiDark)
-                }
-                "mistery" -> {
-                    binding.genreTag.setChipBackgroundColorResource(R.color.misteryLight)
-                    binding.genreTag.setChipStrokeColorResource(R.color.misteryDark)
-                }
-                "nonfiction" -> {
-                    binding.genreTag.setChipBackgroundColorResource(R.color.nonfictionLight)
-                    binding.genreTag.setChipStrokeColorResource(R.color.nonfictionDark)
-                }
-                "horror" -> {
-                    binding.genreTag.setChipBackgroundColorResource(R.color.horrorLight)
-                    binding.genreTag.setChipStrokeColorResource(R.color.horrorDark)
-                }
-            }
-        }
+        /*
         fun renderRating(rating: Double) {
             when (rating) {
                 in 0.5..0.99 -> binding.star1.setImageResource(R.drawable.half_star)
@@ -132,6 +96,8 @@ class ShelfAdapter(
                 }
             }
         }
+         */
+
     }
 
 
@@ -149,9 +115,12 @@ class ShelfAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val book = bookList[position]
+
         with(holder) {
             render(book)
+
         }
+
     }
 
     @JvmName("setBookList1")
