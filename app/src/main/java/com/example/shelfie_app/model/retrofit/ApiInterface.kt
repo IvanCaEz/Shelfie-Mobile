@@ -24,6 +24,8 @@ interface ApiInterface {
     @GET suspend fun getUserByID(@Url url: String): Response<User>
     @GET suspend fun getUserByUserName(@Url url: String): Response<User>
 
+    @GET suspend fun getUserImage(@Url url: String): Response<ResponseBody>
+
     @GET suspend fun getUserBookHistory(@Url url: String): Response<List<Book>>
     @GET suspend fun getUserLoans(@Url url: String): Response<List<BookLoan>>
     @GET suspend fun getBookLoanByBookID(@Url url: String): Response<BookLoan>
@@ -81,7 +83,7 @@ interface ApiInterface {
         fun create(): ApiInterface {
             //.addInterceptor(HeaderInterceptor())
             val client = OkHttpClient.Builder().build()
-            val gsonClient = GsonBuilder().serializeNulls().create()
+            val gsonClient = GsonBuilder().serializeNulls().setLenient().create()
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gsonClient))

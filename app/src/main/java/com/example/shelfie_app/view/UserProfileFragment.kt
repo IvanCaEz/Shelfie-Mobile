@@ -29,12 +29,16 @@ class UserProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupViewPager()
+        println(viewModel.userData.value!!.userName)
 
         getUserInfo(viewModel.userData.value!!.idUser)
-        binding.usernameText.text = "@${viewModel.userData.value!!.name}"
-        binding.usernameArroba.text = "@${viewModel.userData.value!!.userName}"
-        binding.userBio.text = "${viewModel.userData.value!!.description}"
+        binding.usernameText.text = viewModel.userData.value!!.name
+        binding.usernameArroba.text = "@" + viewModel.userData.value!!.userName
+        binding.userBio.text = viewModel.userData.value!!.description
 
+        viewModel.userImage.observe(viewLifecycleOwner){ profilePic ->
+            binding.profilepic.setImageBitmap(profilePic)
+        }
 
         viewModel.listOfUserReviews.observe(viewLifecycleOwner){ reviewList ->
             binding.reviewCounter.text = reviewList.size.toString()
@@ -54,6 +58,7 @@ class UserProfileFragment : Fragment() {
         viewModel.getAllReviewsFromUser(userID)
         viewModel.getUserLoans(userID)
         viewModel.getUserBookHistory(userID)
+        viewModel.getUserImage(userID)
 
     }
     private fun setupViewPager(){

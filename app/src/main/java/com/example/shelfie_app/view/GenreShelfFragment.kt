@@ -39,7 +39,7 @@ class GenreShelfFragment : Fragment(), BookOnClickListener {
         super.onViewCreated(view, savedInstanceState)
         linearLayoutManager = LinearLayoutManager(context)
 
-        viewModel.getAllBooks()
+        //viewModel.getAllBooks()
 
         val genre = arguments?.getString("genre")
         binding.genreTitleTV.text = genre?.replaceFirstChar {

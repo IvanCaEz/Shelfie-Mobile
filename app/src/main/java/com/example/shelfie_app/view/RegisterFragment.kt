@@ -35,21 +35,20 @@ class RegisterFragment : Fragment() {
 
         binding.registerButton.setOnClickListener {
             var registrable = false
-            val newUserName = binding.usernameET.editText?.text.toString()
+            val newUserName = binding.usernameET.editText?.text.toString().trim()
+            val password = binding.passwordET.editText?.text.toString().trim()
             if (newUserName.isNotEmpty()) {
                 // Miramos que la contraseña sea válida y que coincidan
-                if (validatePassword() && confirmPassword()) {
+                if (validatePassword(password) && confirmPassword(password)) {
                     // TODO() Encriptar password antes de pasarla al otro fragment?
-                    val password = binding.passwordET.editText?.text.toString()
+
 
                     // Miramos que no haya ningún usuario con ese nombre de usuario
                     viewModel.getUserByUserName(newUserName)
 
-                    viewModel.userData.observe(viewLifecycleOwner){user ->
+                    viewModel.isNewUser.observe(viewLifecycleOwner){ isNew ->
                         runBlocking {
-                            println(user.userName)
-                            println(user.password)
-                            registrable = user.userName != newUserName
+                            registrable = isNew
                         }
                     }
                     when (registrable) {
@@ -80,8 +79,8 @@ class RegisterFragment : Fragment() {
     }
 
 
-    private fun validatePassword(): Boolean {
-        return if (binding.passwordET.editText?.text.toString().trim().length <= 5) {
+    private fun validatePassword(password: String): Boolean {
+        return if (password.length <= 5) {
             binding.passwordET.isErrorEnabled = true
             binding.passwordET.error = "Password must contain 6 characters or more."
             false
@@ -92,10 +91,8 @@ class RegisterFragment : Fragment() {
         }
     }
 
-    private fun confirmPassword(): Boolean {
-        return if (binding.repeatPasswordET.editText?.text.toString().trim() !=
-            binding.passwordET.editText?.text.toString().trim()
-        ) {
+    private fun confirmPassword(password: String): Boolean {
+        return if (binding.repeatPasswordET.editText?.text.toString().trim() != password) {
             binding.repeatPasswordET.isErrorEnabled = true
             binding.repeatPasswordET.error = "The passwords don't match."
             false

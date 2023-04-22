@@ -15,8 +15,10 @@ import com.example.shelfie_app.model.Repository
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.*
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromJsonElement
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -30,7 +32,9 @@ class ApiViewModel : ViewModel() {
     // USERS
     var listOfUsers = MutableLiveData<List<User>>()
     var userData = MutableLiveData<User>()
-
+    var isNewUser = MutableLiveData<Boolean>()
+    var userImage = MutableLiveData<Bitmap>()
+    var userImages = mutableMapOf<String, Bitmap>()
     var userBookHistory = MutableLiveData<List<Book>>()
 
     var userActiveBookLoans = MutableLiveData<List<BookLoan>>()
@@ -95,9 +99,11 @@ class ApiViewModel : ViewModel() {
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
                     userData.postValue(response.body())
-                    println("usuario ${response.body()?.userName} encontrado")
+                    isNewUser.postValue(false)
+                    println("usuario ${response.body()} encontrado")
                 }
             } else {
+                isNewUser.postValue(true)
                 Log.e("Error " + response.code(), response.message())
             }
         }
@@ -153,10 +159,11 @@ class ApiViewModel : ViewModel() {
             // Se convierten los datos del user en json
             //val gson = GsonBuilder().setLenient().create()
            // val json = Gson().toJson(newUser)
-            val json = Json.encodeToString(newUser)
-            println(json)
+            //val json = Json.encodeToString(newUser)
+            val json2 = Gson().toJson(newUser)
+            println(json2)
 
-            val objectBody = json.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val objectBody = json2.toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
                 //RequestBody.create("application/json".toMediaTypeOrNull(), json)
             // Tratamos la imagen
@@ -284,6 +291,23 @@ class ApiViewModel : ViewModel() {
                     val bitmap = BitmapFactory.decodeStream(inputStream)
                     bookCovers[bookID] = bitmap
                     bookCover.postValue(bitmap!!)
+                }
+            } else {
+                Log.e("Error " + response.code(), response.message())
+            }
+        }
+    }
+    fun getUserImage(userID: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            // Devuelve la portada del libro con la ID indicada
+            val response = repository.getUserImage("users/$userID/user_image")
+            if (response.isSuccessful) {
+                withContext(Dispatchers.Main) {
+                    val source = response.body()
+                    val inputStream = source?.byteStream()
+                    val bitmap = BitmapFactory.decodeStream(inputStream)
+                    userImages[userID] = bitmap
+                    userImage.postValue(bitmap!!)
                 }
             } else {
                 Log.e("Error " + response.code(), response.message())
