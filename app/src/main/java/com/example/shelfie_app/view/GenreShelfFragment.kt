@@ -7,14 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.ui.text.capitalize
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shelfie_app.R
 import com.example.shelfie_app.databinding.FragmentGenreShelfBinding
 import com.example.shelfie_app.model.Book
-import com.example.shelfie_app.view.adapters.BookOnClickListener
+import com.example.shelfie_app.view.listeners.BookOnClickListener
 import com.example.shelfie_app.view.adapters.ShelfAdapter
 import com.example.shelfie_app.viewmodel.ApiViewModel
 import kotlinx.coroutines.runBlocking

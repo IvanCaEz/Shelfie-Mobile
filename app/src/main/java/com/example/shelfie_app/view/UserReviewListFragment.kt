@@ -10,13 +10,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shelfie_app.R
 import com.example.shelfie_app.databinding.FragmentUserReviewListBinding
-import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.view.adapters.ReviewAdapter
-import com.example.shelfie_app.view.adapters.ReviewOnClickListener
-import com.example.shelfie_app.view.adapters.ShelfAdapter
+import com.example.shelfie_app.view.listeners.ReviewOnClickListener
 import com.example.shelfie_app.viewmodel.ApiViewModel
 import kotlinx.coroutines.runBlocking
 

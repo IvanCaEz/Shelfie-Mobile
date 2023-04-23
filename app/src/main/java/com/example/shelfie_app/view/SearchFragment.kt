@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shelfie_app.databinding.FragmentSearchBinding
 import com.example.shelfie_app.view.adapters.GenreAdapter
-import com.example.shelfie_app.view.adapters.GenreOnClickListener
+import com.example.shelfie_app.view.listeners.GenreOnClickListener
 import com.example.shelfie_app.viewmodel.ApiViewModel
 import kotlinx.coroutines.runBlocking
 

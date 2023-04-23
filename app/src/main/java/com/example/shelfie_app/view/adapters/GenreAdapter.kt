@@ -1,18 +1,13 @@
 package com.example.shelfie_app.view.adapters
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.ui.text.capitalize
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shelfie_app.R
 import com.example.shelfie_app.databinding.GenreItemBinding
-import com.example.shelfie_app.databinding.ShelfItemBinding
-import com.example.shelfie_app.model.Book
-import com.example.shelfie_app.model.Review
-import com.example.shelfie_app.viewmodel.ApiViewModel
+import com.example.shelfie_app.view.listeners.GenreOnClickListener
 import java.util.*
 
 class GenreAdapter(

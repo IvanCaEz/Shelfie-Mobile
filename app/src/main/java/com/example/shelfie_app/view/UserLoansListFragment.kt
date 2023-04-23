@@ -10,12 +10,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shelfie_app.R
 import com.example.shelfie_app.databinding.FragmentUserLoansListBinding
 import com.example.shelfie_app.model.Book
-import com.example.shelfie_app.view.adapters.BookOnClickListener
+import com.example.shelfie_app.view.listeners.BookOnClickListener
 import com.example.shelfie_app.view.adapters.LoansAdapter
-import com.example.shelfie_app.view.adapters.ReviewAdapter
 import com.example.shelfie_app.viewmodel.ApiViewModel
 import kotlinx.coroutines.runBlocking
 

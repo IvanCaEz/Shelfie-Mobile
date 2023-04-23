@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.shelfie_app.R
 import com.example.shelfie_app.databinding.FragmentUserProfileBinding
 import com.example.shelfie_app.model.Book

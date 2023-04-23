@@ -1,25 +1,16 @@
 package com.example.shelfie_app.view.adapters
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shelfie_app.R
 import com.example.shelfie_app.databinding.ShelfItemBinding
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
+import com.example.shelfie_app.view.listeners.BookOnClickListener
 import com.example.shelfie_app.viewmodel.ApiViewModel
-import kotlinx.coroutines.runBlocking
-import java.io.File
-import java.text.DecimalFormat
 import java.util.*
 
 class ShelfAdapter(

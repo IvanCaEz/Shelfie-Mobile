@@ -1,6 +1,5 @@
 package com.example.shelfie_app.view
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,11 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shelfie_app.R
-import com.example.shelfie_app.view.adapters.BookOnClickListener
+import com.example.shelfie_app.view.listeners.BookOnClickListener
 import com.example.shelfie_app.view.adapters.ShelfAdapter
 import com.example.shelfie_app.databinding.FragmentShelfBinding
 import com.example.shelfie_app.model.Book

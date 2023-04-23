@@ -4,16 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shelfie_app.R
 import com.example.shelfie_app.databinding.OwnReviewItemBinding
-import com.example.shelfie_app.databinding.ShelfItemBinding
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
-import com.example.shelfie_app.view.UserReviewListFragment
+import com.example.shelfie_app.view.listeners.ReviewOnClickListener
 import com.example.shelfie_app.viewmodel.ApiViewModel
-import kotlinx.coroutines.runBlocking
 
 class ReviewAdapter(var userReviewList: List<Review>,
                     var reviewedBooks: List<Book>,
