@@ -23,8 +23,10 @@ class UserReviewListFragment : Fragment(), ReviewOnClickListener {
     private lateinit var reviewAdapter: ReviewAdapter
     val viewModel: ApiViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentUserReviewListBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -36,25 +38,30 @@ class UserReviewListFragment : Fragment(), ReviewOnClickListener {
 
         //viewModel.getAllReviewsFromUser("1")
 
-        viewModel.listOfUserReviews.observe(viewLifecycleOwner){ userReviewList ->
-            runBlocking {
+        viewModel.listOfUserReviews.observe(viewLifecycleOwner) { userReviewList ->
+            if (userReviewList.isNotEmpty()) {
+
                 viewModel.getBooksByReview(userReviewList)
-                userReviewList.forEach { review  ->
+                userReviewList.forEach { review ->
                     viewModel.getBookCover(review.idBook)
                 }
+
+                viewModel.reviewedBooks.observe(viewLifecycleOwner) { reviewedBooks ->
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        reviewAdapter =
+                            ReviewAdapter(userReviewList, reviewedBooks, this, viewModel)
+                        setupRecyclerView()
+                        binding.shimmerViewContainer.visibility = View.INVISIBLE
+                    }, 1000)
+                }
             }
-            viewModel.reviewedBooks.observe(viewLifecycleOwner){ reviewedBooks ->
-                Handler(Looper.getMainLooper()).postDelayed({
-                    reviewAdapter = ReviewAdapter(userReviewList, reviewedBooks, this, viewModel)
-                    setupRecyclerView()
-                    binding.shimmerViewContainer.visibility = View.INVISIBLE
-                }, 1000)
-            }
+
+
         }
     }
 
     private fun setupRecyclerView() {
-        val manager =  LinearLayoutManager(requireContext())
+        val manager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = reviewAdapter
         binding.recyclerView.layoutManager = manager
         binding.recyclerView.visibility = View.VISIBLE

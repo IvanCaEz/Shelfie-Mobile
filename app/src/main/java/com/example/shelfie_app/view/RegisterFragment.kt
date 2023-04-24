@@ -47,21 +47,19 @@ class RegisterFragment : Fragment() {
                     viewModel.getUserByUserName(newUserName)
 
                     viewModel.isNewUser.observe(viewLifecycleOwner){ isNew ->
-                        runBlocking {
-                            registrable = isNew
+                        when (isNew) {
+                            false -> {
+                                binding.usernameET.isErrorEnabled = true
+                                binding.usernameET.error = "This username is taken."
+                            }
+                            true -> {
+                                binding.usernameET.error = null
+                                binding.usernameET.isErrorEnabled = false
+                                completeSignUpDialog(newUserName, password)
+                            }
                         }
                     }
-                    when (registrable) {
-                        false -> {
-                            binding.usernameET.isErrorEnabled = true
-                            binding.usernameET.error = "This username is taken."
-                        }
-                        true -> {
-                            binding.usernameET.error = null
-                            binding.usernameET.isErrorEnabled = false
-                            completeSignUpDialog(newUserName, password)
-                        }
-                    }
+
                 }
             } else {
                 binding.usernameET.isErrorEnabled = true
@@ -70,14 +68,12 @@ class RegisterFragment : Fragment() {
         }
     }
 
-
     private fun completeSignUpDialog(userName: String, password: String) {
         val toCompleteRegister = RegisterFragmentDirections
             .actionRegisterFragmentToCompleteRegisterFragment(userName,password)
         findNavController().navigate(toCompleteRegister)
 
     }
-
 
     private fun validatePassword(password: String): Boolean {
         return if (password.length <= 5) {

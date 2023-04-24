@@ -49,12 +49,11 @@ class GenreShelfFragment : Fragment(), BookOnClickListener {
            val booksByGenre = bookList.filter { book ->
                 book.genre == genre
             }
-            runBlocking {
                 booksByGenre.forEach { book ->
                         viewModel.getBookCover(book.idBook)
                         viewModel.getAllReviewsFromBook(book.idBook)
                 }
-            }
+
             viewModel.listOfBookReviews.observe(viewLifecycleOwner) { reviewList ->
                 Handler(Looper.getMainLooper()).postDelayed({
                     shelfAdapter = ShelfAdapter(booksByGenre, reviewList, this, viewModel)

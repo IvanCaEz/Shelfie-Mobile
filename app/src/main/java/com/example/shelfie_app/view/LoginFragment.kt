@@ -31,8 +31,6 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
-        var loginOK = false
         binding.loginButton.setOnClickListener {
             val userName = binding.usernameET.editText?.text.toString()
             val password = binding.passwordET.editText?.text.toString()
@@ -40,7 +38,6 @@ class LoginFragment : Fragment() {
 
             if (userName.isNotEmpty() && password.isNotEmpty()) {
                 viewModel.getUserByUserName(userName)
-                runBlocking {
                     viewModel.userData.observe(viewLifecycleOwner) { user ->
                         println("lo que pongo $password")
                         println("lo de la bd ${user.password}")
@@ -48,17 +45,16 @@ class LoginFragment : Fragment() {
                             println(viewModel.userData.value!!.userName)
                             binding.passwordET.error = null
                             binding.passwordET.isErrorEnabled = false
-                            loginOK = true
-                            println(loginOK)
+                                // QUITAR ESTO
+                                println(Json.encodeToString(viewModel.userData.value!!))
+                                login()
+
+
                         } else {
                             binding.passwordET.isErrorEnabled = true
                             binding.passwordET.error = "Incorrect password."
                         }
                     }
-                }
-
-
-                println(loginOK)
                 binding.passwordET.error = null
                 binding.passwordET.isErrorEnabled = false
                 binding.usernameET.error = null
@@ -74,19 +70,6 @@ class LoginFragment : Fragment() {
                 binding.usernameET.error = null
                 binding.usernameET.isErrorEnabled = false
             }
-
-            if (loginOK) {
-                println(viewModel.userData.value!!.userName)
-                // Si va
-                // {"idUser":"1","name":"Ivan","userName":"theReader","description":"I like to read","email":"ivan.martinez.7e6@itb.cat","password":"colinabo","userType":"ADMIN","borrowedBooksCounter":2,"bookHistory":[2,5],"banned":false,"userImage":"IMG-20220908-WA0046_2.jpg"}
-                // No va
-                //{"idUser":"21","name":"MittensTheCat","userName":"mittens","description":"im acat","email":"acat@gmail.com","password":"mittens","userType":"NORMAL","borrowedBooksCounter":0,"bookHistory":[15,22],"banned":false,"userImage":"placeholder.png"}
-
-                println(Json.encodeToString(viewModel.userData.value!!))
-                println("Ahora se logea")
-                login()
-            }
-
         }
 
 

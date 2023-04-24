@@ -38,12 +38,12 @@ class ShelfFragment : Fragment(), BookOnClickListener {
         viewModel.getAllBooks()
 
         viewModel.listOfBooks.observe(viewLifecycleOwner) { bookList ->
-            runBlocking {
+
                 bookList.forEach { book ->
                     viewModel.getBookCover(book.idBook)
                     viewModel.getAllReviewsFromBook(book.idBook)
                 }
-            }
+
             viewModel.listOfBookReviews.observe(viewLifecycleOwner){ reviewList ->
                 Handler(Looper.getMainLooper()).postDelayed({
                     shelfAdapter = ShelfAdapter(bookList, reviewList, this,viewModel)

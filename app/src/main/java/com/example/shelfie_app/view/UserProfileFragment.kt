@@ -68,16 +68,16 @@ class UserProfileFragment : Fragment() {
         if (viewModel.userData.value?.bookHistory!!.isNotEmpty()){
             viewModel.getUserBookHistory(userID)
         }
-        runBlocking {
+
             viewModel.getUserImage(userID)
-        }
+
         println("imagen " + viewModel.userImage.value)
 
 
         viewModel.userBookHistory.observe(viewLifecycleOwner){ bookHistory ->
-            runBlocking {
+
                 mostReadedGenres(bookHistory)
-            }
+
         }
         binding.infoProgressBar.visibility = View.INVISIBLE
     }

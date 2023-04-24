@@ -34,18 +34,26 @@ class UserBookHistoryListFragment : Fragment(), BookOnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.userBookHistory.observe(viewLifecycleOwner) { bookList ->
-            runBlocking {
-                bookList.forEach { book ->
-                    viewModel.getBookCover(book.idBook)
+            if (bookList.isNotEmpty()){
+                runBlocking {
+                    bookList.forEach { book ->
+                        viewModel.getBookCover(book.idBook)
+                    }
                 }
-            }
-            viewModel.listOfUserReviews.observe(viewLifecycleOwner){ userReviewList ->
-                Handler(Looper.getMainLooper()).postDelayed({
-                    shelfAdapter = ShelfAdapter(bookList, userReviewList, this, viewModel)
-                    setupRecyclerView()
-                    binding.shimmerViewContainer.visibility = View.INVISIBLE
-                }, 1000)
-            }
+
+                viewModel.listOfUserReviews.observe(viewLifecycleOwner){ userReviewList ->
+                    if (userReviewList.isNotEmpty()){
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            shelfAdapter = ShelfAdapter(bookList, userReviewList, this, viewModel)
+                            setupRecyclerView()
+                            binding.shimmerViewContainer.visibility = View.INVISIBLE
+                        }, 1000)
+                    } else println("lista de reviews vacia")
+                }
+
+            }else println("lista de libros leidos vacia")
+
+
         }
     }
 

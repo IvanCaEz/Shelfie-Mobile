@@ -23,8 +23,10 @@ class UserLoansListFragment : Fragment(), BookOnClickListener {
     private lateinit var loansAdapter: LoansAdapter
     val viewModel: ApiViewModel by activityViewModels()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentUserLoansListBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -35,25 +37,25 @@ class UserLoansListFragment : Fragment(), BookOnClickListener {
         linearLayoutManager = LinearLayoutManager(context)
 
 
-        viewModel.userActiveBookLoans.observe(viewLifecycleOwner){ activeBookLoans ->
+        viewModel.userActiveBookLoans.observe(viewLifecycleOwner) { activeBookLoans ->
             println(viewModel.userActiveBookLoans.value!!.size)
-            runBlocking {
-                viewModel.getBooksByBookLoan(activeBookLoans)
-                activeBookLoans.forEach { bookLoan  ->
-                    viewModel.getBookCover(bookLoan.idBook)
-                }
+            viewModel.getBooksByBookLoan(activeBookLoans)
+            activeBookLoans.forEach { bookLoan ->
+                viewModel.getBookCover(bookLoan.idBook)
             }
-            viewModel.loanedBooks.observe(viewLifecycleOwner){ loanedBooks ->
+
+            viewModel.loanedBooks.observe(viewLifecycleOwner) { loanedBooks ->
                 Handler(Looper.getMainLooper()).postDelayed({
-                    loansAdapter = LoansAdapter(activeBookLoans, loanedBooks,this, viewModel)
+                    loansAdapter = LoansAdapter(activeBookLoans, loanedBooks, this, viewModel)
                     setupRecyclerView()
                     binding.shimmerViewContainer.visibility = View.INVISIBLE
                 }, 1000)
             }
         }
     }
+
     private fun setupRecyclerView() {
-        val manager =  LinearLayoutManager(requireContext())
+        val manager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = loansAdapter
         binding.recyclerView.layoutManager = manager
         binding.recyclerView.visibility = View.VISIBLE

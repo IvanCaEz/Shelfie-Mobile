@@ -38,11 +38,11 @@ class SearchFragment : Fragment(), GenreOnClickListener {
         viewModel.getAllBooks()
         binding.progressBar.visibility = View.VISIBLE
         viewModel.listOfBooks.observe(viewLifecycleOwner) { bookList ->
-            runBlocking {
+
                 bookList.forEach { book ->
                     genreList.add(book.genre)
                 }
-            }
+
             Handler(Looper.getMainLooper()).postDelayed({
                 genreAdapter = GenreAdapter(genreList.toList(), this)
                 setupRecyclerView()
