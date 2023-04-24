@@ -191,6 +191,23 @@ class ApiViewModel : ViewModel() {
         }
     }
 
+    fun putUser(userToUpdate: User, imageFile: File) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val json2 = Gson().toJson(userToUpdate)
+            println(json2)
+
+            val objectBody = json2.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+
+            println("separacion")
+            println(objectBody)
+
+            val imageRequestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
+            val imagePart =
+                MultipartBody.Part.createFormData("image", imageFile.name, imageRequestFile)
+            repository.putUser("users/${userToUpdate.idUser}", objectBody, imagePart)
+        }
+    }
+
     fun postBookToBookHistory(userID: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.postBookToBookHistory("users/$userID/book_history", readBook)
@@ -206,6 +223,12 @@ class ApiViewModel : ViewModel() {
     //TODO PUT
 
     //TODO DELETE
+
+    fun deleteUser(userID: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.deleteUser("users/$userID")
+        }
+    }
     fun deleteBookLoan(userID: String, bookID: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.deleteBookLoan("users/$userID/book_loans/$bookID")

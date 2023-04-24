@@ -50,6 +50,7 @@ class CompleteRegisterFragment : Fragment() {
                     binding.addPhotoIV.setImageURI(imageUri)
                     // Get the file name from the URI
                     imageName = getFileName(imageUri!!)
+
                 }
             }
         }

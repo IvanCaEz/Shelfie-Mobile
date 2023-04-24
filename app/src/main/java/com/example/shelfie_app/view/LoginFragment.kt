@@ -83,6 +83,7 @@ class LoginFragment : Fragment() {
                 //{"idUser":"21","name":"MittensTheCat","userName":"mittens","description":"im acat","email":"acat@gmail.com","password":"mittens","userType":"NORMAL","borrowedBooksCounter":0,"bookHistory":[15,22],"banned":false,"userImage":"placeholder.png"}
 
                 println(Json.encodeToString(viewModel.userData.value!!))
+                println("Ahora se logea")
                 login()
             }
 

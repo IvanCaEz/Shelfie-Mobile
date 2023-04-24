@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.shelfie_app.R
 import com.example.shelfie_app.databinding.FragmentUserProfileBinding
 import com.example.shelfie_app.model.Book
@@ -54,14 +55,24 @@ class UserProfileFragment : Fragment() {
             binding.userBooksCounter.text = booksRead.size.toString()
         }
          */
+        binding.editProfileButton.setOnClickListener {
+            val toEditProfile = UserProfileFragmentDirections.actionUserProfileFragmentToEditProfileFragment()
+            findNavController().navigate(toEditProfile)
+        }
 
     }
 
     fun getUserInfo(userID: String){
         viewModel.getAllReviewsFromUser(userID)
         viewModel.getUserLoans(userID)
-        viewModel.getUserBookHistory(userID)
-        viewModel.getUserImage(userID)
+        if (viewModel.userData.value?.bookHistory!!.isNotEmpty()){
+            viewModel.getUserBookHistory(userID)
+        }
+        runBlocking {
+            viewModel.getUserImage(userID)
+        }
+        println("imagen " + viewModel.userImage.value)
+
 
         viewModel.userBookHistory.observe(viewLifecycleOwner){ bookHistory ->
             runBlocking {

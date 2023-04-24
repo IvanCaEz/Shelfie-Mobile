@@ -20,6 +20,9 @@ class Repository {
 
 
     suspend fun postUser(url: String, body: RequestBody, image: MultipartBody.Part) = apiInterface.postUser(url, body, image)
+    suspend fun putUser(url: String, body: RequestBody, image: MultipartBody.Part) = apiInterface.putUser(url, body, image)
+
+
     suspend fun postBookToBookHistory(url: String, body: Book) = apiInterface.postBookToBookHistory(url, body)
     suspend fun postBookLoan(url: String, body: BookLoan) = apiInterface.postBookLoan(url, body)
 

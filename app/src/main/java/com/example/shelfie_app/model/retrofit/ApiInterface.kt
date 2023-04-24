@@ -22,6 +22,7 @@ interface ApiInterface {
     // USERS
     @GET suspend fun getAllUsers(@Url url: String): Response<List<User>>
     @GET suspend fun getUserByID(@Url url: String): Response<User>
+   // @Headers("Content-Type: application/json")
     @GET suspend fun getUserByUserName(@Url url: String): Response<User>
 
     @GET suspend fun getUserImage(@Url url: String): Response<ResponseBody>
@@ -41,8 +42,12 @@ interface ApiInterface {
     @POST suspend fun postBookLoan(@Url url: String, @Body body: BookLoan): Call<BookLoan>
 
     //TODO() PUT Usuario
-
-    @DELETE suspend fun deleteUser(@Url url: String): Call<User>
+    @Multipart
+    @PUT
+    suspend fun putUser(@Url url: String,
+                         @Part("body") body: RequestBody,
+                         @Part image: MultipartBody.Part)
+    @DELETE suspend fun deleteUser(@Url url: String)//: Call<User>
     @DELETE suspend fun deleteBookFromBookHistory(@Url url: String): Call<Book>
     @DELETE suspend fun deleteBookLoan(@Url url: String): Call<BookLoan>
 
