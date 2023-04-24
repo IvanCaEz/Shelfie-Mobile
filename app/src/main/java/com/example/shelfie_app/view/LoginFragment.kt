@@ -72,14 +72,13 @@ class LoginFragment : Fragment() {
             }
         }
 
-
         binding.registerButton.setOnClickListener {
             val toRegister = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
             findNavController().navigate(toRegister)
         }
     }
 
-    fun login() {
+    private fun login() {
         val toProfile = LoginFragmentDirections.actionLoginFragmentToUserProfileFragment()
         findNavController().navigate(toProfile)
     }

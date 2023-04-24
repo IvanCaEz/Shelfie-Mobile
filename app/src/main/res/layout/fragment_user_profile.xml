@@ -21,14 +21,14 @@
     <Button
         android:id="@+id/editProfileButton"
         android:layout_width="75dp"
-        android:layout_height="28dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginEnd="15dp"
         android:background="@drawable/roundcorners"
         android:backgroundTint="@color/goldButton"
         android:text="@string/edit_profile"
         android:textAllCaps="false"
-        android:textSize="7sp"
+        android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,7 +67,7 @@
         android:id="@+id/userBooksCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="240"
+        android:text="0"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@id/guideline5"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,7 +88,7 @@
         android:id="@+id/reviewCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="240"
+        android:text="0"
         android:textColor="@color/white"
         app:layout_constraintEnd_toStartOf="@id/guideline6"
         app:layout_constraintStart_toEndOf="@id/guideline5"
@@ -108,7 +108,7 @@
         android:id="@+id/wantToReadCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="15"
+        android:text="0"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline6"
@@ -124,7 +124,7 @@
         app:layout_constraintStart_toStartOf="@id/wantToReadCounter"
         app:layout_constraintTop_toBottomOf="@id/wantToReadCounter" />
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
+    <ProgressBar
         android:id="@+id/infoProgressBar"
         android:layout_width="wrap_content"
         android:visibility="invisible"

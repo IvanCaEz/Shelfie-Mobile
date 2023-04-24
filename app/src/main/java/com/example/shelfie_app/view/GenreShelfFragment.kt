@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shelfie_app.databinding.FragmentGenreShelfBinding
 import com.example.shelfie_app.model.Book
+import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.view.listeners.BookOnClickListener
 import com.example.shelfie_app.view.adapters.ShelfAdapter
 import com.example.shelfie_app.viewmodel.ApiViewModel
@@ -56,7 +57,9 @@ class GenreShelfFragment : Fragment(), BookOnClickListener {
 
             viewModel.listOfBookReviews.observe(viewLifecycleOwner) { reviewList ->
                 Handler(Looper.getMainLooper()).postDelayed({
-                    shelfAdapter = ShelfAdapter(booksByGenre, reviewList, this, viewModel)
+                    shelfAdapter = if (reviewList.isNotEmpty()){
+                        ShelfAdapter(booksByGenre, reviewList, this, viewModel)
+                    } else ShelfAdapter(booksByGenre, listOf<Review>(), this, viewModel)
                     setupRecyclerView()
                     binding.shimmerViewContainer.visibility = View.INVISIBLE
                 }, 1000)

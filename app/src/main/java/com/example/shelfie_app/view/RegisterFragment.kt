@@ -31,22 +31,17 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         binding.registerButton.setOnClickListener {
-            var registrable = false
             val newUserName = binding.usernameET.editText?.text.toString().trim()
             val password = binding.passwordET.editText?.text.toString().trim()
             if (newUserName.isNotEmpty()) {
                 // Miramos que la contraseña sea válida y que coincidan
                 if (validatePassword(password) && confirmPassword(password)) {
                     // TODO() Encriptar password antes de pasarla al otro fragment?
-
-
                     // Miramos que no haya ningún usuario con ese nombre de usuario
                     viewModel.getUserByUserName(newUserName)
 
-                    viewModel.isNewUser.observe(viewLifecycleOwner){ isNew ->
+                    viewModel.isNewUser.observe(viewLifecycleOwner) { isNew ->
                         when (isNew) {
                             false -> {
                                 binding.usernameET.isErrorEnabled = true
@@ -59,7 +54,6 @@ class RegisterFragment : Fragment() {
                             }
                         }
                     }
-
                 }
             } else {
                 binding.usernameET.isErrorEnabled = true
@@ -70,7 +64,7 @@ class RegisterFragment : Fragment() {
 
     private fun completeSignUpDialog(userName: String, password: String) {
         val toCompleteRegister = RegisterFragmentDirections
-            .actionRegisterFragmentToCompleteRegisterFragment(userName,password)
+            .actionRegisterFragmentToCompleteRegisterFragment(userName, password)
         findNavController().navigate(toCompleteRegister)
 
     }

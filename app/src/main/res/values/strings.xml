@@ -21,4 +21,7 @@
     <string name="returntext">Return</string>
     <string name="books_read">books read</string>
     <string name="reviews">reviews</string>
+    <string name="you_haven_t_read_anything_yet">You haven\'t read anything yet</string>
+    <string name="any_loan_active_ngo_borrow_some_books">No loans active\nGo borrow some books!</string>
+    <string name="you_haven_t_reviewed_any_book_yet">You haven\'t reviewed any book yet!</string>
 </resources>

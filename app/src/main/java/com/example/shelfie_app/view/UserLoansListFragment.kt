@@ -36,7 +36,6 @@ class UserLoansListFragment : Fragment(), BookOnClickListener {
 
         linearLayoutManager = LinearLayoutManager(context)
 
-
         viewModel.userActiveBookLoans.observe(viewLifecycleOwner) { activeBookLoans ->
             println(viewModel.userActiveBookLoans.value!!.size)
             viewModel.getBooksByBookLoan(activeBookLoans)
@@ -46,9 +45,13 @@ class UserLoansListFragment : Fragment(), BookOnClickListener {
 
             viewModel.loanedBooks.observe(viewLifecycleOwner) { loanedBooks ->
                 Handler(Looper.getMainLooper()).postDelayed({
+                    if (viewModel.userActiveBookLoans.value!!.isNotEmpty()){
+                        binding.noLoansTV.visibility = View.INVISIBLE
+                    } else binding.noLoansTV.visibility = View.VISIBLE
                     loansAdapter = LoansAdapter(activeBookLoans, loanedBooks, this, viewModel)
                     setupRecyclerView()
                     binding.shimmerViewContainer.visibility = View.INVISIBLE
+
                 }, 1000)
             }
         }

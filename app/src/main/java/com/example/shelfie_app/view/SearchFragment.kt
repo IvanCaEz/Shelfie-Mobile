@@ -38,22 +38,20 @@ class SearchFragment : Fragment(), GenreOnClickListener {
         viewModel.getAllBooks()
         binding.progressBar.visibility = View.VISIBLE
         viewModel.listOfBooks.observe(viewLifecycleOwner) { bookList ->
-
-                bookList.forEach { book ->
-                    genreList.add(book.genre)
-                }
+            bookList.forEach { book ->
+                genreList.add(book.genre)
+            }
 
             Handler(Looper.getMainLooper()).postDelayed({
                 genreAdapter = GenreAdapter(genreList.toList(), this)
                 setupRecyclerView()
                 binding.progressBar.visibility = View.INVISIBLE
-
             }, 1000)
         }
     }
 
     private fun setupRecyclerView() {
-        val manager =  LinearLayoutManager(requireContext())
+        val manager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = genreAdapter
         binding.recyclerView.layoutManager = manager
         binding.recyclerView.visibility = View.VISIBLE

@@ -26,7 +26,8 @@ class ShelfFragment : Fragment(), BookOnClickListener {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         binding = FragmentShelfBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -39,14 +40,14 @@ class ShelfFragment : Fragment(), BookOnClickListener {
 
         viewModel.listOfBooks.observe(viewLifecycleOwner) { bookList ->
 
-                bookList.forEach { book ->
-                    viewModel.getBookCover(book.idBook)
-                    viewModel.getAllReviewsFromBook(book.idBook)
-                }
+            bookList.forEach { book ->
+                viewModel.getBookCover(book.idBook)
+                viewModel.getAllReviewsFromBook(book.idBook)
+            }
 
-            viewModel.listOfBookReviews.observe(viewLifecycleOwner){ reviewList ->
+            viewModel.listOfBookReviews.observe(viewLifecycleOwner) { reviewList ->
                 Handler(Looper.getMainLooper()).postDelayed({
-                    shelfAdapter = ShelfAdapter(bookList, reviewList, this,viewModel)
+                    shelfAdapter = ShelfAdapter(bookList, reviewList, this, viewModel)
                     setupRecyclerView()
                     binding.shimmerViewContainer.visibility = View.INVISIBLE
                 }, 1000)
@@ -56,11 +57,13 @@ class ShelfFragment : Fragment(), BookOnClickListener {
 
 
     }
-    private fun setAdapter(bookList: List<Book>){
+
+    private fun setAdapter(bookList: List<Book>) {
         shelfAdapter.setBookList(bookList)
     }
+
     private fun setupRecyclerView() {
-        val manager =  LinearLayoutManager(requireContext())
+        val manager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = shelfAdapter
         binding.recyclerView.layoutManager = manager
         binding.recyclerView.visibility = View.VISIBLE

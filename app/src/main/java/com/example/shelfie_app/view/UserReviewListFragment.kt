@@ -35,17 +35,14 @@ class UserReviewListFragment : Fragment(), ReviewOnClickListener {
         super.onViewCreated(view, savedInstanceState)
         linearLayoutManager = LinearLayoutManager(context)
 
+        binding.noReviewsTV.visibility = View.INVISIBLE
 
-        //viewModel.getAllReviewsFromUser("1")
-
-        viewModel.listOfUserReviews.observe(viewLifecycleOwner) { userReviewList ->
-            if (userReviewList.isNotEmpty()) {
-
+        if (viewModel.listOfUserReviews.value?.isNotEmpty() == true) {
+            viewModel.listOfUserReviews.observe(viewLifecycleOwner) { userReviewList ->
                 viewModel.getBooksByReview(userReviewList)
                 userReviewList.forEach { review ->
                     viewModel.getBookCover(review.idBook)
                 }
-
                 viewModel.reviewedBooks.observe(viewLifecycleOwner) { reviewedBooks ->
                     Handler(Looper.getMainLooper()).postDelayed({
                         reviewAdapter =
@@ -55,9 +52,17 @@ class UserReviewListFragment : Fragment(), ReviewOnClickListener {
                     }, 1000)
                 }
             }
-
-
+        } else {
+            Handler(Looper.getMainLooper()).postDelayed({
+                reviewAdapter =
+                    ReviewAdapter(listOf(), listOf(), this, viewModel)
+                setupRecyclerView()
+                binding.noReviewsTV.visibility = View.VISIBLE
+                binding.shimmerViewContainer.visibility = View.INVISIBLE
+            }, 1000)
         }
+
+
     }
 
     private fun setupRecyclerView() {

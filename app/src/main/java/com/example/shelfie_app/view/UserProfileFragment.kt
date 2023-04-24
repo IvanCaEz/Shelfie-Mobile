@@ -16,13 +16,14 @@ import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.runBlocking
 
 class UserProfileFragment : Fragment() {
-  private lateinit var binding: FragmentUserProfileBinding
+    private lateinit var binding: FragmentUserProfileBinding
     val viewModel: ApiViewModel by activityViewModels()
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
+        savedInstanceState: Bundle?
+    ): View {
         binding = FragmentUserProfileBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -40,62 +41,49 @@ class UserProfileFragment : Fragment() {
         binding.usernameArroba.text = "@" + viewModel.userData.value!!.userName
         binding.userBio.text = viewModel.userData.value!!.description
 
-        viewModel.userImage.observe(viewLifecycleOwner){ profilePic ->
-            binding.profilepic.setImageBitmap(profilePic)
-        }
-
-        viewModel.listOfUserReviews.observe(viewLifecycleOwner){ reviewList ->
-            binding.reviewCounter.text = reviewList.size.toString()
-        }
-        viewModel.userBookHistory.observe(viewLifecycleOwner){ booksRead ->
-            binding.userBooksCounter.text = booksRead.size.toString()
-        }
-        /*
-        viewModel.userBookHistory.observe(viewLifecycleOwner){ booksRead ->
-            binding.userBooksCounter.text = booksRead.size.toString()
-        }
-         */
         binding.editProfileButton.setOnClickListener {
-            val toEditProfile = UserProfileFragmentDirections.actionUserProfileFragmentToEditProfileFragment()
+            val toEditProfile =
+                UserProfileFragmentDirections.actionUserProfileFragmentToEditProfileFragment()
             findNavController().navigate(toEditProfile)
         }
 
     }
 
-    fun getUserInfo(userID: String){
+    fun getUserInfo(userID: String) {
         viewModel.getAllReviewsFromUser(userID)
         viewModel.getUserLoans(userID)
-        if (viewModel.userData.value?.bookHistory!!.isNotEmpty()){
+        if (viewModel.userData.value?.bookHistory!!.isNotEmpty()) {
             viewModel.getUserBookHistory(userID)
         }
+        viewModel.getUserImage(userID)
 
-            viewModel.getUserImage(userID)
-
-        println("imagen " + viewModel.userImage.value)
-
-
-        viewModel.userBookHistory.observe(viewLifecycleOwner){ bookHistory ->
-
-                mostReadedGenres(bookHistory)
-
+        viewModel.userImage.observe(viewLifecycleOwner) { profilePic ->
+            binding.profilepic.setImageBitmap(profilePic)
+        }
+        viewModel.listOfUserReviews.observe(viewLifecycleOwner) { reviewList ->
+            binding.reviewCounter.text = reviewList.size.toString()
+        }
+        viewModel.userBookHistory.observe(viewLifecycleOwner) { bookHistory ->
+            mostReadedGenres(bookHistory)
+            binding.userBooksCounter.text = bookHistory.size.toString()
         }
         binding.infoProgressBar.visibility = View.INVISIBLE
     }
 
-    fun mostReadedGenres(bookHistory: List<Book>){
+    fun mostReadedGenres(bookHistory: List<Book>) {
 
-       val countMap = bookHistory.groupingBy { book ->
+        val countMap = bookHistory.groupingBy { book ->
             book.genre
         }.eachCount().toList().sortedByDescending { it.second }.take(3)
 
-        if (countMap.isNotEmpty()){
-            when (countMap.size ){
+        if (countMap.isNotEmpty()) {
+            when (countMap.size) {
                 1 -> {
                     viewModel.renderTag(binding.firstGenre, countMap[0].first)
                     binding.secondGenre.visibility = View.GONE
                     binding.thirdGenre.visibility = View.GONE
                 }
-                2-> {
+                2 -> {
                     viewModel.renderTag(binding.firstGenre, countMap[0].first)
                     viewModel.renderTag(binding.secondGenre, countMap[1].first)
                     binding.thirdGenre.visibility = View.GONE
@@ -110,16 +98,17 @@ class UserProfileFragment : Fragment() {
         }
 
     }
-    private fun setupViewPager(){
+
+    private fun setupViewPager() {
         val tabLayout = binding.tabLayout
         val viewPager = binding.viewPager
 
         viewPager.adapter = ProfileAdapter(this)
-        tabLayout.setSelectedTabIndicatorColor( resources.getColor(R.color.beigeBackgroundEditText))
+        tabLayout.setSelectedTabIndicatorColor(resources.getColor(R.color.beigeBackgroundEditText))
 
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "Book Shelf"
+                0 -> "Read Books"
                 1 -> "Reviews"
                 2 -> "Active Loans"
                 else -> throw IllegalArgumentException("Invalid position")

@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shelfie_app.databinding.FragmentUserBookHistoryListBinding
 import com.example.shelfie_app.model.Book
+import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.view.listeners.BookOnClickListener
 import com.example.shelfie_app.view.adapters.ShelfAdapter
 import com.example.shelfie_app.viewmodel.ApiViewModel
-import kotlinx.coroutines.runBlocking
 
 class UserBookHistoryListFragment : Fragment(), BookOnClickListener {
     private lateinit var binding: FragmentUserBookHistoryListBinding
@@ -24,8 +24,8 @@ class UserBookHistoryListFragment : Fragment(), BookOnClickListener {
     val viewModel: ApiViewModel by activityViewModels()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View {
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View {
         binding = FragmentUserBookHistoryListBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -33,32 +33,36 @@ class UserBookHistoryListFragment : Fragment(), BookOnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.userBookHistory.observe(viewLifecycleOwner) { bookList ->
-            if (bookList.isNotEmpty()){
-                runBlocking {
-                    bookList.forEach { book ->
+        binding.noBooksTV.visibility = View.INVISIBLE
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (viewModel.userBookHistory.value?.isNotEmpty() == true) {
+                viewModel.userBookHistory.observe(viewLifecycleOwner) { userBookHistory ->
+                    userBookHistory.forEach { book ->
                         viewModel.getBookCover(book.idBook)
                     }
-                }
-
-                viewModel.listOfUserReviews.observe(viewLifecycleOwner){ userReviewList ->
-                    if (userReviewList.isNotEmpty()){
+                    viewModel.listOfUserReviews.observe(viewLifecycleOwner) { userReviewList ->
                         Handler(Looper.getMainLooper()).postDelayed({
-                            shelfAdapter = ShelfAdapter(bookList, userReviewList, this, viewModel)
+                            shelfAdapter =
+                                ShelfAdapter(userBookHistory, userReviewList, this, viewModel)
                             setupRecyclerView()
                             binding.shimmerViewContainer.visibility = View.INVISIBLE
-                        }, 1000)
-                    } else println("lista de reviews vacia")
+                        }, 500)
+                    }
                 }
-
-            }else println("lista de libros leidos vacia")
-
-
-        }
+            }else {
+                Handler(Looper.getMainLooper()).postDelayed({
+                    shelfAdapter = ShelfAdapter(listOf<Book>(), listOf<Review>(), this, viewModel)
+                    setupRecyclerView()
+                    binding.shimmerViewContainer.visibility = View.INVISIBLE
+                    binding.noBooksTV.visibility = View.VISIBLE
+                }, 500)
+                println("lista de libros leidos vacia")
+            }
+        }, 1000)
     }
 
     private fun setupRecyclerView() {
-        val manager =  LinearLayoutManager(requireContext())
+        val manager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = shelfAdapter
         binding.recyclerView.layoutManager = manager
         binding.recyclerView.visibility = View.VISIBLE
