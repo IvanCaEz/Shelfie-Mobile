@@ -49,7 +49,7 @@ class UserProfileFragment : Fragment() {
 
     }
 
-    fun getUserInfo(userID: String) {
+    private fun getUserInfo(userID: String) {
         viewModel.getAllReviewsFromUser(userID)
         viewModel.getUserLoans(userID)
         if (viewModel.userData.value?.bookHistory!!.isNotEmpty()) {
@@ -70,7 +70,7 @@ class UserProfileFragment : Fragment() {
         binding.infoProgressBar.visibility = View.INVISIBLE
     }
 
-    fun mostReadedGenres(bookHistory: List<Book>) {
+    private fun mostReadedGenres(bookHistory: List<Book>) {
 
         val countMap = bookHistory.groupingBy { book ->
             book.genre
@@ -97,6 +97,11 @@ class UserProfileFragment : Fragment() {
             binding.mostReadedGenres.visibility = View.VISIBLE
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getUserInfo(viewModel.userData.value?.idUser!!)
     }
 
     private fun setupViewPager() {

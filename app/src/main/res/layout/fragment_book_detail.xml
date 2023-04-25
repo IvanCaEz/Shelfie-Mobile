@@ -7,14 +7,28 @@
     android:background="@color/beigeBackground"
     tools:context=".view.BookDetailFragment">
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/misteryLight"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="invisible"
+        app:indicatorColor="@color/misteryLight"
+        app:layout_constraintBottom_toTopOf="@id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
     <ImageView
-        android:id="@+id/portada"
+        android:id="@+id/bookCover_IV"
         android:layout_width="150dp"
         android:layout_height="250dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="20dp"
         android:padding="7dp"
-        android:src="@drawable/ejemploportada"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,53 +36,109 @@
         android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="150dp"
+        android:gravity="center"
         android:padding="7dp"
         android:text="title"
-        app:layout_constraintBottom_toBottomOf="@id/portada"
-        app:layout_constraintStart_toEndOf="@id/portada"
-        app:layout_constraintTop_toTopOf="@id/portada" />
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/bookCover_IV"
+        app:layout_constraintStart_toEndOf="@id/bookCover_IV"
+        app:layout_constraintTop_toTopOf="@id/bookCover_IV"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/autor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:padding="7dp"
         android:text="autor"
-        app:layout_constraintBottom_toTopOf="@id/rating"
-        app:layout_constraintStart_toEndOf="@id/portada"
+        app:layout_constraintBottom_toTopOf="@id/star_1"
+        app:layout_constraintStart_toEndOf="@id/bookCover_IV"
         app:layout_constraintTop_toBottomOf="@id/titulo" />
 
-    <TextView
-        android:id="@+id/rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="7dp"
-        android:text="estrellitas"
-        app:layout_constraintBottom_toBottomOf="@id/portada"
-        app:layout_constraintStart_toEndOf="@id/portada"
-        app:layout_constraintTop_toBottomOf="@id/autor" />
+
+    <ImageView
+        android:id="@+id/star_1"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:layout_constraintStart_toStartOf="@id/guideline7"
+        app:layout_constraintTop_toBottomOf="@id/autor"
+        app:layout_constraintEnd_toStartOf="@id/star_2"
+        app:layout_constraintBottom_toTopOf="@id/guideline8"
+        android:src="@drawable/empty_star"/>
+    <ImageView
+        android:id="@+id/star_2"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:layout_constraintStart_toEndOf="@id/star_1"
+        app:layout_constraintTop_toBottomOf="@id/autor"
+        app:layout_constraintEnd_toStartOf="@id/star_3"
+        app:layout_constraintBottom_toTopOf="@id/guideline8"
+        android:src="@drawable/empty_star"/>
+    <ImageView
+        android:id="@+id/star_3"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:layout_constraintStart_toEndOf="@id/star_2"
+        app:layout_constraintTop_toBottomOf="@id/autor"
+        app:layout_constraintEnd_toStartOf="@id/star_4"
+        app:layout_constraintBottom_toTopOf="@id/guideline8"
+        android:src="@drawable/empty_star"/>
+    <ImageView
+        android:id="@+id/star_4"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:layout_constraintStart_toEndOf="@id/star_3"
+        app:layout_constraintTop_toBottomOf="@id/autor"
+        app:layout_constraintEnd_toStartOf="@id/star_5"
+        app:layout_constraintBottom_toTopOf="@id/guideline8"
+        android:src="@drawable/empty_star"/>
+    <ImageView
+        android:id="@+id/star_5"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        app:layout_constraintStart_toEndOf="@id/star_4"
+        app:layout_constraintEnd_toEndOf="@id/guideline7"
+        app:layout_constraintTop_toBottomOf="@id/autor"
+        app:layout_constraintBottom_toTopOf="@id/guideline8"
+        android:src="@drawable/empty_star"/>
+
 
     <TextView
         android:id="@+id/descripcion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-app:layout_constraintTop_toBottomOf="@id/portada"
-        app:layout_constraintBottom_toTopOf="@id/borrow"
-        app:layout_constraintStart_toStartOf="@id/portada"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textSize="16sp"
         android:text="hola esto es la descripcion del libro lorem ipsum lorem ipsum jejejje adios"
-        android:padding="15dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginBottom="25dp"/>
+        app:layout_constraintBottom_toTopOf="@id/borrow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bookCover_IV" />
+
     <ImageView
         android:id="@+id/borrow"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:padding="7dp"
         android:src="@drawable/borrow_book_icon"
+        app:layout_constraintEnd_toStartOf="@id/markasread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/descripcion" />
 
@@ -87,7 +157,6 @@ app:layout_constraintTop_toBottomOf="@id/portada"
         android:id="@+id/review"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:padding="7dp"
         android:src="@drawable/review_icon"
@@ -96,15 +165,61 @@ app:layout_constraintTop_toBottomOf="@id/portada"
         app:layout_constraintTop_toTopOf="@id/markasread" />
 
 
-<TextView
-    android:id="@+id/reviews"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:layout_constraintTop_toBottomOf="@id/borrow"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="@id/portada"
-    app:layout_constraintEnd_toEndOf="parent"
-    android:text="Reviews"/>
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmer_view_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/bookCover_IV"
+        app:layout_constraintTop_toBottomOf="@id/borrow">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/loading_shelf_item" />
+
+            <include layout="@layout/loading_shelf_item" />
+
+            <include layout="@layout/loading_shelf_item" />
+
+            <include layout="@layout/loading_shelf_item" />
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@android:color/transparent"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/bookCover_IV"
+        app:layout_constraintTop_toBottomOf="@id/borrow"
+        tools:listitem="@layout/own_review_item"
+        tools:visibility="visible" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="278dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="273dp" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,11 +33,11 @@ class RegisterFragment : Fragment() {
 
         binding.registerButton.setOnClickListener {
             val newUserName = binding.usernameET.editText?.text.toString().trim()
-            val password = binding.passwordET.editText?.text.toString().trim()
+            var password = binding.passwordET.editText?.text.toString().trim()
             if (newUserName.isNotEmpty()) {
                 // Miramos que la contraseña sea válida y que coincidan
                 if (validatePassword(password) && confirmPassword(password)) {
-                    // TODO() Encriptar password antes de pasarla al otro fragment?
+                    password = viewModel.encryptPassword(password)
                     // Miramos que no haya ningún usuario con ese nombre de usuario
                     viewModel.getUserByUserName(newUserName)
 
@@ -66,7 +66,6 @@ class RegisterFragment : Fragment() {
         val toCompleteRegister = RegisterFragmentDirections
             .actionRegisterFragmentToCompleteRegisterFragment(userName, password)
         findNavController().navigate(toCompleteRegister)
-
     }
 
     private fun validatePassword(password: String): Boolean {

@@ -38,8 +38,8 @@ interface ApiInterface {
     suspend fun postUser(@Url url: String,
                          @Part("body") body: RequestBody,
                          @Part image: MultipartBody.Part)
-    @POST suspend fun postBookToBookHistory(@Url url: String, @Body body: Book): Call<Book>
-    @POST suspend fun postBookLoan(@Url url: String, @Body body: BookLoan): Call<BookLoan>
+    @POST suspend fun postBookToBookHistory(@Url url: String, @Body body: Book)
+    @POST suspend fun postBookLoan(@Url url: String, @Body body: BookLoan)
 
     //TODO() PUT Usuario
     @Multipart
@@ -48,7 +48,10 @@ interface ApiInterface {
                          @Part("body") body: RequestBody,
                          @Part image: MultipartBody.Part)
     @DELETE suspend fun deleteUser(@Url url: String)//: Call<User>
+
     @DELETE suspend fun deleteBookFromBookHistory(@Url url: String): Call<Book>
+
+    @PUT suspend fun putBookLoan(@Url url: String, @Body body: BookLoan)
     @DELETE suspend fun deleteBookLoan(@Url url: String): Call<BookLoan>
 
 
@@ -79,12 +82,8 @@ interface ApiInterface {
 
 
 
-
-
-
-
     companion object {
-        val BASE_URL = "http://10.0.2.2:8080/"
+        val BASE_URL = "http://172.30.5.163:8080/"
         fun create(): ApiInterface {
             //.addInterceptor(HeaderInterceptor())
             val client = OkHttpClient.Builder().build()
@@ -97,16 +96,4 @@ interface ApiInterface {
             return retrofit.create(ApiInterface::class.java)
         }
     }
-    /*
-                        @Part("idUser") idUser: RequestBody,
-                        @Part("name") name: RequestBody,
-                        @Part("userName") userName: RequestBody,
-                        @Part("description") description: RequestBody,
-                        @Part("email") email: RequestBody,
-                        @Part("password") password: RequestBody,
-                        @Part("userType") userType: RequestBody,
-                        @Part("borrowedBooksCounter") borrowedBooksCounter: RequestBody,
-                        @Part("banned") banned: RequestBody,
-                        @Part("userImage") userImage: RequestBody,
-                         */
 }

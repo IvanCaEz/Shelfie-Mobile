@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shelfie_app.view.listeners.BookOnClickListener
@@ -70,6 +71,7 @@ class ShelfFragment : Fragment(), BookOnClickListener {
     }
 
     override fun onClick(book: Book) {
-        println(book.idBook)
+        val toDetail = ShelfFragmentDirections.actionShelfFragmentToBookDetailFragment(book.idBook)
+        findNavController().navigate(toDetail)
     }
 }

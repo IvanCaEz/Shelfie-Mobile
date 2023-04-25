@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shelfie_app.databinding.FragmentUserBookHistoryListBinding
@@ -70,7 +71,8 @@ class UserBookHistoryListFragment : Fragment(), BookOnClickListener {
     }
 
     override fun onClick(book: Book) {
-        TODO("Not yet implemented")
+       val toBookDetail = UserProfileFragmentDirections.actionUserProfileFragmentToBookDetailFragment(book.idBook)
+        findNavController().navigate(toBookDetail)
     }
 
 }

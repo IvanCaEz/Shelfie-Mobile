@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.models.BookLoan
 import com.example.shelfie_app.R
 import com.example.shelfie_app.model.Book
+import com.example.shelfie_app.view.listeners.BookLoanOnClickListener
 import com.example.shelfie_app.view.listeners.BookOnClickListener
 import com.example.shelfie_app.viewmodel.ApiViewModel
 
 class LoansAdapter(var activeLoansList: List<BookLoan>,
                    var loanedBooks: List<Book>,
-                   private val listener: BookOnClickListener,
+                   private val listener: BookLoanOnClickListener,
                    private val viewModel: ApiViewModel
 ) : RecyclerView.Adapter<LoansAdapter.ViewHolder>() {
     private lateinit var context: Context
@@ -32,6 +33,11 @@ class LoansAdapter(var activeLoansList: List<BookLoan>,
             binding.authorTV.text = book.author
             binding.returnDateTV.text = "Return date: "+bookLoan.endDate
             binding.bookCoverIV.setImageBitmap(viewModel.bookCovers[bookLoan.idBook])
+
+
+            binding.returnIV.setOnClickListener { listener.onReturnListener(bookLoan) }
+            binding.extendTimeIV.setOnClickListener { listener.onExtendTimeListener(bookLoan) }
+            binding.reviewIV.setOnClickListener { listener.onReviewListener(book) }
         }
 
     }

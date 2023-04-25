@@ -25,8 +25,7 @@ class Repository {
 
     suspend fun postBookToBookHistory(url: String, body: Book) = apiInterface.postBookToBookHistory(url, body)
     suspend fun postBookLoan(url: String, body: BookLoan) = apiInterface.postBookLoan(url, body)
-
-
+    suspend fun putBookLoan(url: String, body: BookLoan) = apiInterface.putBookLoan(url, body)
     suspend fun deleteUser(url: String) = apiInterface.deleteUser(url)
     suspend fun deleteBookFromHistory(url: String) = apiInterface.deleteBookFromBookHistory(url)
     suspend fun deleteBookLoan(url: String) = apiInterface.deleteBookLoan(url)

@@ -31,6 +31,8 @@ import com.example.shelfie_app.viewmodel.ApiViewModel
 import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.io.FileOutputStream
+import java.nio.charset.StandardCharsets
+import java.security.MessageDigest
 
 class CompleteRegisterFragment : Fragment() {
   private lateinit var binding: FragmentCompleteRegisterBinding
@@ -124,6 +126,8 @@ class CompleteRegisterFragment : Fragment() {
             }
         }
     }
+
+
 
     private fun toLogin(){
         val toLogin = CompleteRegisterFragmentDirections.actionCompleteRegisterFragmentToLoginFragment()

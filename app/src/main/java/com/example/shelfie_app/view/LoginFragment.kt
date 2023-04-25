@@ -33,28 +33,24 @@ class LoginFragment : Fragment() {
 
         binding.loginButton.setOnClickListener {
             val userName = binding.usernameET.editText?.text.toString()
-            val password = binding.passwordET.editText?.text.toString()
-
-
+            val password = viewModel.encryptPassword(binding.passwordET.editText?.text.toString())
             if (userName.isNotEmpty() && password.isNotEmpty()) {
                 viewModel.getUserByUserName(userName)
-                    viewModel.userData.observe(viewLifecycleOwner) { user ->
-                        println("lo que pongo $password")
-                        println("lo de la bd ${user.password}")
-                        if (user.password == password) {
-                            println(viewModel.userData.value!!.userName)
-                            binding.passwordET.error = null
-                            binding.passwordET.isErrorEnabled = false
-                                // QUITAR ESTO
-                                println(Json.encodeToString(viewModel.userData.value!!))
-                                login()
+                viewModel.userData.observe(viewLifecycleOwner) { user ->
+                    if (user.password == password) {
+                        println(viewModel.userData.value!!.userName)
+                        binding.passwordET.error = null
+                        binding.passwordET.isErrorEnabled = false
+                        // QUITAR ESTO
+                        println(Json.encodeToString(viewModel.userData.value!!))
+                        login()
 
 
-                        } else {
-                            binding.passwordET.isErrorEnabled = true
-                            binding.passwordET.error = "Incorrect password."
-                        }
+                    } else {
+                        binding.passwordET.isErrorEnabled = true
+                        binding.passwordET.error = "Incorrect password."
                     }
+                }
                 binding.passwordET.error = null
                 binding.passwordET.isErrorEnabled = false
                 binding.usernameET.error = null

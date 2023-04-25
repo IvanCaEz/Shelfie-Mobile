@@ -34,6 +34,8 @@ class ShelfAdapter(
             //renderRating(bookRatings(bookToRender.idBook).toDouble())
             binding.ratingBar.rating = viewModel.getBookScore(reviewList.filter {
                 it.idBook == bookToRender.idBook }).toFloat()
+
+            itemView.setOnClickListener { listener.onClick(bookToRender) }
         }
 
         /*

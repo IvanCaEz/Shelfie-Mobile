@@ -91,11 +91,8 @@ class EditProfileFragment : Fragment() {
             val userName = binding.usernameArroba.text.toString()
             val bio = binding.userBio.text.toString()
             val email = binding.emailET.text.toString()
-            val password = if (binding.passwordET.editText!!.text.toString() != viewModel.userData.value!!.password){
-               binding.passwordET.editText!!.text.toString()
-            } else {
-                 viewModel.userData.value!!.password
-            }
+            val password = viewModel.userData.value!!.password
+
 
             if (validateEmail(email)){
                 // Si el nombre de la imagen es diferente, subimos la nueva
@@ -107,13 +104,8 @@ class EditProfileFragment : Fragment() {
                     } catch (e: java.lang.NullPointerException){
                         println("${e.cause} : ${e.message}")
                     }
-                    println(imagePath)
                     val imageFile = File(imagePath)
-                    println(imageFile)
-                    println(imageFile.absoluteFile)
-                    println(imageFile.absolutePath)
                     viewModel.putUser(userToUpdate,imageFile)
-                    println("Perfil actualizado con foto nueva")
                 // Si no es diferente, subimos la misma
                 } else {
                     val userToUpdate = User(userID, name, userName, bio, email, password,
@@ -122,12 +114,9 @@ class EditProfileFragment : Fragment() {
                     val path = pathFromBitmap(viewModel.userImage.value!!, userImageName)
 
                     val imageFile = File(path!!)
-                    println(path)
-                    println(imageFile)
-                    println(imageFile.absoluteFile)
-                    println(imageFile.absolutePath)
+
                     viewModel.putUser(userToUpdate,imageFile)
-                    println("Perfil actualizado con foto vieja")
+
 
                 }
                 binding.progressBar.visibility = View.INVISIBLE
@@ -160,7 +149,7 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-    fun toProfile(){
+    private fun toProfile(){
         val toProfile =
             EditProfileFragmentDirections.actionEditProfileFragmentToUserProfileFragment()
         findNavController().navigate(toProfile)
@@ -171,7 +160,6 @@ class EditProfileFragment : Fragment() {
         binding.usernameArroba.setText(viewModel.userData.value!!.userName)
         binding.userBio.setText(viewModel.userData.value!!.description)
         binding.emailET.setText(viewModel.userData.value!!.email)
-        binding.passwordET.editText?.setText(viewModel.userData.value!!.password)
     }
 
     private fun getFileName(uri: Uri): String {

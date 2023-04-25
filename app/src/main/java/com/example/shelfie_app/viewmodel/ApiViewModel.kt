@@ -26,6 +26,8 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import java.nio.charset.StandardCharsets
+import java.security.MessageDigest
 import java.text.DecimalFormat
 import java.util.*
 
@@ -156,51 +158,22 @@ class ApiViewModel : ViewModel() {
     }
 
 
-    // TODO() POST
     fun postUser(newUser: User, imageFile: File) {
         CoroutineScope(Dispatchers.IO).launch {
-            // Se convierten los datos del user en json
-            //val gson = GsonBuilder().setLenient().create()
-           // val json = Gson().toJson(newUser)
-            //val json = Json.encodeToString(newUser)
-            val json2 = Gson().toJson(newUser)
-            println(json2)
-
-            val objectBody = json2.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-
-                //RequestBody.create("application/json".toMediaTypeOrNull(), json)
-            // Tratamos la imagen
-            println("separacion")
-            println(objectBody)
-
-            //val filePart = imageFile.asRequestBody("image/*".toMediaType()).toMultipartBodyPart("image")
-           val imageRequestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
+            val json = Gson().toJson(newUser)
+            val objectBody = json.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val imageRequestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
             val imagePart =
                 MultipartBody.Part.createFormData("image", imageFile.name, imageRequestFile)
-            //val bodyPart = MultipartBody.Part.create(objectBody)
-            //FormDataBodyPart("body", objectBody)
             repository.postUser("users", objectBody, imagePart)
-           /*
-
-            val bodyPart = FormDataBodyPart("body", objectBody)
-            val imagePart =
-                MultipartBody.Part.createFormData("image", imageFile.name, imageRequestFile)
-
-            */
 
         }
     }
 
     fun putUser(userToUpdate: User, imageFile: File) {
         CoroutineScope(Dispatchers.IO).launch {
-            val json2 = Gson().toJson(userToUpdate)
-            println(json2)
-
-            val objectBody = json2.toRequestBody("multipart/form-data".toMediaTypeOrNull())
-
-            println("separacion")
-            println(objectBody)
-
+            val json = Gson().toJson(userToUpdate)
+            val objectBody = json.toRequestBody("multipart/form-data".toMediaTypeOrNull())
             val imageRequestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
             val imagePart =
                 MultipartBody.Part.createFormData("image", imageFile.name, imageRequestFile)
@@ -208,15 +181,21 @@ class ApiViewModel : ViewModel() {
         }
     }
 
-    fun postBookToBookHistory(userID: String) {
+    fun postBookToBookHistory(userID: String, readBook:Book) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.postBookToBookHistory("users/$userID/book_history", readBook)
         }
     }
 
-    fun postBookLoan(userID: String) {
+    fun postBookLoan(userID: String, newBookLoan: BookLoan) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.postBookLoan("users/$userID/book_loans", newBookLoan)
+        }
+    }
+
+    fun putBookLoan(userID: String, newBookLoan: BookLoan) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.putBookLoan("users/$userID/book_loans/${newBookLoan.idBook}", newBookLoan)
         }
     }
 
@@ -229,6 +208,7 @@ class ApiViewModel : ViewModel() {
             val response = repository.deleteUser("users/$userID")
         }
     }
+
     fun deleteBookLoan(userID: String, bookID: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.deleteBookLoan("users/$userID/book_loans/$bookID")
@@ -305,7 +285,6 @@ class ApiViewModel : ViewModel() {
     }
 
 
-
     fun getBookCover(bookID: String) {
         CoroutineScope(Dispatchers.IO).launch {
             // Devuelve la portada del libro con la ID indicada
@@ -323,6 +302,7 @@ class ApiViewModel : ViewModel() {
             }
         }
     }
+
     fun getUserImage(userID: String) {
         CoroutineScope(Dispatchers.IO).launch {
             // Devuelve la portada del libro con la ID indicada
@@ -443,18 +423,18 @@ class ApiViewModel : ViewModel() {
         return scoreFormatted.format(ratingSum / reviewList.size.toDouble())
     }
 
-    fun bookRatings(bookID: String, reviewList: List<Review>): String{
+    fun bookRatings(bookID: String, reviewList: List<Review>): String {
         val bookReview = reviewList.filter { review ->
             review.idBook == bookID
         }
         return getBookScore(bookReview)
     }
 
-    fun renderTag(chip: Chip, genre: String){
+    fun renderTag(chip: Chip, genre: String) {
         chip.text = genre.replaceFirstChar {
             if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
         }
-        when (genre){
+        when (genre) {
             "fantasy" -> {
                 chip.setChipBackgroundColorResource(R.color.fantasyLight)
                 chip.setChipStrokeColorResource(R.color.fantasyDark)
@@ -486,8 +466,23 @@ class ApiViewModel : ViewModel() {
         }
     }
 
-}
+    fun encryptPassword(password: String): String {
+        val messageDigest = MessageDigest.getInstance("SHA-256")
+        val hash = messageDigest.digest(password.toByteArray(StandardCharsets.UTF_8))
+        val hex = StringBuilder(hash.size * 2)
 
+        for (byte in hash) {
+            val hexString = Integer.toHexString(0xff and byte.toInt())
+            if (hexString.length == 1) {
+                hex.append('0')
+            }
+            hex.append(hexString)
+        }
+
+        return hex.toString()
+    }
+
+}
 
 
 fun RequestBody.toMultipartBodyPart(name: String): MultipartBody.Part {

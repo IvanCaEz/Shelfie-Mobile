@@ -29,6 +29,9 @@ class ReviewAdapter(var userReviewList: List<Review>,
             binding.reviewTV.text = reviewToRender.comment
             binding.bookCoverIV.setImageBitmap(viewModel.bookCovers[reviewToRender.idBook])
             renderRating(viewModel.bookRatings(reviewToRender.idBook, listOf(reviewToRender)).toDouble())
+
+            itemView.setOnClickListener { listener.onClick(reviewToRender) }
+
         }
 
         fun renderRating(rating: Double) {
