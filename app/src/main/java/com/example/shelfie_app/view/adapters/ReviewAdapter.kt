@@ -15,7 +15,6 @@ import com.example.shelfie_app.view.listeners.ReviewOnClickListener
 import com.example.shelfie_app.viewmodel.ApiViewModel
 
 class ReviewAdapter(var reviewMap: Map<User, Review>,
-                    private val listener: ReviewOnClickListener,
                     private val viewModel: ApiViewModel
 ) : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
     private lateinit var context: Context
@@ -89,6 +88,7 @@ class ReviewAdapter(var reviewMap: Map<User, Review>,
         val layoutInflater = LayoutInflater.from(parent.context).inflate(
             R.layout.review_item, parent, false
         )
+        println(reviewMap)
         return ViewHolder(layoutInflater)
     }
 

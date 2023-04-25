@@ -44,7 +44,7 @@
             app:layout_constraintEnd_toEndOf="@id/profilepic"
             app:layout_constraintStart_toStartOf="@id/profilepic"
             app:layout_constraintHorizontal_bias="0.0"
-            tools:text="Romeo &amp; Juliet" />
+            tools:text="Manolo" />
 
 
         <ImageView

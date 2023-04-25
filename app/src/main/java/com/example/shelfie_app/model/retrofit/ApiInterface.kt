@@ -22,26 +22,19 @@ interface ApiInterface {
     // USERS
     @GET suspend fun getAllUsers(@Url url: String): Response<List<User>>
     @GET suspend fun getUserByID(@Url url: String): Response<User>
-   // @Headers("Content-Type: application/json")
     @GET suspend fun getUserByUserName(@Url url: String): Response<User>
-
     @GET suspend fun getUserImage(@Url url: String): Response<ResponseBody>
-
     @GET suspend fun getUserBookHistory(@Url url: String): Response<List<Book>>
     @GET suspend fun getUserLoans(@Url url: String): Response<List<BookLoan>>
     @GET suspend fun getBookLoanByBookID(@Url url: String): Response<BookLoan>
-
-    // TODO() GET Imagen usuario?
-    // TODO() Probar el post con imagen
     @Multipart
     @POST
     suspend fun postUser(@Url url: String,
                          @Part("body") body: RequestBody,
                          @Part image: MultipartBody.Part)
-    @POST suspend fun postBookToBookHistory(@Url url: String, @Body body: Book)
+    @POST suspend fun postBookToBookHistory(@Url url: String, @Body body: Int)
     @POST suspend fun postBookLoan(@Url url: String, @Body body: BookLoan)
 
-    //TODO() PUT Usuario
     @Multipart
     @PUT
     suspend fun putUser(@Url url: String,
@@ -63,6 +56,10 @@ interface ApiInterface {
     @GET suspend fun getBookByAuthor(@Url url: String): Response<List<Book>>
     @GET suspend fun getBookCover(@Url url: String): Response<ResponseBody>
 
+    @GET suspend fun getAllBookRatings(@Url url: String): Response<Map<String, Float>>
+
+    @GET suspend fun getBookRating(@Url url: String): Response<Float>
+
     // TODO() GET Imagen portada?
     // TODO() Probar el post con imagen
     // TODO() PUT libro
@@ -83,7 +80,9 @@ interface ApiInterface {
 
 
     companion object {
-        val BASE_URL = "http://172.30.5.163:8080/"
+        //192.168.56.1
+        // wifi itb 172.30.5.163
+        val BASE_URL = "http://192.168.56.1:8080/"
         fun create(): ApiInterface {
             //.addInterceptor(HeaderInterceptor())
             val client = OkHttpClient.Builder().build()

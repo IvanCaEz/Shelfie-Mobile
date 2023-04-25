@@ -24,21 +24,15 @@ class ShelfAdapter(
         private val binding = ShelfItemBinding.bind(view)
 
         fun render(bookToRender: Book) {
-            binding.ratingBar.setOnTouchListener { _, _ -> true }
-            binding.ratingBar.isClickable = false
             binding.bookTitleTV.text = bookToRender.title
             binding.authorTV.text = bookToRender.author
             binding.bookCoverIV.setImageBitmap(viewModel.bookCovers[bookToRender.idBook])
             viewModel.renderTag(binding.genreTag, bookToRender.genre)
-           // renderTag(bookToRender.genre)
-            //renderRating(bookRatings(bookToRender.idBook).toDouble())
-            binding.ratingBar.rating = viewModel.getBookScore(reviewList.filter {
-                it.idBook == bookToRender.idBook }).toFloat()
-
+            renderRating(viewModel.bookRatings[bookToRender.idBook]!!.toDouble())
             itemView.setOnClickListener { listener.onClick(bookToRender) }
         }
 
-        /*
+
         fun renderRating(rating: Double) {
             when (rating) {
                 in 0.5..0.99 -> binding.star1.setImageResource(R.drawable.half_star)
@@ -89,7 +83,7 @@ class ShelfAdapter(
                 }
             }
         }
-         */
+
 
     }
 

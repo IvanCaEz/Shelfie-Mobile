@@ -24,7 +24,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 
-class BookDetailFragment : Fragment(), ReviewOnClickListener {
+class BookDetailFragment : Fragment() {
     val viewModel: ApiViewModel by activityViewModels()
     private lateinit var userReviewAdapter: ReviewAdapter
     private lateinit var linearLayoutManager: RecyclerView.LayoutManager
@@ -52,8 +52,12 @@ class BookDetailFragment : Fragment(), ReviewOnClickListener {
         viewModel.getAllReviewsFromBook(bookID)
         val mapOfBookReviews = mutableMapOf<User, Review>()
 
+        println(viewModel.listOfBookReviews.value)
+
 
         viewModel.listOfBookReviews.observe(viewLifecycleOwner){ reviewList ->
+            println(viewModel.listOfBookReviews.value)
+
             reviewList.forEach { review->
                 viewModel.getUserByIDforReview(review.idUser)
                 viewModel.getUserImage(review.idUser)
@@ -63,7 +67,7 @@ class BookDetailFragment : Fragment(), ReviewOnClickListener {
             }
 
             Handler(Looper.getMainLooper()).postDelayed({
-                userReviewAdapter = ReviewAdapter(mapOfBookReviews,this, viewModel)
+                userReviewAdapter = ReviewAdapter(mapOfBookReviews, viewModel)
                 setupRecyclerView()
                 binding.reviewProgress.visibility = View.INVISIBLE
             }, 1000)
@@ -80,6 +84,16 @@ class BookDetailFragment : Fragment(), ReviewOnClickListener {
                 binding.progressBar.visibility = View.VISIBLE
                 borrowBook(userID!!, bookID)
             } else Toast.makeText(requireContext(),"You have 3 active loans", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.review.setOnClickListener {
+
+        }
+
+        binding.markasread.setOnClickListener {
+            viewModel.postBookToBookHistory(userID!!, viewModel.bookData.value!!)
+            Toast.makeText(requireContext(),
+                "${viewModel.bookData.value?.title} marked as read", Toast.LENGTH_SHORT).show()
         }
 
 
@@ -123,7 +137,5 @@ class BookDetailFragment : Fragment(), ReviewOnClickListener {
 
     }
 
-    override fun onClick(review: Review) {
-        TODO("Not yet implemented")
-    }
+
 }

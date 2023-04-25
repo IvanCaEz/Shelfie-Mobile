@@ -57,6 +57,8 @@ class ApiViewModel : ViewModel() {
     var bookData = MutableLiveData<Book>()
     var bookCover = MutableLiveData<Bitmap>()
     var bookCovers = mutableMapOf<String, Bitmap>()
+    var bookRating = MutableLiveData<Float>()
+    var bookRatings = mutableMapOf<String, Float>()
     lateinit var newBook: Book
 
     // REVIEWS
@@ -186,7 +188,7 @@ class ApiViewModel : ViewModel() {
 
     fun postBookToBookHistory(userID: String, readBook:Book) {
         CoroutineScope(Dispatchers.IO).launch {
-            val response = repository.postBookToBookHistory("users/$userID/book_history", readBook)
+            val response = repository.postBookToBookHistory("users/$userID/book_history", readBook.idBook.toInt())
         }
     }
 
@@ -371,6 +373,7 @@ class ApiViewModel : ViewModel() {
                     listOfBookReviews.postValue(response.body())
                 }
             } else {
+                listOfBookReviews.postValue(listOf())
                 println("No hay reviews")
                 Log.e("Error " + response.code(), response.message())
             }
@@ -411,6 +414,32 @@ class ApiViewModel : ViewModel() {
     fun postReview(bookID: String) {
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.postReview("books/$bookID/reviews/", newReview)
+        }
+    }
+    fun getAllBookRatings(bookID: String){
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.getBookRating("books/ratings")
+            if (response.isSuccessful) {
+                withContext(Dispatchers.Main) {
+                    bookRating.postValue(response.body())
+                }
+            } else {
+                Log.e("Error " + response.code(), response.message())
+            }
+        }
+    }
+
+    fun getBookRating(bookID: String){
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.getBookRating("books/$bookID/ratings")
+            if (response.isSuccessful) {
+                withContext(Dispatchers.Main) {
+                    bookRatings[bookID] = response.body()!!
+                    bookRating.postValue(response.body())
+                }
+            } else {
+                Log.e("Error " + response.code(), response.message())
+            }
         }
     }
 
@@ -483,6 +512,7 @@ class ApiViewModel : ViewModel() {
 
         return hex.toString()
     }
+
 
 }
 

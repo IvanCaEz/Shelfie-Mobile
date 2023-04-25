@@ -23,7 +23,7 @@ class Repository {
     suspend fun putUser(url: String, body: RequestBody, image: MultipartBody.Part) = apiInterface.putUser(url, body, image)
 
 
-    suspend fun postBookToBookHistory(url: String, body: Book) = apiInterface.postBookToBookHistory(url, body)
+    suspend fun postBookToBookHistory(url: String, body: Int) = apiInterface.postBookToBookHistory(url, body)
     suspend fun postBookLoan(url: String, body: BookLoan) = apiInterface.postBookLoan(url, body)
     suspend fun putBookLoan(url: String, body: BookLoan) = apiInterface.putBookLoan(url, body)
     suspend fun deleteUser(url: String) = apiInterface.deleteUser(url)
@@ -37,6 +37,9 @@ class Repository {
     suspend fun getBookByID(url: String) = apiInterface.getBookByID(url)
     suspend fun getBookByTitle(url: String) = apiInterface.getBookByTitle(url)
     suspend fun getBookCover(url: String) = apiInterface.getBookCover(url)
+
+    suspend fun getBookRating(url: String) = apiInterface.getBookRating(url)
+    suspend fun getAllBookRatings(url: String) = apiInterface.getAllBookRatings(url)
 
     suspend fun getBookByAuthor(url: String) = apiInterface.getBookByAuthor(url)
 

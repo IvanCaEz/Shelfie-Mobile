@@ -36,12 +36,12 @@
             android:textColor="@color/white"
             android:gravity="center"
             android:textSize="22dp"
+            app:layout_constraintHorizontal_bias="0.0"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/author_TV"
-            app:layout_constraintStart_toStartOf="@id/ratingBar"
-            app:layout_constraintEnd_toEndOf="@id/ratingBar"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@id/star_1"
+            app:layout_constraintEnd_toEndOf="@id/star_5"
             tools:text="Romeo &amp; Juliet" />
 
         <TextView
@@ -51,11 +51,12 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="20dp"
-            app:layout_constraintBottom_toTopOf="@id/ratingBar"
-            app:layout_constraintStart_toStartOf="@id/ratingBar"
-            app:layout_constraintEnd_toEndOf="@id/ratingBar"
+            app:layout_constraintBottom_toTopOf="@id/star_1"
+            app:layout_constraintStart_toStartOf="@id/star_1"
+            app:layout_constraintEnd_toEndOf="@id/star_5"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintTop_toBottomOf="@id/bookTitle_TV"
+            app:layout_constraintWidth_percent="0.5"
             tools:text="William Shakespeare" />
 
         <com.google.android.material.chip.Chip
@@ -69,33 +70,13 @@
             android:clickable="false"
             app:chipBackgroundColor="@color/beigeBackground"
             app:layout_constraintStart_toEndOf="@id/guideline"
-            app:layout_constraintTop_toBottomOf="@id/ratingBar"
+            app:layout_constraintTop_toBottomOf="@id/star_1"
             app:layout_constraintBottom_toBottomOf="parent"
             />
 
-        <RatingBar
-            android:id="@+id/ratingBar"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:numStars="5"
-            android:stepSize="0.1"
-            android:scaleX="0.6"
-            android:scaleY="0.6"
-            android:isIndicator="true"
-            android:clickable="false"
-            android:transformPivotY="20dp"
-            android:fillAfter="true"
-            android:fillBefore="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:backgroundTint="@color/goldButton"
-            android:progressTint="@color/goldButton"
-            app:layout_constraintStart_toEndOf="@+id/guideline4"
-            app:layout_constraintTop_toBottomOf="@id/author_TV"
-            app:layout_constraintEnd_toStartOf="@id/guideline3"
-            app:layout_constraintBottom_toTopOf="@id/guideline2" />
 
-        <!--
+
+
 
         <ImageView
             android:id="@+id/star_1"
@@ -143,7 +124,7 @@
             app:layout_constraintEnd_toEndOf="@id/guideline4"
             app:layout_constraintStart_toEndOf="@id/star_4"
             app:layout_constraintTop_toBottomOf="@id/author_TV" />
-            -->
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
