@@ -60,6 +60,7 @@ class ApiViewModel : ViewModel() {
     lateinit var newBook: Book
 
     // REVIEWS
+    var userDataForReview = MutableLiveData<User>()
     var listOfBookReviews = MutableLiveData<List<Review>>()
     var listOfUserReviews = MutableLiveData<List<Review>>()
 
@@ -83,13 +84,15 @@ class ApiViewModel : ViewModel() {
         }
     }
 
-    fun getUserByID(userID: String) {
+
+    fun getUserByIDforReview(userID: String) {
         CoroutineScope(Dispatchers.IO).launch {
             // Devuelve el usuario con la ID indicada
             val response = repository.getUserByID("users/$userID")
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
-                    userData.postValue(response.body())
+
+                    userDataForReview.postValue(response.body())
                 }
             } else {
                 Log.e("Error " + response.code(), response.message())
@@ -366,7 +369,6 @@ class ApiViewModel : ViewModel() {
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
                     listOfBookReviews.postValue(response.body())
-
                 }
             } else {
                 println("No hay reviews")

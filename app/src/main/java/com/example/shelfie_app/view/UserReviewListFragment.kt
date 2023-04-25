@@ -12,15 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shelfie_app.databinding.FragmentUserReviewListBinding
 import com.example.shelfie_app.model.Review
-import com.example.shelfie_app.view.adapters.ReviewAdapter
+import com.example.shelfie_app.view.adapters.UserReviewAdapter
 import com.example.shelfie_app.view.listeners.ReviewOnClickListener
 import com.example.shelfie_app.viewmodel.ApiViewModel
-import kotlinx.coroutines.runBlocking
 
 class UserReviewListFragment : Fragment(), ReviewOnClickListener {
     private lateinit var binding: FragmentUserReviewListBinding
     private lateinit var linearLayoutManager: RecyclerView.LayoutManager
-    private lateinit var reviewAdapter: ReviewAdapter
+    private lateinit var userReviewAdapter: UserReviewAdapter
     val viewModel: ApiViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -45,8 +44,8 @@ class UserReviewListFragment : Fragment(), ReviewOnClickListener {
                 }
                 viewModel.reviewedBooks.observe(viewLifecycleOwner) { reviewedBooks ->
                     Handler(Looper.getMainLooper()).postDelayed({
-                        reviewAdapter =
-                            ReviewAdapter(userReviewList, reviewedBooks, this, viewModel)
+                        userReviewAdapter =
+                            UserReviewAdapter(userReviewList, reviewedBooks, this, viewModel)
                         setupRecyclerView()
                         binding.shimmerViewContainer.visibility = View.INVISIBLE
                     }, 1000)
@@ -54,8 +53,8 @@ class UserReviewListFragment : Fragment(), ReviewOnClickListener {
             }
         } else {
             Handler(Looper.getMainLooper()).postDelayed({
-                reviewAdapter =
-                    ReviewAdapter(listOf(), listOf(), this, viewModel)
+                userReviewAdapter =
+                    UserReviewAdapter(listOf(), listOf(), this, viewModel)
                 setupRecyclerView()
                 binding.noReviewsTV.visibility = View.VISIBLE
                 binding.shimmerViewContainer.visibility = View.INVISIBLE
@@ -67,7 +66,7 @@ class UserReviewListFragment : Fragment(), ReviewOnClickListener {
 
     private fun setupRecyclerView() {
         val manager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = reviewAdapter
+        binding.recyclerView.adapter = userReviewAdapter
         binding.recyclerView.layoutManager = manager
         binding.recyclerView.visibility = View.VISIBLE
 

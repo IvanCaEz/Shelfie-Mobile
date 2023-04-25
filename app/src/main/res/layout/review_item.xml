@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardElevation="10dp"
+    app:cardBackgroundColor="@color/beigeBackground"
+    android:layout_margin="3dp"
+    android:id="@+id/marcadorListCardView"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profilepic"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_margin="8dp"
+            android:padding="7dp"
+            android:src="@drawable/mittens2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userName_TV"  />
+
+
+        <TextView
+            android:id="@+id/userName_TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/profilepic"
+            app:layout_constraintEnd_toEndOf="@id/profilepic"
+            app:layout_constraintStart_toStartOf="@id/profilepic"
+            app:layout_constraintHorizontal_bias="0.0"
+            tools:text="Romeo &amp; Juliet" />
+
+
+        <ImageView
+            android:id="@+id/star_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/guideline4"
+            app:layout_constraintTop_toBottomOf="@id/userName_TV"
+            app:layout_constraintEnd_toStartOf="@id/star_2"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            android:src="@drawable/empty_star"/>
+        <ImageView
+            android:id="@+id/star_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/star_1"
+            app:layout_constraintTop_toBottomOf="@id/userName_TV"
+            app:layout_constraintEnd_toStartOf="@id/star_3"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            android:src="@drawable/empty_star"/>
+        <ImageView
+            android:id="@+id/star_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/star_2"
+            app:layout_constraintTop_toBottomOf="@id/userName_TV"
+            app:layout_constraintEnd_toStartOf="@id/star_4"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            android:src="@drawable/empty_star"/>
+        <ImageView
+            android:id="@+id/star_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/star_3"
+            app:layout_constraintTop_toBottomOf="@+id/userName_TV"
+            app:layout_constraintEnd_toStartOf="@id/star_5"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            android:src="@drawable/empty_star"/>
+
+        <ImageView
+            android:id="@+id/star_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/empty_star"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            app:layout_constraintEnd_toEndOf="@id/guideline4"
+            app:layout_constraintStart_toEndOf="@id/star_4"
+            app:layout_constraintTop_toBottomOf="@+id/userName_TV" />
+
+        <TextView
+            android:id="@+id/review_TV"
+            android:layout_width="220dp"
+            android:layout_height="70dp"
+            android:text="Ha estado guay"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline3"
+            app:layout_constraintStart_toStartOf="@id/star_1"
+            app:layout_constraintTop_toBottomOf="@id/star_1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.39" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="59dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.96" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.56" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

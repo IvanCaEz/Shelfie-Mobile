@@ -7,28 +7,31 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shelfie_app.R
 import com.example.shelfie_app.databinding.OwnReviewItemBinding
-import com.example.shelfie_app.databinding.ReviewItemBinding
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
-import com.example.shelfie_app.model.User
 import com.example.shelfie_app.view.listeners.ReviewOnClickListener
 import com.example.shelfie_app.viewmodel.ApiViewModel
 
-class ReviewAdapter(var reviewMap: Map<User, Review>,
-                    private val listener: ReviewOnClickListener,
-                    private val viewModel: ApiViewModel
-) : RecyclerView.Adapter<ReviewAdapter.ViewHolder>() {
+class UserReviewAdapter(var userReviewList: List<Review>,
+                        var reviewedBooks: List<Book>,
+                        private val listener: ReviewOnClickListener,
+                        private val viewModel: ApiViewModel
+) : RecyclerView.Adapter<UserReviewAdapter.ViewHolder>() {
     private lateinit var context: Context
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        private val binding = ReviewItemBinding.bind(view)
+        private val binding = OwnReviewItemBinding.bind(view)
 
-        fun render(userAndReview: Pair<User,Review>) {
-            binding.userNameTV.text = userAndReview.first.userName
-            binding.reviewTV.text = userAndReview.second.comment
-            binding.profilepic.setImageBitmap(viewModel.userImages[userAndReview.first.idUser])
-            renderRating(viewModel.bookRatings(userAndReview.second.idBook, listOf(userAndReview.second)).toDouble())
+        fun render(reviewToRender: Review, bookToRender: Book) {
+            binding.bookTitleTV.text = bookToRender.title
+            binding.authorTV.text = bookToRender.author
+            binding.reviewTV.text = reviewToRender.comment
+            binding.bookCoverIV.setImageBitmap(viewModel.bookCovers[reviewToRender.idBook])
+            renderRating(viewModel.bookRatings(reviewToRender.idBook, listOf(reviewToRender)).toDouble())
+
+            itemView.setOnClickListener { listener.onClick(reviewToRender) }
+
         }
 
         fun renderRating(rating: Double) {
@@ -84,23 +87,24 @@ class ReviewAdapter(var reviewMap: Map<User, Review>,
     }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserReviewAdapter.ViewHolder {
         context = parent.context
         val layoutInflater = LayoutInflater.from(parent.context).inflate(
-            R.layout.review_item, parent, false
+            R.layout.own_review_item, parent, false
         )
         return ViewHolder(layoutInflater)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val review = reviewMap.toList()[position]
+        val review = userReviewList[position]
+        val book = reviewedBooks[position]
         with(holder) {
-            render(review)
+            render(review, book)
         }
     }
 
     override fun getItemCount(): Int {
-        return reviewMap.size
+        return userReviewList.size
     }
 
 

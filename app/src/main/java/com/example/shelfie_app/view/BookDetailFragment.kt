@@ -1,23 +1,35 @@
 package com.example.shelfie_app.view
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.models.BookLoan
-import com.example.shelfie_app.R
 import com.example.shelfie_app.databinding.FragmentBookDetailBinding
 import com.example.shelfie_app.model.Book
+import com.example.shelfie_app.model.Review
+import com.example.shelfie_app.model.User
+import com.example.shelfie_app.view.adapters.ReviewAdapter
+import com.example.shelfie_app.view.adapters.UserReviewAdapter
+import com.example.shelfie_app.view.listeners.ReviewOnClickListener
 import com.example.shelfie_app.viewmodel.ApiViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 
-class BookDetailFragment : Fragment() {
+class BookDetailFragment : Fragment(), ReviewOnClickListener {
     val viewModel: ApiViewModel by activityViewModels()
+    private lateinit var userReviewAdapter: ReviewAdapter
+    private lateinit var linearLayoutManager: RecyclerView.LayoutManager
+
+
     lateinit var binding: FragmentBookDetailBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -28,15 +40,39 @@ class BookDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        linearLayoutManager = LinearLayoutManager(context)
+
         val bookID = arguments?.getString("bookID")
 
         val userID = viewModel.userData.value?.idUser
         binding.progressBar.visibility = View.VISIBLE
+        binding.reviewProgress.visibility = View.VISIBLE
         viewModel.getBookByID(bookID!!)
         viewModel.getBookCover(bookID)
+        viewModel.getAllReviewsFromBook(bookID)
+        val mapOfBookReviews = mutableMapOf<User, Review>()
+
+
+        viewModel.listOfBookReviews.observe(viewLifecycleOwner){ reviewList ->
+            reviewList.forEach { review->
+                viewModel.getUserByIDforReview(review.idUser)
+                viewModel.getUserImage(review.idUser)
+                viewModel.userDataForReview.observe(viewLifecycleOwner){ user ->
+                    mapOfBookReviews[user] = review
+                }
+            }
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                userReviewAdapter = ReviewAdapter(mapOfBookReviews,this, viewModel)
+                setupRecyclerView()
+                binding.reviewProgress.visibility = View.INVISIBLE
+            }, 1000)
+
+        }
+
 
         viewModel.bookData.observe(viewLifecycleOwner){ book ->
-            setUpInfo(book)
+            setUpBookInfo(book)
         }
 
         binding.borrow.setOnClickListener {
@@ -67,7 +103,15 @@ class BookDetailFragment : Fragment() {
 
     }
 
-    fun setUpInfo(book: Book){
+    private fun setupRecyclerView() {
+        val manager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = userReviewAdapter
+        binding.recyclerView.layoutManager = manager
+        binding.recyclerView.visibility = View.VISIBLE
+
+    }
+
+    fun setUpBookInfo(book: Book){
         viewModel.bookCover.observe(viewLifecycleOwner){ bookCover ->
             binding.bookCoverIV.setImageBitmap(bookCover)
         }
@@ -77,5 +121,9 @@ class BookDetailFragment : Fragment() {
         //Publication year
         binding.progressBar.visibility = View.INVISIBLE
 
+    }
+
+    override fun onClick(review: Review) {
+        TODO("Not yet implemented")
     }
 }
