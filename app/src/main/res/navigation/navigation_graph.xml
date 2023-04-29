@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_userProfileFragment_to_makeReviewFragment"
             app:destination="@id/makeReviewFragment" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"

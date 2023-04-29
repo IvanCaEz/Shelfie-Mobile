@@ -18,19 +18,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/editProfileButton"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="15dp"
-        android:background="@drawable/roundcorners"
-        android:backgroundTint="@color/goldButton"
-        android:text="@string/edit_profile"
+        app:fabSize="mini"
+        android:layout_marginStart="20dp"
+        app:srcCompat="@drawable/edit_icon"
+        app:tint="@color/white"
+        app:rippleColor="@color/brownButton"
+        android:backgroundTint="@color/nav"
         android:textAllCaps="false"
         android:textSize="11sp"
+        app:layout_constraintTop_toTopOf="@id/usernameText"
+        app:layout_constraintStart_toEndOf="@id/usernameArroba"
+        app:layout_constraintBottom_toBottomOf="@id/usernameArroba" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="mini"
+        app:srcCompat="@drawable/logout_icon"
+        app:tint="@color/white"
+        android:layout_marginEnd="20dp"
+        app:rippleColor="@color/brownButton"
+        android:backgroundTint="@color/nav"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/profilepic" />
 
     <TextView
         android:id="@+id/usernameText"

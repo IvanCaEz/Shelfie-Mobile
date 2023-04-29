@@ -96,6 +96,7 @@ class MakeReviewFragment : Fragment() {
                         Review("", bookID, userID!!, date, reviewComment, rating.rating.toInt())
                     viewModel.postReview(bookID, newReview)
                     viewModel.postBookToBookHistory(userID, viewModel.bookData.value!!)
+                    updateRating(bookID)
                     returnToOrigin(fromWhere!!, bookID)
                 } else {
                     val reviewToUpdate = Review(
@@ -107,6 +108,8 @@ class MakeReviewFragment : Fragment() {
                         rating.rating.toInt()
                     )
                     viewModel.putReview(bookID, reviewToUpdate)
+                    updateRating(bookID)
+
                     returnToOrigin(fromWhere!!, bookID)
                 }
 
@@ -117,6 +120,18 @@ class MakeReviewFragment : Fragment() {
             returnToOrigin(fromWhere!!, bookID)
         }
 
+    }
+
+    fun updateRating(bookID: String){
+        viewModel.getAllReviewsFromBook(bookID)
+        var rating = 0.0f
+        viewModel.listOfBookReviews.observe(viewLifecycleOwner){ reviews ->
+            reviews.forEach { review ->
+                rating += review.rating
+            }
+            rating /= reviews.size
+        }
+        viewModel.putBookRating(bookID, rating.toInt())
     }
 
     fun returnToOrigin(fromWhere: String, bookID: String) {

@@ -1,10 +1,13 @@
 package com.example.shelfie_app.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.edit
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.shelfie_app.R
@@ -18,6 +21,7 @@ import kotlinx.coroutines.runBlocking
 class UserProfileFragment : Fragment() {
     private lateinit var binding: FragmentUserProfileBinding
     val viewModel: ApiViewModel by activityViewModels()
+    lateinit var myPreferences: SharedPreferences
 
 
     override fun onCreateView(
@@ -29,9 +33,10 @@ class UserProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        myPreferences = requireActivity().getSharedPreferences("MySharedPreferences", Context.MODE_PRIVATE)
+
 
         setupViewPager()
-        println(viewModel.userData.value!!.userName)
 
         binding.infoProgressBar.visibility = View.VISIBLE
         getUserInfo(viewModel.userData.value!!.idUser)
@@ -44,6 +49,17 @@ class UserProfileFragment : Fragment() {
             val toEditProfile =
                 UserProfileFragmentDirections.actionUserProfileFragmentToEditProfileFragment()
             findNavController().navigate(toEditProfile)
+        }
+
+        binding.logoutButton.setOnClickListener {
+            myPreferences.edit {
+                putString("userName", "")
+                putString("password", "")
+                putBoolean("active", false)
+                apply()
+            }
+            val toLogin = UserProfileFragmentDirections.actionUserProfileFragmentToLoginFragment()
+            findNavController().navigate(toLogin)
         }
 
     }

@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.models.BookLoan
+import com.example.shelfie_app.R
 import com.example.shelfie_app.databinding.FragmentBookDetailBinding
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
@@ -68,6 +69,7 @@ class BookDetailFragment : Fragment() {
             }
 
             Handler(Looper.getMainLooper()).postDelayed({
+                renderRating(viewModel.getBookScore(reviewList).toDouble())
                 userReviewAdapter = ReviewAdapter(mapOfBookReviews, viewModel)
                 setupRecyclerView()
                 binding.reviewProgress.visibility = View.INVISIBLE
@@ -99,6 +101,57 @@ class BookDetailFragment : Fragment() {
         }
 
 
+    }
+
+    fun renderRating(rating: Double) {
+        when (rating) {
+            in 0.5..0.99 -> binding.star1.setImageResource(R.drawable.half_star)
+            in 1.1..1.99 -> {
+                binding.star1.setImageResource(R.drawable.full_star)
+                binding.star2.setImageResource(R.drawable.half_star)
+            }
+            in 2.0..2.49 -> {
+                binding.star1.setImageResource(R.drawable.full_star)
+                binding.star2.setImageResource(R.drawable.full_star)
+            }
+            in 2.5..2.9 -> {
+                binding.star1.setImageResource(R.drawable.full_star)
+                binding.star2.setImageResource(R.drawable.full_star)
+                binding.star3.setImageResource(R.drawable.half_star)
+            }
+            in 3.0..3.49 -> {
+                binding.star1.setImageResource(R.drawable.full_star)
+                binding.star2.setImageResource(R.drawable.full_star)
+                binding.star3.setImageResource(R.drawable.full_star)
+
+            }
+            in 3.5..3.99 -> {
+                binding.star1.setImageResource(R.drawable.full_star)
+                binding.star2.setImageResource(R.drawable.full_star)
+                binding.star3.setImageResource(R.drawable.full_star)
+                binding.star4.setImageResource(R.drawable.half_star)
+            }
+            in 4.0..4.49 -> {
+                binding.star1.setImageResource(R.drawable.full_star)
+                binding.star2.setImageResource(R.drawable.full_star)
+                binding.star3.setImageResource(R.drawable.full_star)
+                binding.star4.setImageResource(R.drawable.full_star)
+            }
+            in 4.5..4.9 -> {
+                binding.star1.setImageResource(R.drawable.full_star)
+                binding.star2.setImageResource(R.drawable.full_star)
+                binding.star3.setImageResource(R.drawable.full_star)
+                binding.star4.setImageResource(R.drawable.full_star)
+                binding.star5.setImageResource(R.drawable.half_star)
+            }
+            5.0 -> {
+                binding.star1.setImageResource(R.drawable.full_star)
+                binding.star2.setImageResource(R.drawable.full_star)
+                binding.star3.setImageResource(R.drawable.full_star)
+                binding.star4.setImageResource(R.drawable.full_star)
+                binding.star5.setImageResource(R.drawable.full_star)
+            }
+        }
     }
 
     private fun borrowBook(userID: String, bookID: String){

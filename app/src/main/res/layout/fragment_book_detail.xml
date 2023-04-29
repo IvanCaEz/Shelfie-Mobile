@@ -18,7 +18,7 @@
             android:indeterminate="true"
             android:indeterminateTint="@color/misteryLight"
             android:indeterminateTintMode="src_atop"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:indicatorColor="@color/misteryLight"
             app:layout_constraintBottom_toTopOf="@id/recyclerView"
             app:layout_constraintEnd_toEndOf="parent"

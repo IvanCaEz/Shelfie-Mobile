@@ -1,10 +1,14 @@
 package com.example.shelfie_app.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.provider.Settings.Global.putString
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.edit
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.shelfie_app.databinding.FragmentLoginBinding
@@ -17,6 +21,7 @@ import kotlinx.serialization.json.Json
 class LoginFragment : Fragment() {
     lateinit var binding: FragmentLoginBinding
     val viewModel: ApiViewModel by activityViewModels()
+    lateinit var myPreferences: SharedPreferences
 
 
     override fun onCreateView(
@@ -29,6 +34,20 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        myPreferences = requireActivity().getSharedPreferences("MySharedPreferences", Context.MODE_PRIVATE)
+
+        // ESTO VA EN EL SPLASH SCREEN
+        val savedUsername = myPreferences.getString("userName", "")
+        val savedPass = myPreferences.getString("password", "")
+        val active = myPreferences.getBoolean("active", false)
+
+        if (active){
+                viewModel.getUserByUserName(savedUsername!!, savedPass!!)
+            viewModel.userData.observe(viewLifecycleOwner){
+                login()
+            }
+        }
+
 
 
         binding.loginButton.setOnClickListener {
@@ -43,6 +62,15 @@ class LoginFragment : Fragment() {
                         binding.passwordET.isErrorEnabled = false
                         // QUITAR ESTO
                         println(Json.encodeToString(viewModel.userData.value!!))
+
+
+                        myPreferences.edit {
+                            putString("userName", userName)
+                            putString("password", password)
+                            putBoolean("active", true)
+                            apply()
+                        }
+
                         login()
 
 

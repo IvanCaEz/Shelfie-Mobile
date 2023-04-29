@@ -443,6 +443,8 @@ class ApiViewModel : ViewModel() {
             println("Review updateada")
         }
     }
+
+
     fun getAllBookRatings(bookID: String){
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.getBookRating("books/ratings")
@@ -467,6 +469,13 @@ class ApiViewModel : ViewModel() {
             } else {
                 Log.e("Error " + response.code(), response.message())
             }
+        }
+    }
+
+    fun putBookRating(bookID: String, rating: Int){
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.putBookRating("books/$bookID/ratings", rating)
+
         }
     }
 

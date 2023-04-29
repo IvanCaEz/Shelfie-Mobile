@@ -60,9 +60,9 @@ interface ApiInterface {
 
     @GET suspend fun getBookRating(@Url url: String): Response<Float>
 
-    // TODO() GET Imagen portada?
-    // TODO() Probar el post con imagen
-    // TODO() PUT libro
+    @PUT suspend fun putBookRating(@Url url: String, @Body body: Int)
+
+
     @POST suspend fun postBook(@Url url: String, @Body body: Book)
     @DELETE suspend fun deleteBook(@Url url: String): Call<Book>
 
