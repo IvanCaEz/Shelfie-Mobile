@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.models.BookLoan
@@ -87,7 +88,8 @@ class BookDetailFragment : Fragment() {
         }
 
         binding.review.setOnClickListener {
-
+            val toMakeReview = BookDetailFragmentDirections.actionBookDetailFragmentToMakeReviewFragment(bookID, "detail")
+            findNavController().navigate(toMakeReview)
         }
 
         binding.markasread.setOnClickListener {
@@ -122,7 +124,6 @@ class BookDetailFragment : Fragment() {
         binding.recyclerView.adapter = userReviewAdapter
         binding.recyclerView.layoutManager = manager
         binding.recyclerView.visibility = View.VISIBLE
-
     }
 
     fun setUpBookInfo(book: Book){
@@ -132,7 +133,7 @@ class BookDetailFragment : Fragment() {
         binding.titulo.text = book.title
         binding.autor.text = book.author
         binding.descripcion.text = book.synopsis
-        //Publication year
+        binding.publicationDate.text = "First publication year ${book.publicationYear}"
         binding.progressBar.visibility = View.INVISIBLE
 
     }

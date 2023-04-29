@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/beigeBackground"
+    tools:context=".view.MakeReviewFragment">
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/misteryLight"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="invisible"
+        app:indicatorColor="@color/misteryLight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/bookCover_IV"
+        android:layout_width="150dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="10dp"
+        android:padding="7dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/backIV" />
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="150dp"
+        android:gravity="center"
+        android:padding="7dp"
+        android:text="title"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/bookCover_IV"
+        app:layout_constraintStart_toEndOf="@id/bookCover_IV"
+        app:layout_constraintTop_toTopOf="@id/bookCover_IV"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/autor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:padding="7dp"
+        android:text="autor"
+        app:layout_constraintBottom_toTopOf="@id/rating"
+        app:layout_constraintStart_toEndOf="@id/bookCover_IV"
+        app:layout_constraintTop_toBottomOf="@id/titulo" />
+
+    <RatingBar
+        android:id="@+id/rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/bookCover_IV"
+        app:layout_constraintTop_toBottomOf="@id/autor"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/reviewBox_ET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/roundcorners"
+        android:backgroundTint="@color/beigeBackgroundEditText"
+        android:textSize="15sp"
+        android:hint="Review"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintTop_toBottomOf="@id/bookCover_IV"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:boxStrokeColor="@color/misteryLight"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_marginStart="9dp"
+            android:layout_marginEnd="9dp"
+            android:background="@drawable/roundcorners"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/beigeBackgroundEditText"
+            android:inputType="textMultiLine"
+            android:lines="20"
+            android:gravity="top"
+            android:overScrollMode="always"
+            android:scrollbars="vertical"
+            android:scrollbarStyle="insideInset"
+            android:scrollHorizontally="false"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/makeReview_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Post review"
+        app:layout_constraintTop_toBottomOf="@id/reviewBox_ET"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+        android:id="@+id/backIV"
+        android:src="@drawable/arrow_left"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bookCover_IV"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

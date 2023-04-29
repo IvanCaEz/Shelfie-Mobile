@@ -21,8 +21,7 @@ class UserProfileFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentUserProfileBinding.inflate(layoutInflater)
         return binding.root
@@ -63,6 +62,12 @@ class UserProfileFragment : Fragment() {
         viewModel.listOfUserReviews.observe(viewLifecycleOwner) { reviewList ->
             binding.reviewCounter.text = reviewList.size.toString()
         }
+
+
+        viewModel.userActiveBookLoans.observe(viewLifecycleOwner) { loanList ->
+            binding.activeLoansTVCounter.text = loanList.size.toString()
+        }
+
         viewModel.userBookHistory.observe(viewLifecycleOwner) { bookHistory ->
             mostReadedGenres(bookHistory)
             binding.userBooksCounter.text = bookHistory.size.toString()

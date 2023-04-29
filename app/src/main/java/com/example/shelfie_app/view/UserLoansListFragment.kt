@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.models.BookLoan
@@ -87,7 +88,8 @@ class UserLoansListFragment : Fragment(), BookLoanOnClickListener {
     }
 
     override fun onReviewListener(book: Book) {
-        TODO("Not yet implemented")
+        val toReview = UserProfileFragmentDirections.actionUserProfileFragmentToMakeReviewFragment(book.idBook, "loan")
+        findNavController().navigate(toReview)
     }
 
     override fun onReturnListener(bookLoan: BookLoan) {

@@ -28,7 +28,23 @@ class ShelfAdapter(
             binding.authorTV.text = bookToRender.author
             binding.bookCoverIV.setImageBitmap(viewModel.bookCovers[bookToRender.idBook])
             viewModel.renderTag(binding.genreTag, bookToRender.genre)
-            renderRating(viewModel.bookRatings[bookToRender.idBook]!!.toDouble())
+            //Si la lista de reviews está vacía significa que obtenemos la puntuación directamente de
+            // la tabla puntuaciones y si no está vacía, obtenemos la puntuación del usuario.
+            if (reviewList.isEmpty()){
+                if (viewModel.bookRatings[bookToRender.idBook] != null){
+                    println(bookToRender.title)
+                    println("HOLAA ${viewModel.bookRatings[bookToRender.idBook]}")
+                    renderRating(viewModel.bookRatings[bookToRender.idBook]!!.toDouble())
+                } else {
+                    renderRating(0.0)
+                    println(bookToRender.title)
+                    println("HOLAA ${viewModel.bookRatings[bookToRender.idBook]}")
+                }
+            } else {
+                renderRating(viewModel.bookRatings(bookToRender.idBook, reviewList).toDouble())
+            }
+
+
             itemView.setOnClickListener { listener.onClick(bookToRender) }
         }
 

@@ -11,7 +11,7 @@ class Repository {
     // USERS
     suspend fun getAllUsers(url: String) = apiInterface.getAllUsers(url)
     suspend fun getUserByID(url: String) = apiInterface.getUserByID(url)
-    suspend fun getUserByUserName(url: String) = apiInterface.getUserByUserName(url)
+    suspend fun getUserByUserName(/*auth:String,*/ url: String) = apiInterface.getUserByUserName(/*auth,*/ url)
     suspend fun getUserImage(url: String) = apiInterface.getUserImage(url)
 
     suspend fun getUserBookHistory(url: String) = apiInterface.getUserBookHistory(url)
@@ -56,6 +56,8 @@ class Repository {
     suspend fun getReviewByID(url: String) = apiInterface.getReviewByID(url)
 
     suspend fun postReview(url: String, body: Review) = apiInterface.postReview(url, body)
+    suspend fun putReview(url: String, body: Review) = apiInterface.putReview(url, body)
+
 
     suspend fun deleteReview(url: String) = apiInterface.deleteReview(url)
 

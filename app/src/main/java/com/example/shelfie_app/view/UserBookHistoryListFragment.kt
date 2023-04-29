@@ -36,6 +36,7 @@ class UserBookHistoryListFragment : Fragment(), BookOnClickListener {
 
         binding.noBooksTV.visibility = View.INVISIBLE
         Handler(Looper.getMainLooper()).postDelayed({
+            println(viewModel.userBookHistory.value)
             if (viewModel.userBookHistory.value?.isNotEmpty() == true) {
                 viewModel.userBookHistory.observe(viewLifecycleOwner) { userBookHistory ->
                     userBookHistory.forEach { book ->

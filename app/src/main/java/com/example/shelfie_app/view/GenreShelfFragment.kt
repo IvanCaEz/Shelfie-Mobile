@@ -53,18 +53,15 @@ class GenreShelfFragment : Fragment(), BookOnClickListener {
             }
                 booksByGenre.forEach { book ->
                         viewModel.getBookCover(book.idBook)
-                        viewModel.getAllReviewsFromBook(book.idBook)
+                        viewModel.getBookRating(book.idBook)
                 }
 
-            viewModel.listOfBookReviews.observe(viewLifecycleOwner) { reviewList ->
-                Handler(Looper.getMainLooper()).postDelayed({
-                    shelfAdapter = if (reviewList.isNotEmpty()){
-                        ShelfAdapter(booksByGenre, reviewList, this, viewModel)
-                    } else ShelfAdapter(booksByGenre, listOf<Review>(), this, viewModel)
-                    setupRecyclerView()
-                    binding.shimmerViewContainer.visibility = View.INVISIBLE
-                }, 1000)
-            }
+            Handler(Looper.getMainLooper()).postDelayed({
+                shelfAdapter = ShelfAdapter(booksByGenre, listOf(), this, viewModel)
+                setupRecyclerView()
+                binding.shimmerViewContainer.visibility = View.INVISIBLE
+            }, 1000)
+
 
         }
 

@@ -43,17 +43,13 @@ class ShelfFragment : Fragment(), BookOnClickListener {
 
             bookList.forEach { book ->
                 viewModel.getBookCover(book.idBook)
-                viewModel.getAllReviewsFromBook(book.idBook)
+                viewModel.getBookRating(book.idBook)
             }
-
-            viewModel.listOfBookReviews.observe(viewLifecycleOwner) { reviewList ->
-                Handler(Looper.getMainLooper()).postDelayed({
-                    shelfAdapter = ShelfAdapter(bookList, reviewList, this, viewModel)
-                    setupRecyclerView()
-                    binding.shimmerViewContainer.visibility = View.INVISIBLE
-                }, 1000)
-            }
-
+            Handler(Looper.getMainLooper()).postDelayed({
+                shelfAdapter = ShelfAdapter(bookList, listOf(), this, viewModel)
+                setupRecyclerView()
+                binding.shimmerViewContainer.visibility = View.INVISIBLE
+            }, 1000)
         }
 
 

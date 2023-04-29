@@ -39,7 +39,7 @@ class RegisterFragment : Fragment() {
                 if (validatePassword(password) && confirmPassword(password)) {
                     password = viewModel.encryptPassword(password)
                     // Miramos que no haya ningún usuario con ese nombre de usuario
-                    viewModel.getUserByUserName(newUserName)
+                    viewModel.getUserByUserName(password, newUserName)
 
                     viewModel.isNewUser.observe(viewLifecycleOwner) { isNew ->
                         when (isNew) {

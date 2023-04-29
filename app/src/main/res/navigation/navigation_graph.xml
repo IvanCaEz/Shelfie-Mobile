@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_userProfileFragment_to_bookDetailFragment"
             app:destination="@id/bookDetailFragment" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_makeReviewFragment"
+            app:destination="@id/makeReviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -112,5 +115,26 @@
         <argument
             android:name="bookID"
             app:argType="string" />
+        <action
+            android:id="@+id/action_bookDetailFragment_to_makeReviewFragment"
+            app:destination="@id/makeReviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/makeReviewFragment"
+        android:name="com.example.shelfie_app.view.MakeReviewFragment"
+        android:label="fragment_make_review"
+        tools:layout="@layout/fragment_make_review" >
+        <argument
+            android:name="bookID"
+            app:argType="string" />
+        <argument
+            android:name="fromWhere"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_makeReviewFragment_to_bookDetailFragment"
+            app:destination="@id/bookDetailFragment" />
+        <action
+            android:id="@+id/action_makeReviewFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment" />
     </fragment>
 </navigation>

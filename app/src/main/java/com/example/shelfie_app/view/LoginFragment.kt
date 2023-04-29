@@ -35,7 +35,7 @@ class LoginFragment : Fragment() {
             val userName = binding.usernameET.editText?.text.toString()
             val password = viewModel.encryptPassword(binding.passwordET.editText?.text.toString())
             if (userName.isNotEmpty() && password.isNotEmpty()) {
-                viewModel.getUserByUserName(userName)
+                viewModel.getUserByUserName(userName,password)
                 viewModel.userData.observe(viewLifecycleOwner) { user ->
                     if (user.password == password) {
                         println(viewModel.userData.value!!.userName)

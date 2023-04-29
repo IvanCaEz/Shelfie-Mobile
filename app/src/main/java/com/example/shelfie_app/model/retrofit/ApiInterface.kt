@@ -22,7 +22,7 @@ interface ApiInterface {
     // USERS
     @GET suspend fun getAllUsers(@Url url: String): Response<List<User>>
     @GET suspend fun getUserByID(@Url url: String): Response<User>
-    @GET suspend fun getUserByUserName(@Url url: String): Response<User>
+    @GET suspend fun getUserByUserName(/*@Header("Authorization") auth: String,*/ @Url url: String): Response<User>
     @GET suspend fun getUserImage(@Url url: String): Response<ResponseBody>
     @GET suspend fun getUserBookHistory(@Url url: String): Response<List<Book>>
     @GET suspend fun getUserLoans(@Url url: String): Response<List<BookLoan>>
@@ -42,10 +42,10 @@ interface ApiInterface {
                          @Part image: MultipartBody.Part)
     @DELETE suspend fun deleteUser(@Url url: String)//: Call<User>
 
-    @DELETE suspend fun deleteBookFromBookHistory(@Url url: String): Call<Book>
+    @DELETE suspend fun deleteBookFromBookHistory(@Url url: String)
 
     @PUT suspend fun putBookLoan(@Url url: String, @Body body: BookLoan)
-    @DELETE suspend fun deleteBookLoan(@Url url: String): Call<BookLoan>
+    @DELETE suspend fun deleteBookLoan(@Url url: String)
 
 
 
@@ -63,7 +63,7 @@ interface ApiInterface {
     // TODO() GET Imagen portada?
     // TODO() Probar el post con imagen
     // TODO() PUT libro
-    @POST suspend fun postBook(@Url url: String, @Body body: Book): Call<Book>
+    @POST suspend fun postBook(@Url url: String, @Body body: Book)
     @DELETE suspend fun deleteBook(@Url url: String): Call<Book>
 
 
@@ -72,9 +72,9 @@ interface ApiInterface {
     @GET suspend fun getAllReviewsOfUser(@Url url: String): Response<List<Review>>
 
     @GET suspend fun getReviewByID(@Url url: String): Response<Review>
-    @POST suspend fun postReview(@Url url: String, @Body body: Review): Call<Review>
+    @POST suspend fun postReview(@Url url: String, @Body body: Review)
+    @PUT suspend fun putReview(@Url url: String, @Body body: Review)
 
-    // TODO() PUT review
     @DELETE suspend fun deleteReview(@Url url: String): Call<Review>
 
 

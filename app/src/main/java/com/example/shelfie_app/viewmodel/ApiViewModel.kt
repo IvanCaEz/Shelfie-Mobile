@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.JsonReader
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.models.BookLoan
@@ -26,13 +27,17 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
+import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
+import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest
 import java.text.DecimalFormat
 import java.util.*
 
 class ApiViewModel : ViewModel() {
     private val repository = Repository()
+    val myRealm = "Elcolinaboesuncruceentreunnaboyunacol"
+
 
     // USERS
     var listOfUsers = MutableLiveData<List<User>>()
@@ -68,7 +73,7 @@ class ApiViewModel : ViewModel() {
 
     var bookReview = MutableLiveData<Review>()
     var reviewedBooks = MutableLiveData<List<Book>>()
-    lateinit var newReview: Review
+
 
 
     // USERS
@@ -102,10 +107,24 @@ class ApiViewModel : ViewModel() {
         }
     }
 
-    fun getUserByUserName(userName: String) {
+    fun getUserByUserName(userName: String, password: String) {
         CoroutineScope(Dispatchers.IO).launch {
             // Devuelve el usuario con la ID indicada
-            val response = repository.getUserByUserName("users/username/$userName")
+            val a = "${userName}:$myRealm:$password"
+            val md = MessageDigest.getInstance("MD5")
+            val credentials = a.toByteArray(Charset.forName("UTF-8"))
+            val digest = md.digest(credentials)
+
+
+            val digestBase64 = Base64.getEncoder().encodeToString(digest)
+            println(digestBase64)
+
+            val authUnauthorized = "Digest $digestBase64"
+            val authBadRequest = "Digest $a"
+
+            println(authUnauthorized)
+            println(authBadRequest)
+            val response = repository.getUserByUserName(/*authBadRequest,*/ "users/username/$userName")
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
                     userData.postValue(response.body())
@@ -113,6 +132,8 @@ class ApiViewModel : ViewModel() {
                     println("usuario ${response.body()} encontrado")
                 }
             } else {
+                println(response.headers())
+                println(response.raw())
                 isNewUser.postValue(true)
                 Log.e("Error " + response.code(), response.message())
             }
@@ -411,9 +432,15 @@ class ApiViewModel : ViewModel() {
     }
 
     // POST Review
-    fun postReview(bookID: String) {
+    fun postReview(bookID: String, newReview: Review) {
         CoroutineScope(Dispatchers.IO).launch {
-            val response = repository.postReview("books/$bookID/reviews/", newReview)
+            val response = repository.postReview("books/$bookID/reviews", newReview)
+        }
+    }
+    fun putReview(bookID: String, reviewToUpdate: Review) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val response = repository.putReview("books/$bookID/reviews/${reviewToUpdate.idReview}", reviewToUpdate)
+            println("Review updateada")
         }
     }
     fun getAllBookRatings(bookID: String){
@@ -511,6 +538,13 @@ class ApiViewModel : ViewModel() {
         }
 
         return hex.toString()
+    }
+
+    fun getMd5Digest(str: String): ByteArray = MessageDigest.getInstance("MD5").digest(str.toByteArray(UTF_8))
+
+    fun md5auth(username: String, password: String): ByteArray {
+        val myRealm = "Elcolinaboesuncruceentreunnaboyunacol"
+        return getMd5Digest("${username}:$myRealm:${password}")
     }
 
 

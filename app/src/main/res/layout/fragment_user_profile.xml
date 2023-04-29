@@ -105,7 +105,7 @@
         app:layout_constraintTop_toBottomOf="@id/reviewCounter" />
 
     <TextView
-        android:id="@+id/wantToReadCounter"
+        android:id="@+id/activeLoans_TVCounter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="0"
@@ -114,15 +114,15 @@
         app:layout_constraintStart_toEndOf="@id/guideline6"
         app:layout_constraintTop_toBottomOf="@id/userBio" />
     <TextView
-        android:id="@+id/wantToRead_TV"
+        android:id="@+id/activeLoans_TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/mostReadedGenres"
-        android:text="want to read"
+        android:text="active loans"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="@id/wantToReadCounter"
-        app:layout_constraintStart_toStartOf="@id/wantToReadCounter"
-        app:layout_constraintTop_toBottomOf="@id/wantToReadCounter" />
+        app:layout_constraintEnd_toEndOf="@id/activeLoans_TVCounter"
+        app:layout_constraintStart_toStartOf="@id/activeLoans_TVCounter"
+        app:layout_constraintTop_toBottomOf="@id/activeLoans_TVCounter" />
 
     <ProgressBar
         android:id="@+id/infoProgressBar"
