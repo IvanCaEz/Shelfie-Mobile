@@ -22,6 +22,7 @@ import com.example.shelfie_app.view.adapters.ReviewAdapter
 import com.example.shelfie_app.view.adapters.UserReviewAdapter
 import com.example.shelfie_app.view.listeners.ReviewOnClickListener
 import com.example.shelfie_app.viewmodel.ApiViewModel
+import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -59,13 +60,12 @@ class BookDetailFragment : Fragment() {
 
         viewModel.listOfBookReviews.observe(viewLifecycleOwner){ reviewList ->
             println(viewModel.listOfBookReviews.value)
-
-            reviewList.forEach { review->
-                viewModel.getUserByIDforReview(review.idUser)
-                viewModel.getUserImage(review.idUser)
-                viewModel.userDataForReview.observe(viewLifecycleOwner){ user ->
-                    mapOfBookReviews[user] = review
-                }
+                reviewList.forEach { review->
+                    viewModel.getUserByIDforReview(review.idUser)
+                    viewModel.getUserImage(review.idUser)
+                    viewModel.userDataForReview.observe(viewLifecycleOwner){ user ->
+                        mapOfBookReviews[user] = review
+                    }
             }
 
             Handler(Looper.getMainLooper()).postDelayed({
@@ -76,7 +76,6 @@ class BookDetailFragment : Fragment() {
             }, 1000)
 
         }
-
 
         viewModel.bookData.observe(viewLifecycleOwner){ book ->
             setUpBookInfo(book)
@@ -189,6 +188,11 @@ class BookDetailFragment : Fragment() {
         binding.publicationDate.text = "First publication year ${book.publicationYear}"
         binding.progressBar.visibility = View.INVISIBLE
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        arguments?.getString("bookID")?.let { viewModel.getBookByID(it) }
     }
 
 

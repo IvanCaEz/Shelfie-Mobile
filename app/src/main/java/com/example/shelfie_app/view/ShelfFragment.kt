@@ -46,6 +46,7 @@ class ShelfFragment : Fragment(), BookOnClickListener {
                 viewModel.getBookRating(book.idBook)
             }
             Handler(Looper.getMainLooper()).postDelayed({
+
                 shelfAdapter = ShelfAdapter(bookList, listOf(), this, viewModel)
                 setupRecyclerView()
                 binding.shimmerViewContainer.visibility = View.INVISIBLE

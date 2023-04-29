@@ -129,9 +129,12 @@ class MakeReviewFragment : Fragment() {
             reviews.forEach { review ->
                 rating += review.rating
             }
-            rating /= reviews.size
+            println(reviews.size)
+            if (reviews.isNotEmpty()){
+                rating /= reviews.size
+            }
+            viewModel.putBookRating(bookID, rating)
         }
-        viewModel.putBookRating(bookID, rating.toInt())
     }
 
     fun returnToOrigin(fromWhere: String, bookID: String) {

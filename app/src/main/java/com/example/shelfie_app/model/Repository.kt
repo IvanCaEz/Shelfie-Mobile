@@ -40,7 +40,7 @@ class Repository {
 
     suspend fun getBookRating(url: String) = apiInterface.getBookRating(url)
     suspend fun getAllBookRatings(url: String) = apiInterface.getAllBookRatings(url)
-    suspend fun putBookRating(url: String, body: Int) = apiInterface.putBookRating(url ,body)
+    suspend fun putBookRating(url: String, body: Float) = apiInterface.putBookRating(url ,body)
 
     suspend fun getBookByAuthor(url: String) = apiInterface.getBookByAuthor(url)
 

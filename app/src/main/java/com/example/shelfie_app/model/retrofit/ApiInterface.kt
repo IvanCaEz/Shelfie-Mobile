@@ -60,7 +60,7 @@ interface ApiInterface {
 
     @GET suspend fun getBookRating(@Url url: String): Response<Float>
 
-    @PUT suspend fun putBookRating(@Url url: String, @Body body: Int)
+    @PUT suspend fun putBookRating(@Url url: String, @Body body: Float)
 
 
     @POST suspend fun postBook(@Url url: String, @Body body: Book)
@@ -86,7 +86,7 @@ interface ApiInterface {
         fun create(): ApiInterface {
             //.addInterceptor(HeaderInterceptor())
             val client = OkHttpClient.Builder().build()
-            val gsonClient = GsonBuilder().serializeNulls().setLenient().create()
+            val gsonClient = GsonBuilder().serializeNulls().setLenient().serializeSpecialFloatingPointValues().create()
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gsonClient))

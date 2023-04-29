@@ -36,6 +36,7 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         myPreferences = requireActivity().getSharedPreferences("MySharedPreferences", Context.MODE_PRIVATE)
 
+        /*
         // ESTO VA EN EL SPLASH SCREEN
         val savedUsername = myPreferences.getString("userName", "")
         val savedPass = myPreferences.getString("password", "")
@@ -47,6 +48,7 @@ class LoginFragment : Fragment() {
                 login()
             }
         }
+         */
 
 
 
@@ -57,12 +59,9 @@ class LoginFragment : Fragment() {
                 viewModel.getUserByUserName(userName,password)
                 viewModel.userData.observe(viewLifecycleOwner) { user ->
                     if (user.password == password) {
-                        println(viewModel.userData.value!!.userName)
+
                         binding.passwordET.error = null
                         binding.passwordET.isErrorEnabled = false
-                        // QUITAR ESTO
-                        println(Json.encodeToString(viewModel.userData.value!!))
-
 
                         myPreferences.edit {
                             putString("userName", userName)
@@ -72,7 +71,6 @@ class LoginFragment : Fragment() {
                         }
 
                         login()
-
 
                     } else {
                         binding.passwordET.isErrorEnabled = true

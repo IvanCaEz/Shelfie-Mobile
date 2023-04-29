@@ -472,7 +472,8 @@ class ApiViewModel : ViewModel() {
         }
     }
 
-    fun putBookRating(bookID: String, rating: Int){
+    fun putBookRating(bookID: String, rating: Float){
+        println(rating)
         CoroutineScope(Dispatchers.IO).launch {
             val response = repository.putBookRating("books/$bookID/ratings", rating)
 
