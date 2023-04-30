@@ -38,7 +38,8 @@ class SplashScreenFragment : Fragment() {
         val active = myPreferences.getBoolean("active", false)
 
         if (active){
-            viewModel.getUserByUserName(savedUsername!!, savedPass!!)
+            viewModel.updateRepositoryCredentials(savedUsername!!, savedPass!!)
+            viewModel.getUserByUserName(savedUsername, savedPass)
             viewModel.userData.observe(viewLifecycleOwner){
                 loggedUser()
             }

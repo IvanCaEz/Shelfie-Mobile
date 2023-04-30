@@ -1,17 +1,29 @@
 package com.example.shelfie_app.model
 
+import androidx.fragment.app.activityViewModels
 import com.example.models.BookLoan
 import com.example.shelfie_app.model.retrofit.ApiInterface
+import com.example.shelfie_app.viewmodel.ApiViewModel
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Response
 
-class Repository {
-    val apiInterface = ApiInterface.create()
+class Repository() {
+     var username = ""
+     var password = ""
+ //a97b6eac20701a30d06e8e2a947dd548ffa59763fa2f972670dfbb69db68dc59
+   // =  ApiInterface.create(username, password)
+    lateinit var apiInterface : ApiInterface
 
     // USERS
     suspend fun getAllUsers(url: String) = apiInterface.getAllUsers(url)
     suspend fun getUserByID(url: String) = apiInterface.getUserByID(url)
-    suspend fun getUserByUserName(/*auth:String,*/ url: String) = apiInterface.getUserByUserName(/*auth,*/ url)
+    suspend fun getUserByUserName(/*auth:String,*/ url: String): Response<User> {
+        apiInterface = ApiInterface.create(username, password)
+       println(username)
+       println(password)
+       return apiInterface.getUserByUserName(/*auth,*/ url)
+    }
     suspend fun getUserImage(url: String) = apiInterface.getUserImage(url)
 
     suspend fun getUserBookHistory(url: String) = apiInterface.getUserBookHistory(url)

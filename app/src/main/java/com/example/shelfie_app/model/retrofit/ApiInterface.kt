@@ -1,5 +1,10 @@
 package com.example.shelfie_app.model.retrofit
 
+import com.burgstaller.okhttp.AuthenticationCacheInterceptor
+import com.burgstaller.okhttp.CachingAuthenticatorDecorator
+import com.burgstaller.okhttp.digest.CachingAuthenticator
+import com.burgstaller.okhttp.digest.Credentials
+import com.burgstaller.okhttp.digest.DigestAuthenticator
 import com.example.models.BookLoan
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
@@ -9,12 +14,13 @@ import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
-import retrofit2.Call
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
-import java.io.File
+import java.util.concurrent.ConcurrentHashMap
+
 
 interface ApiInterface {
 
@@ -81,15 +87,23 @@ interface ApiInterface {
     companion object {
         //192.168.56.1
         // wifi itb 172.30.5.163
+
+
         val BASE_URL = "http://192.168.56.1:8080/"
-        fun create(): ApiInterface {
-            //.addInterceptor(HeaderInterceptor())
-            val client = OkHttpClient.Builder().build()
+        fun create(username: String, password: String): ApiInterface {
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.level = HttpLoggingInterceptor.Level.HEADERS
+
+            val clientDigest = OkHttpClient.Builder()
+                .authenticator(DigestAuthenticator(Credentials(username, password)))
+                .build()
+
+            val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
             val gsonClient = GsonBuilder().serializeNulls().setLenient().serializeSpecialFloatingPointValues().create()
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gsonClient))
-                .client(client)
+                .client(clientDigest)
                 .build()
             return retrofit.create(ApiInterface::class.java)
         }

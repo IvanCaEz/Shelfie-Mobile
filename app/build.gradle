@@ -82,6 +82,11 @@ dependencies {
     // JSON
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.0")
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-core:1.5.0"
+    // DIGEST
+    implementation("io.github.rburgst:okhttp-digest:3.0.1")
+    implementation("io.github.rburgst:okhttp-digest:1.21")
+    implementation "com.squareup.okhttp3:okhttp:4.9.2"
+    implementation "commons-codec:commons-codec:1.15"
 
 
 }

@@ -38,6 +38,12 @@ class ApiViewModel : ViewModel() {
     private val repository = Repository()
     val myRealm = "Elcolinaboesuncruceentreunnaboyunacol"
 
+    fun updateRepositoryCredentials(userName:String, password: String){
+        repository.username = userName
+        repository.password = password
+    }
+
+
 
     // USERS
     var listOfUsers = MutableLiveData<List<User>>()
@@ -110,21 +116,19 @@ class ApiViewModel : ViewModel() {
     fun getUserByUserName(userName: String, password: String) {
         CoroutineScope(Dispatchers.IO).launch {
             // Devuelve el usuario con la ID indicada
-            val a = "${userName}:$myRealm:$password"
+            val a = "${userName}$password"
             val md = MessageDigest.getInstance("MD5")
-            val credentials = a.toByteArray(Charset.forName("UTF-8"))
-            val digest = md.digest(credentials)
+            val digest = md.digest(a.toByteArray(UTF_8))
+            val digestA = getMd5Digest(a)
 
 
-            val digestBase64 = Base64.getEncoder().encodeToString(digest)
-            println(digestBase64)
+            println("codif $digestA")
 
-            val authUnauthorized = "Digest $digestBase64"
-            val authBadRequest = "Digest $a"
+            val auth = "Digest $digestA"
 
-            println(authUnauthorized)
-            println(authBadRequest)
-            val response = repository.getUserByUserName(/*authBadRequest,*/ "users/username/$userName")
+            println("hola "+auth)
+
+            val response = repository.getUserByUserName( "users/username/$userName")
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
                     userData.postValue(response.body())
