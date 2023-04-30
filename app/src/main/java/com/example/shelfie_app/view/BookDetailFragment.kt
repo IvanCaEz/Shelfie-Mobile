@@ -192,7 +192,12 @@ class BookDetailFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        arguments?.getString("bookID")?.let { viewModel.getBookByID(it) }
+        arguments?.getString("bookID")?.let { bookID ->
+            viewModel.getBookByID(bookID)
+            viewModel.getAllReviewsFromBook(bookID)
+
+        }
+
     }
 
 

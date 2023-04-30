@@ -13,6 +13,7 @@ import com.example.shelfie_app.databinding.FragmentMakeReviewBinding
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.viewmodel.ApiViewModel
+import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -61,8 +62,9 @@ class MakeReviewFragment : Fragment() {
                 val reviewToLoad = userReviews.filter { review ->
                     review.idBook == bookID
                 }
-                if (!reviewToLoad.isEmpty()){
+                if (reviewToLoad.isNotEmpty()){
                     isReview = true
+                    binding.deleteReviewButton.visibility = View.VISIBLE
                     idReview = reviewToLoad[0].idReview
                     binding.reviewBoxET.editText?.setText(reviewToLoad[0].comment)
                     binding.rating.rating = reviewToLoad[0].rating.toFloat()
@@ -116,25 +118,33 @@ class MakeReviewFragment : Fragment() {
             }
         }
 
-        binding.backIV.setOnClickListener {
+        binding.deleteReviewButton.setOnClickListener {
+            viewModel.deleteReview(bookID, idReview)
+            updateRating(bookID)
             returnToOrigin(fromWhere!!, bookID)
         }
 
+        binding.backIV.setOnClickListener {
+            returnToOrigin(fromWhere!!, bookID)
+        }
     }
 
     fun updateRating(bookID: String){
-        viewModel.getAllReviewsFromBook(bookID)
-        var rating = 0.0f
-        viewModel.listOfBookReviews.observe(viewLifecycleOwner){ reviews ->
-            reviews.forEach { review ->
-                rating += review.rating
+        runBlocking{
+            viewModel.getAllReviewsFromBook(bookID)
+            var rating = 0.0f
+            viewModel.listOfBookReviews.observe(viewLifecycleOwner){ reviews ->
+                reviews.forEach { review ->
+                    rating += review.rating
+                }
+                println(reviews.size)
+                if (reviews.isNotEmpty()){
+                    rating /= reviews.size
+                }
+                viewModel.putBookRating(bookID, rating)
             }
-            println(reviews.size)
-            if (reviews.isNotEmpty()){
-                rating /= reviews.size
-            }
-            viewModel.putBookRating(bookID, rating)
         }
+
     }
 
     fun returnToOrigin(fromWhere: String, bookID: String) {

@@ -443,6 +443,11 @@ class ApiViewModel : ViewModel() {
             println("Review updateada")
         }
     }
+    fun deleteReview(bookID: String,  reviewID: String){
+        CoroutineScope(Dispatchers.IO).launch {
+            repository.deleteReview("/books/$bookID/reviews/$reviewID")
+        }
+    }
 
 
     fun getAllBookRatings(bookID: String){
@@ -471,6 +476,21 @@ class ApiViewModel : ViewModel() {
             }
         }
     }
+
+
+
+    fun updateRating(bookID: String){
+        getAllReviewsFromBook(bookID)
+        var rating = 0.0f
+        listOfBookReviews.value?.forEach { review ->
+                rating += review.rating
+            }
+            println(listOfBookReviews.value?.size)
+            if (listOfBookReviews.value?.isNotEmpty() == true){
+                rating /= listOfBookReviews.value!!.size
+            }
+            putBookRating(bookID, rating)
+        }
 
     fun putBookRating(bookID: String, rating: Float){
         println(rating)

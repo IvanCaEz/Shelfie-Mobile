@@ -40,7 +40,7 @@ interface ApiInterface {
     suspend fun putUser(@Url url: String,
                          @Part("body") body: RequestBody,
                          @Part image: MultipartBody.Part)
-    @DELETE suspend fun deleteUser(@Url url: String)//: Call<User>
+    @DELETE suspend fun deleteUser(@Url url: String)
 
     @DELETE suspend fun deleteBookFromBookHistory(@Url url: String)
 
@@ -64,7 +64,7 @@ interface ApiInterface {
 
 
     @POST suspend fun postBook(@Url url: String, @Body body: Book)
-    @DELETE suspend fun deleteBook(@Url url: String): Call<Book>
+    @DELETE suspend fun deleteBook(@Url url: String)
 
 
     // GET BOOK REVIEWS
@@ -74,8 +74,7 @@ interface ApiInterface {
     @GET suspend fun getReviewByID(@Url url: String): Response<Review>
     @POST suspend fun postReview(@Url url: String, @Body body: Review)
     @PUT suspend fun putReview(@Url url: String, @Body body: Review)
-
-    @DELETE suspend fun deleteReview(@Url url: String): Call<Review>
+    @DELETE suspend fun deleteReview(@Url url: String)
 
 
 
