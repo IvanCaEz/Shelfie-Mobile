@@ -55,11 +55,9 @@ class BookDetailFragment : Fragment() {
         viewModel.getAllReviewsFromBook(bookID)
         val mapOfBookReviews = mutableMapOf<User, Review>()
 
-        println(viewModel.listOfBookReviews.value)
 
 
         viewModel.listOfBookReviews.observe(viewLifecycleOwner){ reviewList ->
-            println(viewModel.listOfBookReviews.value)
                 reviewList.forEach { review->
                     viewModel.getUserByIDforReview(review.idUser)
                     viewModel.getUserImage(review.idUser)

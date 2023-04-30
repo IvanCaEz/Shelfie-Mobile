@@ -117,13 +117,7 @@ class ApiViewModel : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             // Devuelve el usuario con la ID indicada
             val a = "${userName}$password"
-            val md = MessageDigest.getInstance("MD5")
-            val digest = md.digest(a.toByteArray(UTF_8))
             val digestA = getMd5Digest(a)
-
-
-            println("codif $digestA")
-
             val auth = "Digest $digestA"
 
             println("hola "+auth)
@@ -133,7 +127,6 @@ class ApiViewModel : ViewModel() {
                 withContext(Dispatchers.Main) {
                     userData.postValue(response.body())
                     isNewUser.postValue(false)
-                    println("usuario ${response.body()} encontrado")
                 }
             } else {
                 println(response.headers())

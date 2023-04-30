@@ -37,7 +37,12 @@ class SplashScreenFragment : Fragment() {
         val savedPass = myPreferences.getString("password", "")
         val active = myPreferences.getBoolean("active", false)
 
+        println("Guardado en Shared preferences")
+        println(savedUsername)
+        println(savedPass)
+
         if (active){
+
             viewModel.updateRepositoryCredentials(savedUsername!!, savedPass!!)
             viewModel.getUserByUserName(savedUsername, savedPass)
             viewModel.userData.observe(viewLifecycleOwner){

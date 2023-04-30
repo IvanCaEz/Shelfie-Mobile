@@ -115,6 +115,9 @@ class EditProfileFragment : Fragment() {
 
                     val imageFile = File(path!!)
 
+                    println("ahora no se sube la misma imagen :(")
+                    println(imageFile)
+
                     viewModel.putUser(userToUpdate,imageFile)
 
 

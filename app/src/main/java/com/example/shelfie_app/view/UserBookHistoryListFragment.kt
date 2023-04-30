@@ -37,7 +37,6 @@ class UserBookHistoryListFragment : Fragment(), BookOnClickListener {
 
         binding.noBooksTV.visibility = View.INVISIBLE
         Handler(Looper.getMainLooper()).postDelayed({
-            println(viewModel.userBookHistory.value)
             if (viewModel.userBookHistory.value?.isNotEmpty() == true) {
                 try {
                     viewModel.userBookHistory.observe(viewLifecycleOwner) { userBookHistory ->
@@ -64,7 +63,6 @@ class UserBookHistoryListFragment : Fragment(), BookOnClickListener {
                     binding.shimmerViewContainer.visibility = View.INVISIBLE
                     binding.noBooksTV.visibility = View.VISIBLE
                 }, 500)
-                println("lista de libros leidos vacia")
             }
         }, 1000)
     }
