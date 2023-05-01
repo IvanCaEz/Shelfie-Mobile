@@ -59,7 +59,7 @@ class LoginFragment : Fragment() {
                 println(userName)
                 println(password)
                 viewModel.updateRepositoryCredentials(userName, password)
-                viewModel.getUserByUserName(userName,password)
+                viewModel.getUserByUserName(userName)
                 viewModel.userData.observe(viewLifecycleOwner) { user ->
                     if (user.password == password) {
 

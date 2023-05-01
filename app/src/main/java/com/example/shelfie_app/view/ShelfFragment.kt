@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
+import androidx.compose.ui.text.toLowerCase
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +19,7 @@ import com.example.shelfie_app.databinding.FragmentShelfBinding
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.viewmodel.ApiViewModel
 import kotlinx.coroutines.runBlocking
+import java.util.*
 
 
 class ShelfFragment : Fragment(), BookOnClickListener {
@@ -38,9 +41,39 @@ class ShelfFragment : Fragment(), BookOnClickListener {
         linearLayoutManager = LinearLayoutManager(context)
 
         viewModel.getAllBooks()
+       if (!::shelfAdapter.isInitialized){
+           shelfAdapter = ShelfAdapter(listOf(), listOf(), this, viewModel)
+       }
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
+            android.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                val filteredList = query?.let { searchQuery(it.toLowerCase(Locale.getDefault())) }
+
+                if (filteredList != null) {
+                    shelfAdapter.setBookList(filteredList)
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if(newText.equals("")){
+                    this.onQueryTextSubmit("")
+                } else {
+                    val filteredList = newText?.let { searchQuery(it.toLowerCase(Locale.getDefault())) }
+
+                    if (filteredList != null) {
+                        shelfAdapter.setBookList(filteredList)
+                    }
+                }
+
+                return true
+
+            }
+
+        })
 
         viewModel.listOfBooks.observe(viewLifecycleOwner) { bookList ->
-
             bookList.forEach { book ->
                 viewModel.getBookCover(book.idBook)
                 viewModel.getBookRating(book.idBook)
@@ -48,6 +81,7 @@ class ShelfFragment : Fragment(), BookOnClickListener {
             Handler(Looper.getMainLooper()).postDelayed({
 
                 shelfAdapter = ShelfAdapter(bookList, listOf(), this, viewModel)
+
                 setupRecyclerView()
                 binding.shimmerViewContainer.visibility = View.INVISIBLE
             }, 1000)
@@ -55,6 +89,35 @@ class ShelfFragment : Fragment(), BookOnClickListener {
 
 
     }
+
+    fun searchQuery(query: String): MutableList<Book> {
+
+        val booksMatched = mutableListOf<Book>()
+        val filteredBooksByTitle = viewModel.listOfBooks.value?.filter { book ->
+            book.title.toLowerCase(Locale.getDefault()).contains(query)
+        }
+        val filteredBooksByAuthor = viewModel.listOfBooks.value?.filter { book ->
+            book.author.toLowerCase(Locale.getDefault()).contains(query)
+        }
+        if (filteredBooksByTitle != null) {
+            if (filteredBooksByTitle.isNotEmpty()){
+                filteredBooksByTitle.forEach { book ->
+                    booksMatched.add(book)
+                }
+            }
+        }
+        if (filteredBooksByAuthor != null) {
+            if (filteredBooksByAuthor.isNotEmpty()){
+                filteredBooksByAuthor.forEach { book ->
+                    booksMatched.add(book)
+                }
+            }
+        }
+        return booksMatched
+
+    }
+
+
 
     private fun setAdapter(bookList: List<Book>) {
         shelfAdapter.setBookList(bookList)

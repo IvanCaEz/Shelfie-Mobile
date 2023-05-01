@@ -16,7 +16,6 @@ class Repository() {
     lateinit var apiInterface : ApiInterface
 
     // USERS
-    suspend fun getAllUsers(url: String) = apiInterface.getAllUsers(url)
     suspend fun getUserByID(url: String) = apiInterface.getUserByID(url)
     suspend fun getUserByUserName(/*auth:String,*/ url: String): Response<User> {
         apiInterface = ApiInterface.create(username, password)
@@ -28,9 +27,6 @@ class Repository() {
 
     suspend fun getUserBookHistory(url: String) = apiInterface.getUserBookHistory(url)
     suspend fun getUserLoans(url: String) = apiInterface.getUserLoans(url)
-    suspend fun getBookLoanByBookID(url: String) = apiInterface.getBookLoanByBookID(url)
-
-
     suspend fun postUser(url: String, body: RequestBody, image: MultipartBody.Part) = apiInterface.postUser(url, body, image)
     suspend fun putUser(url: String, body: RequestBody, image: MultipartBody.Part) = apiInterface.putUser(url, body, image)
 

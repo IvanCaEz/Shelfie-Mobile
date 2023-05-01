@@ -44,7 +44,7 @@ class SplashScreenFragment : Fragment() {
         if (active){
 
             viewModel.updateRepositoryCredentials(savedUsername!!, savedPass!!)
-            viewModel.getUserByUserName(savedUsername, savedPass)
+            viewModel.getUserByUserName(savedUsername)
             viewModel.userData.observe(viewLifecycleOwner){
                 loggedUser()
             }
