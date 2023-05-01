@@ -26,9 +26,7 @@ private val listener: GenreOnClickListener
             binding.root.setOnClickListener {
                 listener.onGenreClick(genreTag)
             }
-
         }
-
 
     }
 

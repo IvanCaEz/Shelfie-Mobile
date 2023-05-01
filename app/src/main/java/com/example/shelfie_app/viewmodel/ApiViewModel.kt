@@ -116,6 +116,7 @@ class ApiViewModel : ViewModel() {
                     userBookHistory.postValue(response.body())
                 }
             } else {
+                userBookHistory.postValue(listOf())
                 Log.e("Error " + response.code(), response.message())
             }
         }
@@ -129,6 +130,7 @@ class ApiViewModel : ViewModel() {
                     userActiveBookLoans.postValue(response.body())
                 }
             } else {
+                userActiveBookLoans.postValue(listOf())
                 Log.e("Error " + response.code(), response.message())
             }
         }
@@ -238,7 +240,6 @@ class ApiViewModel : ViewModel() {
             val response = repository.getBookByTitle("books/q=$bookTitle")
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
-                    println("title ${response.body()}")
                     booksMatchedByTitle.postValue(response.body())
                 }
             } else {
@@ -252,7 +253,6 @@ class ApiViewModel : ViewModel() {
             val response = repository.getBookByAuthor("author/$authorName")
             if (response.isSuccessful) {
                 withContext(Dispatchers.Main) {
-                    println("author ${response.body()}")
                     booksMatchedByAuthor.postValue(response.body())
                 }
             } else {
@@ -351,7 +351,7 @@ class ApiViewModel : ViewModel() {
                     listOfUserReviews.postValue(response.body())
                 }
             } else {
-                println("No hay reviews")
+                listOfUserReviews.postValue(listOf())
                 Log.e("Error " + response.code(), response.message())
             }
         }
@@ -512,12 +512,6 @@ class ApiViewModel : ViewModel() {
     }
 
     fun getMd5Digest(str: String): ByteArray = MessageDigest.getInstance("MD5").digest(str.toByteArray(UTF_8))
-
-    fun md5auth(username: String, password: String): ByteArray {
-        val myRealm = "Elcolinaboesuncruceentreunnaboyunacol"
-        return getMd5Digest("${username}:$myRealm:${password}")
-    }
-
 
 }
 

@@ -36,22 +36,6 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         myPreferences = requireActivity().getSharedPreferences("MySharedPreferences", Context.MODE_PRIVATE)
 
-        /*
-        // ESTO VA EN EL SPLASH SCREEN
-        val savedUsername = myPreferences.getString("userName", "")
-        val savedPass = myPreferences.getString("password", "")
-        val active = myPreferences.getBoolean("active", false)
-
-        if (active){
-                viewModel.getUserByUserName(savedUsername!!, savedPass!!)
-            viewModel.userData.observe(viewLifecycleOwner){
-                login()
-            }
-        }
-         */
-
-
-
         binding.loginButton.setOnClickListener {
             val userName = binding.usernameET.editText?.text.toString()
             val password = viewModel.encryptPassword(binding.passwordET.editText?.text.toString())
@@ -96,7 +80,6 @@ class LoginFragment : Fragment() {
                 binding.usernameET.isErrorEnabled = false
             }
         }
-
         binding.registerButton.setOnClickListener {
             val toRegister = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
             findNavController().navigate(toRegister)

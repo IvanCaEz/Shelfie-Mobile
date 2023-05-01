@@ -25,16 +25,12 @@ class LoansAdapter(var activeLoansList: List<BookLoan>,
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val binding = LoanItemBinding.bind(view)
-
-
         @SuppressLint("SetTextI18n")
         fun render(bookLoan: BookLoan, book: Book) {
             binding.bookTitleTV.text = book.title
             binding.authorTV.text = book.author
             binding.returnDateTV.text = "Return date: "+bookLoan.endDate
             binding.bookCoverIV.setImageBitmap(viewModel.bookCovers[bookLoan.idBook])
-
-
             binding.returnIV.setOnClickListener { listener.onReturnListener(bookLoan) }
             binding.extendTimeIV.setOnClickListener { listener.onExtendTimeListener(bookLoan) }
             binding.reviewIV.setOnClickListener { listener.onReviewListener(book) }

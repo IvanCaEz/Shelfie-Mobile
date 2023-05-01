@@ -119,11 +119,13 @@ class EditProfileFragment : Fragment() {
                     println(imageFile)
 
                     viewModel.putUser(userToUpdate,imageFile)
-
-
                 }
-                binding.progressBar.visibility = View.INVISIBLE
-                toProfile()
+                viewModel.getUserByIDforReview(userID)
+                viewModel.userData.observe(viewLifecycleOwner){
+                    binding.progressBar.visibility = View.INVISIBLE
+                    toProfile()
+                }
+
             }
         }
 

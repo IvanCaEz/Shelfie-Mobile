@@ -29,7 +29,6 @@ class ReviewAdapter(var reviewMap: Map<User, Review>,
             binding.profilepic.setImageBitmap(viewModel.userImages[userAndReview.first.idUser])
             renderRating(viewModel.bookRatings(userAndReview.second.idBook, listOf(userAndReview.second)).toDouble())
         }
-
         fun renderRating(rating: Double) {
             when (rating) {
                 in 0.5..0.99 -> binding.star1.setImageResource(R.drawable.half_star)
@@ -81,7 +80,6 @@ class ReviewAdapter(var reviewMap: Map<User, Review>,
             }
         }
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewAdapter.ViewHolder {
         context = parent.context

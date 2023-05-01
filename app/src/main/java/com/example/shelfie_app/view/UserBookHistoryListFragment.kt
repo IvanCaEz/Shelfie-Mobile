@@ -21,7 +21,6 @@ import com.example.shelfie_app.viewmodel.ApiViewModel
 
 class UserBookHistoryListFragment : Fragment(), BookOnClickListener {
     private lateinit var binding: FragmentUserBookHistoryListBinding
-    private lateinit var linearLayoutManager: RecyclerView.LayoutManager
     private lateinit var shelfAdapter: ShelfAdapter
     val viewModel: ApiViewModel by activityViewModels()
 
@@ -34,8 +33,8 @@ class UserBookHistoryListFragment : Fragment(), BookOnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.noBooksTV.visibility = View.INVISIBLE
+
         Handler(Looper.getMainLooper()).postDelayed({
             if (viewModel.userBookHistory.value?.isNotEmpty() == true) {
                 try {

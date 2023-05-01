@@ -39,8 +39,6 @@ class GenreShelfFragment : Fragment(), BookOnClickListener {
         super.onViewCreated(view, savedInstanceState)
         linearLayoutManager = LinearLayoutManager(context)
 
-        //viewModel.getAllBooks()
-
         val genre = arguments?.getString("genre")
         binding.genreTitleTV.text = genre?.replaceFirstChar {
             if (it.isLowerCase()) it.titlecase(Locale(Locale.UK.toString())
@@ -62,9 +60,7 @@ class GenreShelfFragment : Fragment(), BookOnClickListener {
                 binding.shimmerViewContainer.visibility = View.INVISIBLE
             }, 1000)
 
-
         }
-
 
     }
 

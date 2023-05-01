@@ -55,8 +55,6 @@ class BookDetailFragment : Fragment() {
         viewModel.getAllReviewsFromBook(bookID)
         val mapOfBookReviews = mutableMapOf<User, Review>()
 
-
-
         viewModel.listOfBookReviews.observe(viewLifecycleOwner){ reviewList ->
                 reviewList.forEach { review->
                     viewModel.getUserByIDforReview(review.idUser)
@@ -96,8 +94,6 @@ class BookDetailFragment : Fragment() {
             Toast.makeText(requireContext(),
                 "${viewModel.bookData.value?.title} marked as read", Toast.LENGTH_SHORT).show()
         }
-
-
     }
 
     fun renderRating(rating: Double) {
@@ -185,7 +181,6 @@ class BookDetailFragment : Fragment() {
         binding.descripcion.text = book.synopsis
         binding.publicationDate.text = "First publication year ${book.publicationYear}"
         binding.progressBar.visibility = View.INVISIBLE
-
     }
 
     override fun onResume() {
@@ -195,8 +190,5 @@ class BookDetailFragment : Fragment() {
             viewModel.getAllReviewsFromBook(bookID)
 
         }
-
     }
-
-
 }

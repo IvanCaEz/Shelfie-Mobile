@@ -62,7 +62,6 @@ class UserReviewListFragment : Fragment(), ReviewOnClickListener {
             }, 1000)
         }
 
-
     }
 
     private fun setupRecyclerView() {

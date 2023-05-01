@@ -71,8 +71,6 @@ class UserLoansListFragment : Fragment(), BookLoanOnClickListener {
 
     }
 
-
-
     override fun onExtendTimeListener(bookLoan: BookLoan) {
         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
         val oldReturnDate = LocalDate.parse(bookLoan.endDate, formatter)

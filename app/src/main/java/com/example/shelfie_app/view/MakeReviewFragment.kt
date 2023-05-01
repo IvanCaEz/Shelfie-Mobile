@@ -27,7 +27,6 @@ class MakeReviewFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentMakeReviewBinding.inflate(layoutInflater)
-
         return binding.root
     }
 
@@ -38,18 +37,12 @@ class MakeReviewFragment : Fragment() {
         var isReview = false
         var idReview = ""
 
-
         val userID = viewModel.userData.value?.idUser
         binding.progressBar.visibility = View.VISIBLE
         viewModel.getBookByID(bookID!!)
         viewModel.getBookCover(bookID)
         viewModel.getAllReviewsFromBook(bookID)
         viewModel.getAllReviewsFromUser(userID!!)
-        println(viewModel.listOfBookReviews.value)
-        println(viewModel.listOfBookReviews.value?.size)
-
-
-
 
         viewModel.bookData.observe(viewLifecycleOwner) { book ->
             setUpBookInfo(book)
@@ -69,18 +62,10 @@ class MakeReviewFragment : Fragment() {
                     binding.reviewBoxET.editText?.setText(reviewToLoad[0].comment)
                     binding.rating.rating = reviewToLoad[0].rating.toFloat()
                 }
-
             }
-
-
-
         }
 
-
-
-
         val rating = binding.rating
-
 
         val currentDate = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")

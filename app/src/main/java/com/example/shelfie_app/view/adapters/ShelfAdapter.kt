@@ -123,7 +123,6 @@ class ShelfAdapter(
             render(book)
 
         }
-
     }
 
     @JvmName("setBookList1")

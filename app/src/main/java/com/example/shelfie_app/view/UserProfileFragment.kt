@@ -35,15 +35,17 @@ class UserProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         myPreferences = requireActivity().getSharedPreferences("MySharedPreferences", Context.MODE_PRIVATE)
 
-
         setupViewPager()
-
+        viewModel.getUserByIDforReview(viewModel.userData.value!!.idUser)
         binding.infoProgressBar.visibility = View.VISIBLE
-        getUserInfo(viewModel.userData.value!!.idUser)
 
-        binding.usernameText.text = viewModel.userData.value!!.name
-        binding.usernameArroba.text = "@" + viewModel.userData.value!!.userName
-        binding.userBio.text = viewModel.userData.value!!.description
+        viewModel.userData.observe(viewLifecycleOwner){ user ->
+            getUserInfo(user.idUser)
+            binding.usernameText.text = user.name
+            binding.usernameArroba.text = "@" + user.userName
+            binding.userBio.text = user.description
+
+        }
 
         binding.editProfileButton.setOnClickListener {
             val toEditProfile =
@@ -67,8 +69,14 @@ class UserProfileFragment : Fragment() {
     private fun getUserInfo(userID: String) {
         viewModel.getAllReviewsFromUser(userID)
         viewModel.getUserLoans(userID)
+
+        println(viewModel.userData.value?.bookHistory)
         if (viewModel.userData.value?.bookHistory!!.isNotEmpty()) {
             viewModel.getUserBookHistory(userID)
+            viewModel.userBookHistory.observe(viewLifecycleOwner) { bookHistory ->
+                mostReadedGenres(bookHistory)
+                binding.userBooksCounter.text = bookHistory.size.toString()
+            }
         }
         viewModel.getUserImage(userID)
 
@@ -84,10 +92,7 @@ class UserProfileFragment : Fragment() {
             binding.activeLoansTVCounter.text = loanList.size.toString()
         }
 
-        viewModel.userBookHistory.observe(viewLifecycleOwner) { bookHistory ->
-            mostReadedGenres(bookHistory)
-            binding.userBooksCounter.text = bookHistory.size.toString()
-        }
+
         binding.infoProgressBar.visibility = View.INVISIBLE
     }
 

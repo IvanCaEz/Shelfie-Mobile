@@ -13,7 +13,7 @@ import com.example.shelfie_app.view.*
 class ProfileAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int {
-        return 3 // return the number of tabs you want to display
+        return 3
     }
 
     override fun createFragment(position: Int): Fragment {
