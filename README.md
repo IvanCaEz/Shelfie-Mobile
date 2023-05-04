@@ -25,6 +25,7 @@ Shelfie is an application that consists of an online book lending system. It is 
 ## Authors
 
 [Ivan Martinez Cañero](https://gitlab.com/ivan.martinez.7e6)
+
 [Nikita Barbosa Allidi](https://gitlab.com/nikys)
 
 
@@ -33,6 +34,7 @@ Shelfie is an application that consists of an online book lending system. It is 
 Use git to clone this repository into your computer.
 
 > git clone https://gitlab.com/ivan.martinez.7e6/shelfie
+
 > git clone https://gitlab.com/ivan.martinez.7e6/shelfie-android
 
 ## Tutorial
@@ -40,6 +42,7 @@ Use git to clone this repository into your computer.
 Follow these instructions to create your profile and borrow your first book.
 
 ### Create your account or login
+---
 
 First you need to create an account or login if you have already one.
 The system will ask you for an username and a password, if that username is not taken you will proceed and complete your profile. 
@@ -52,10 +55,13 @@ When you are logged in, you can see your profile. Here you can see your book his
 Also you can edit your profile or logout from here.
 
 ### Search a book
+---
 
 The main characters of this application are books so you can filter or explore our shelf to find your book or discover new ones.
 
+
 #### Search by Title or Author
+---
 
 You can use the searchbar to search a book by title or by author. If the database has books with that title or author it will show you those books.
 
@@ -64,6 +70,7 @@ You can use the searchbar to search a book by title or by author. If the databas
 If you don't know which book are you looking but you know what genre do you want to read or do you want to try, you can search by genre so the app will show you the shelf and the books of that genre.
 
 ### Borrow the book
+---
 
 When you found your book, click on it and will take you to the detail page.
 On that page you can read the synopsis, see the rating of the book and the reviews other users made.
@@ -73,15 +80,19 @@ If you decide to borrow it, the system will lend you the book for 30 days (you c
 You can only have **3** books with an active loan.
 
 ### Review the book
+---
 
 When you are done reading your book, you can review it and return it. You can do so from your active loans tab in your profile.
 If you return it and don't review it, you can review it later on the detail page of the book.
 
-## If you don't return the book in time
+### If you don't return the book in time
+---
 
 The system will "ban" you for a week. While banned you won't be able to borrow a book or make reviews but you can still use the app. 
 
+---
 ### License
+---
 
 This project is licensed under the [GNU Affero General Public License v3.0](https://choosealicense.com/licenses/agpl-3.0/) 
 
