@@ -2,10 +2,7 @@ package com.example.shelfie_app.viewmodel
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
-import android.util.JsonReader
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.models.BookLoan
@@ -13,22 +10,16 @@ import com.example.shelfie_app.R
 import com.example.shelfie_app.model.Book
 import com.example.shelfie_app.model.Review
 import com.example.shelfie_app.model.User
-import com.example.shelfie_app.model.Repository
+import com.example.shelfie_app.retrofit.Repository
 import com.example.shelfie_app.view.adapters.ShelfAdapter
 import com.google.android.material.chip.Chip
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import kotlinx.coroutines.*
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromJsonElement
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
-import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.nio.charset.StandardCharsets.UTF_8
 import java.security.MessageDigest

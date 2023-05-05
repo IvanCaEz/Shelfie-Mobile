@@ -1,9 +1,9 @@
-package com.example.shelfie_app.model
+package com.example.shelfie_app.retrofit
 
-import androidx.fragment.app.activityViewModels
 import com.example.models.BookLoan
-import com.example.shelfie_app.model.retrofit.ApiInterface
-import com.example.shelfie_app.viewmodel.ApiViewModel
+import com.example.shelfie_app.model.Book
+import com.example.shelfie_app.model.Review
+import com.example.shelfie_app.model.User
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response

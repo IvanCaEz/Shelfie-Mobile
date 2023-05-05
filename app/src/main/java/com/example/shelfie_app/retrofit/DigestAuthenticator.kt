@@ -1,4 +1,4 @@
-package com.example.shelfie_app.model.retrofit
+package com.example.shelfie_app.retrofit
 
 import okhttp3.Authenticator
 import okhttp3.Request

@@ -1,4 +1,4 @@
-package com.example.shelfie_app.model.retrofit
+package com.example.shelfie_app.retrofit
 
 import com.burgstaller.okhttp.AuthenticationCacheInterceptor
 import com.burgstaller.okhttp.CachingAuthenticatorDecorator
@@ -85,8 +85,6 @@ interface ApiInterface {
     companion object {
         //192.168.56.1
         // wifi itb 172.30.5.163
-
-
         val BASE_URL = "http://192.168.56.1:8080/"
         fun create(username: String, password: String): ApiInterface {
             val interceptor = HttpLoggingInterceptor()
